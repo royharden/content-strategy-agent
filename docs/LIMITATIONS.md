@@ -1,9 +1,16 @@
 # Current implementation limitations
 
 WP02 provides local atomic CSV ingestion and deterministic analytics as Python functions.
-It is not a finished user workflow. Storage, provider integration, automated tagging,
-recommendation generation, citation validation, approval, audit and export effects remain
-unimplemented. Structural schema acceptance does not authorize a citation or an action.
+WP03 adds generic exact-evidence validation, a bounded numeric/passage renderer and
+SQLite approval/audit/two-format export functions. These are local module functions, with
+focused injected-assessment and authorization tests. A finished user workflow, application
+storage/API/UI, providers, automated tagging and recommendation generation remain absent.
+Structural schema acceptance does not authorize a citation or an action.
+
+Runtime policy, migration, historical-receipt and host-trust boundaries are documented in
+[grounding.md](../conformance/grounding.md). Actor labels are attribution, not human
+authentication; screen/semantic fixtures do not establish S6 or model readiness. Detached
+corpus/queue proofs do not establish acceptance by the real downstream applications.
 
 The input contract is `csv.v2-bounded-counts`. INT1 approved an explicit MVP-first drift on
 2026-10-14: raw numeric count cells may contain at most 128 ASCII digits, including leading
