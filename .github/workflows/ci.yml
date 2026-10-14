@@ -1,10 +1,11 @@
-name: Scaffold checks only
+name: Structural contracts and scaffold checks
 on: [push, pull_request]
 permissions:
   contents: read
 jobs:
-  scaffold:
+  contracts-and-scaffold:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -13,7 +14,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Python scaffold boundaries (not application evaluation)
-        run: python -m unittest discover -s tests/scaffold -v
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: '0.11.19'
+      - name: Install locked Python test toolchain
+        run: uv sync --locked
+      - name: Structural models and scaffold boundaries (not application evaluation)
+        run: uv run --no-sync pytest
+      - name: Structural schema drift check
+        run: uv run --no-sync python scripts/export_schemas.py --check
+      - name: Python lint and format
+        run: |
+          uv run --no-sync ruff check .
+          uv run --no-sync ruff format --check .
       - name: Frontend configuration boundaries (no listener or install)
         run: npm test

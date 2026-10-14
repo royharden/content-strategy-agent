@@ -18,7 +18,7 @@ dev = ["pytest==9.1.1", "ruff==0.17.0"]
 packages = ["src/content_strategy"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests/scaffold"]
+testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "--strict-config --strict-markers"
 

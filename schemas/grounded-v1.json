@@ -1,0 +1,1395 @@
+{
+  "edition": "grounded-models.v1",
+  "models": {
+    "ApprovalEvent": {
+      "$defs": {
+        "ItemVersion": {
+          "additionalProperties": false,
+          "properties": {
+            "content_hash": {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Content Hash",
+              "type": "string"
+            },
+            "evidence_generation": {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Evidence Generation",
+              "type": "string"
+            },
+            "item_id": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Item Id",
+              "type": "string"
+            },
+            "revision": {
+              "exclusiveMinimum": 0,
+              "title": "Revision",
+              "type": "integer"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "item_id",
+            "revision",
+            "content_hash",
+            "evidence_generation"
+          ],
+          "title": "ItemVersion",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Untrusted event data, not an authenticated human decision or transition engine.",
+      "properties": {
+        "actor_label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Actor Label",
+          "type": "string"
+        },
+        "at_utc": {
+          "format": "date-time",
+          "title": "At Utc",
+          "type": "string"
+        },
+        "event_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Event Id",
+          "type": "string"
+        },
+        "from_state": {
+          "enum": [
+            "draft",
+            "approved",
+            "rejected",
+            "exported"
+          ],
+          "title": "From State",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Idempotency Key"
+        },
+        "item": {
+          "$ref": "#/$defs/ItemVersion"
+        },
+        "policy_sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Policy Sha256",
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "maxLength": 16384,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "sequence": {
+          "exclusiveMinimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "to_state": {
+          "enum": [
+            "draft",
+            "approved",
+            "rejected",
+            "exported"
+          ],
+          "title": "To State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "sequence",
+        "item",
+        "from_state",
+        "to_state",
+        "actor_label",
+        "at_utc",
+        "policy_sha256"
+      ],
+      "title": "ApprovalEvent",
+      "type": "object"
+    },
+    "ArtifactDigest": {
+      "additionalProperties": false,
+      "properties": {
+        "byte_length": {
+          "exclusiveMinimum": 0,
+          "title": "Byte Length",
+          "type": "integer"
+        },
+        "format": {
+          "enum": [
+            "md",
+            "csv"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "format",
+        "sha256",
+        "byte_length"
+      ],
+      "title": "ArtifactDigest",
+      "type": "object"
+    },
+    "EvidenceKey": {
+      "additionalProperties": false,
+      "description": "Domain-neutral resolution key; a reference is not proof that evidence exists.",
+      "properties": {
+        "evidence_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "generation": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Generation",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "scope": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Scope",
+          "type": "string"
+        }
+      },
+      "required": [
+        "generation",
+        "evidence_id",
+        "scope"
+      ],
+      "title": "EvidenceKey",
+      "type": "object"
+    },
+    "ExportReceipt": {
+      "$defs": {
+        "ArtifactDigest": {
+          "additionalProperties": false,
+          "properties": {
+            "byte_length": {
+              "exclusiveMinimum": 0,
+              "title": "Byte Length",
+              "type": "integer"
+            },
+            "format": {
+              "enum": [
+                "md",
+                "csv"
+              ],
+              "title": "Format",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "sha256": {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Sha256",
+              "type": "string"
+            }
+          },
+          "required": [
+            "format",
+            "sha256",
+            "byte_length"
+          ],
+          "title": "ArtifactDigest",
+          "type": "object"
+        },
+        "ItemVersion": {
+          "additionalProperties": false,
+          "properties": {
+            "content_hash": {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Content Hash",
+              "type": "string"
+            },
+            "evidence_generation": {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Evidence Generation",
+              "type": "string"
+            },
+            "item_id": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Item Id",
+              "type": "string"
+            },
+            "revision": {
+              "exclusiveMinimum": 0,
+              "title": "Revision",
+              "type": "integer"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "item_id",
+            "revision",
+            "content_hash",
+            "evidence_generation"
+          ],
+          "title": "ItemVersion",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Receipt shape only: no bytes rendered, no approval resolved and no files written.",
+      "properties": {
+        "approval_event_ids": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Approval Event Ids",
+          "type": "array"
+        },
+        "artifacts": {
+          "items": {
+            "$ref": "#/$defs/ArtifactDigest"
+          },
+          "title": "Artifacts",
+          "type": "array"
+        },
+        "at_utc": {
+          "format": "date-time",
+          "title": "At Utc",
+          "type": "string"
+        },
+        "export_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Export Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "item_versions": {
+          "items": {
+            "$ref": "#/$defs/ItemVersion"
+          },
+          "title": "Item Versions",
+          "type": "array"
+        },
+        "request_hash": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Request Hash",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "export_id",
+        "idempotency_key",
+        "request_hash",
+        "item_versions",
+        "artifacts",
+        "approval_event_ids",
+        "at_utc"
+      ],
+      "title": "ExportReceipt",
+      "type": "object"
+    },
+    "GroundedItem": {
+      "$defs": {
+        "MetricCitation": {
+          "additionalProperties": false,
+          "properties": {
+            "metric_id": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Metric Id",
+              "type": "string"
+            },
+            "quoted_value": {
+              "pattern": "^-?(?:0|[1-9][0-9]{0,31})(?:\\.[0-9]{1,8})?$",
+              "title": "Quoted Value",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "scope": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Scope",
+              "type": "string"
+            },
+            "snapshot_id": {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Snapshot Id",
+              "type": "string"
+            },
+            "unit": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Unit",
+              "type": "string"
+            }
+          },
+          "required": [
+            "snapshot_id",
+            "metric_id",
+            "scope",
+            "quoted_value",
+            "unit"
+          ],
+          "title": "MetricCitation",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "description": "A proposed item. Shape/hash strings do not establish grounding, approval or provenance.",
+      "properties": {
+        "citations": {
+          "items": {
+            "$ref": "#/$defs/MetricCitation"
+          },
+          "title": "Citations",
+          "type": "array"
+        },
+        "content_hash": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "item_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Item Id",
+          "type": "string"
+        },
+        "kind": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Kind",
+          "type": "string"
+        },
+        "parent_id": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Id"
+        },
+        "parent_revision": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Revision"
+        },
+        "revision": {
+          "exclusiveMinimum": 0,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "scope": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Scope",
+          "type": "string"
+        },
+        "snapshot_id": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Snapshot Id",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "item_id",
+        "revision",
+        "kind",
+        "scope",
+        "snapshot_id",
+        "text",
+        "citations",
+        "content_hash"
+      ],
+      "title": "GroundedItem",
+      "type": "object"
+    },
+    "ItemVersion": {
+      "additionalProperties": false,
+      "properties": {
+        "content_hash": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "evidence_generation": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Evidence Generation",
+          "type": "string"
+        },
+        "item_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Item Id",
+          "type": "string"
+        },
+        "revision": {
+          "exclusiveMinimum": 0,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "item_id",
+        "revision",
+        "content_hash",
+        "evidence_generation"
+      ],
+      "title": "ItemVersion",
+      "type": "object"
+    },
+    "Metric": {
+      "additionalProperties": false,
+      "properties": {
+        "computed_by": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Computed By",
+          "type": "string"
+        },
+        "definition": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Definition",
+          "type": "string"
+        },
+        "excluded_size": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Excluded Size",
+          "type": "integer"
+        },
+        "metric_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Metric Id",
+          "type": "string"
+        },
+        "sample_size": {
+          "minimum": 0,
+          "title": "Sample Size",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "scope": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Scope",
+          "type": "string"
+        },
+        "snapshot_id": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Snapshot Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "insufficient_data",
+            "unavailable"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "status_reason": {
+          "anyOf": [
+            {
+              "maxLength": 16384,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Status Reason"
+        },
+        "unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "pattern": "^-?(?:0|[1-9][0-9]{0,31})(?:\\.[0-9]{1,8})?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "metric_id",
+        "snapshot_id",
+        "scope",
+        "definition",
+        "value",
+        "unit",
+        "sample_size",
+        "computed_by",
+        "status"
+      ],
+      "title": "Metric",
+      "type": "object"
+    },
+    "MetricCitation": {
+      "additionalProperties": false,
+      "properties": {
+        "metric_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Metric Id",
+          "type": "string"
+        },
+        "quoted_value": {
+          "pattern": "^-?(?:0|[1-9][0-9]{0,31})(?:\\.[0-9]{1,8})?$",
+          "title": "Quoted Value",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "scope": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Scope",
+          "type": "string"
+        },
+        "snapshot_id": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Snapshot Id",
+          "type": "string"
+        },
+        "unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "snapshot_id",
+        "metric_id",
+        "scope",
+        "quoted_value",
+        "unit"
+      ],
+      "title": "MetricCitation",
+      "type": "object"
+    },
+    "MetricSnapshot": {
+      "$defs": {
+        "Metric": {
+          "additionalProperties": false,
+          "properties": {
+            "computed_by": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Computed By",
+              "type": "string"
+            },
+            "definition": {
+              "maxLength": 16384,
+              "minLength": 1,
+              "title": "Definition",
+              "type": "string"
+            },
+            "excluded_size": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Excluded Size",
+              "type": "integer"
+            },
+            "metric_id": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Metric Id",
+              "type": "string"
+            },
+            "sample_size": {
+              "minimum": 0,
+              "title": "Sample Size",
+              "type": "integer"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "scope": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Scope",
+              "type": "string"
+            },
+            "snapshot_id": {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Snapshot Id",
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "ok",
+                "insufficient_data",
+                "unavailable"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "status_reason": {
+              "anyOf": [
+                {
+                  "maxLength": 16384,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Status Reason"
+            },
+            "unit": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Unit",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "pattern": "^-?(?:0|[1-9][0-9]{0,31})(?:\\.[0-9]{1,8})?$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Value"
+            }
+          },
+          "required": [
+            "metric_id",
+            "snapshot_id",
+            "scope",
+            "definition",
+            "value",
+            "unit",
+            "sample_size",
+            "computed_by",
+            "status"
+          ],
+          "title": "Metric",
+          "type": "object"
+        },
+        "SnapshotIdentity": {
+          "additionalProperties": false,
+          "properties": {
+            "compute_version": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Compute Version",
+              "type": "string"
+            },
+            "config_json": {
+              "title": "Config Json",
+              "type": "string"
+            },
+            "dataset_fingerprint": {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Dataset Fingerprint",
+              "type": "string"
+            },
+            "identity_version": {
+              "const": "snapshot-identity.v1",
+              "default": "snapshot-identity.v1",
+              "title": "Identity Version",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "tag_provenance": {
+              "items": {
+                "$ref": "#/$defs/TagProvenance"
+              },
+              "title": "Tag Provenance",
+              "type": "array"
+            }
+          },
+          "required": [
+            "dataset_fingerprint",
+            "tag_provenance",
+            "config_json",
+            "compute_version"
+          ],
+          "title": "SnapshotIdentity",
+          "type": "object"
+        },
+        "TagProvenance": {
+          "additionalProperties": false,
+          "properties": {
+            "field": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Field",
+              "type": "string"
+            },
+            "method": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Method",
+              "type": "string"
+            },
+            "model": {
+              "anyOf": [
+                {
+                  "maxLength": 256,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Model"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_id": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Source Id",
+              "type": "string"
+            },
+            "taxonomy_version": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Taxonomy Version",
+              "type": "string"
+            },
+            "threshold": {
+              "anyOf": [
+                {
+                  "pattern": "^-?(?:0|[1-9][0-9]{0,31})(?:\\.[0-9]{1,8})?$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Threshold"
+            },
+            "value": {
+              "maxLength": 16384,
+              "minLength": 1,
+              "title": "Value",
+              "type": "string"
+            }
+          },
+          "required": [
+            "source_id",
+            "field",
+            "value",
+            "method",
+            "taxonomy_version"
+          ],
+          "title": "TagProvenance",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "identity": {
+          "$ref": "#/$defs/SnapshotIdentity"
+        },
+        "metrics": {
+          "items": {
+            "$ref": "#/$defs/Metric"
+          },
+          "title": "Metrics",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "snapshot_id": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Snapshot Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "identity",
+        "snapshot_id",
+        "created_at",
+        "metrics"
+      ],
+      "title": "MetricSnapshot",
+      "type": "object"
+    },
+    "SnapshotIdentity": {
+      "$defs": {
+        "TagProvenance": {
+          "additionalProperties": false,
+          "properties": {
+            "field": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Field",
+              "type": "string"
+            },
+            "method": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Method",
+              "type": "string"
+            },
+            "model": {
+              "anyOf": [
+                {
+                  "maxLength": 256,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Model"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_id": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Source Id",
+              "type": "string"
+            },
+            "taxonomy_version": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Taxonomy Version",
+              "type": "string"
+            },
+            "threshold": {
+              "anyOf": [
+                {
+                  "pattern": "^-?(?:0|[1-9][0-9]{0,31})(?:\\.[0-9]{1,8})?$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Threshold"
+            },
+            "value": {
+              "maxLength": 16384,
+              "minLength": 1,
+              "title": "Value",
+              "type": "string"
+            }
+          },
+          "required": [
+            "source_id",
+            "field",
+            "value",
+            "method",
+            "taxonomy_version"
+          ],
+          "title": "TagProvenance",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "compute_version": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Compute Version",
+          "type": "string"
+        },
+        "config_json": {
+          "title": "Config Json",
+          "type": "string"
+        },
+        "dataset_fingerprint": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Dataset Fingerprint",
+          "type": "string"
+        },
+        "identity_version": {
+          "const": "snapshot-identity.v1",
+          "default": "snapshot-identity.v1",
+          "title": "Identity Version",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "tag_provenance": {
+          "items": {
+            "$ref": "#/$defs/TagProvenance"
+          },
+          "title": "Tag Provenance",
+          "type": "array"
+        }
+      },
+      "required": [
+        "dataset_fingerprint",
+        "tag_provenance",
+        "config_json",
+        "compute_version"
+      ],
+      "title": "SnapshotIdentity",
+      "type": "object"
+    },
+    "TagProvenance": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Field",
+          "type": "string"
+        },
+        "method": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Method",
+          "type": "string"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "source_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Source Id",
+          "type": "string"
+        },
+        "taxonomy_version": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Taxonomy Version",
+          "type": "string"
+        },
+        "threshold": {
+          "anyOf": [
+            {
+              "pattern": "^-?(?:0|[1-9][0-9]{0,31})(?:\\.[0-9]{1,8})?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Threshold"
+        },
+        "value": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "field",
+        "value",
+        "method",
+        "taxonomy_version"
+      ],
+      "title": "TagProvenance",
+      "type": "object"
+    },
+    "ValidationFailure": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Code",
+          "type": "string"
+        },
+        "detail": {
+          "anyOf": [
+            {
+              "maxLength": 16384,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Detail"
+        },
+        "reference_id": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Id"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "code"
+      ],
+      "title": "ValidationFailure",
+      "type": "object"
+    },
+    "ValidationReport": {
+      "$defs": {
+        "ValidationFailure": {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Code",
+              "type": "string"
+            },
+            "detail": {
+              "anyOf": [
+                {
+                  "maxLength": 16384,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Detail"
+            },
+            "reference_id": {
+              "anyOf": [
+                {
+                  "maxLength": 256,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Id"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "code"
+          ],
+          "title": "ValidationFailure",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "failures": {
+          "items": {
+            "$ref": "#/$defs/ValidationFailure"
+          },
+          "title": "Failures",
+          "type": "array"
+        },
+        "item_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Item Id",
+          "type": "string"
+        },
+        "revision": {
+          "exclusiveMinimum": 0,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "semantic_status": {
+          "enum": [
+            "not_run",
+            "supports",
+            "contradicts",
+            "says_nothing",
+            "unknown"
+          ],
+          "title": "Semantic Status",
+          "type": "string"
+        },
+        "snapshot_id": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Snapshot Id",
+          "type": "string"
+        },
+        "structural_status": {
+          "enum": [
+            "valid",
+            "invalid"
+          ],
+          "title": "Structural Status",
+          "type": "string"
+        },
+        "validator_version": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Validator Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "item_id",
+        "revision",
+        "snapshot_id",
+        "structural_status",
+        "failures",
+        "semantic_status",
+        "validator_version"
+      ],
+      "title": "ValidationReport",
+      "type": "object"
+    }
+  },
+  "scope": "structural-only; no evidence, approval or export authorization"
+}
