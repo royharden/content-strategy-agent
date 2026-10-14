@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "validator_cases": [
+    {"name":"canonical", "text":"Observed {{cite:fact}}", "codes":[]},
+    {"name":"near_display_value", "text":"Observed 0.13 {{cite:fact}}", "codes":["unsupported_numeric_grammar"]},
+    {"name":"range", "text":"Observed 2–3 {{cite:fact}}", "codes":["unsupported_numeric_grammar"]},
+    {"name":"multiplier", "text":"Observed twice {{cite:fact}}", "codes":["unsupported_numeric_grammar"]},
+    {"name":"unicode_numeric", "text":"Observed Ⅻ {{cite:fact}}", "codes":["unsupported_numeric_grammar"]},
+    {"name":"unused", "text":"Proposed direction", "codes":["unused_citation"]},
+    {"name":"unknown", "text":"{{cite:missing}}", "codes":["unknown_placeholder","unused_citation"]}
+  ],
+  "state_cases": [
+    {"name":"approve", "actions":["save_rec","approve_rec"], "state":"approved", "denied":null},
+    {"name":"reject_then_approve", "actions":["save_rec","reject_rec","approve_rec"], "state":"rejected", "denied":"draft_state_required"},
+    {"name":"draft_parent_unapproved", "actions":["save_rec","save_draft"], "state":"draft", "denied":"current_approval_required"},
+    {"name":"draft_parent_approved", "actions":["save_rec","approve_rec","save_draft","approve_draft"], "state":"approved", "denied":null}
+  ],
+  "export_cases": [
+    {"name":"unapproved_draft", "approve_draft":false, "denied":"current_approval_required"},
+    {"name":"approved_two_formats_replay", "approve_draft":true, "denied":null}
+  ]
+}

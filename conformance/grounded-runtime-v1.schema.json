@@ -1,0 +1,679 @@
+{
+  "edition": "grounded-runtime.v1",
+  "models": {
+    "Assessment": {
+      "additionalProperties": false,
+      "properties": {
+        "content_hash": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "evidence_hash": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Evidence Hash",
+          "type": "string"
+        },
+        "policy_hash": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Policy Hash",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "screen_edition": {
+          "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+          "title": "Screen Edition",
+          "type": "string"
+        },
+        "screen_status": {
+          "enum": [
+            "pass",
+            "hold",
+            "not_run"
+          ],
+          "title": "Screen Status",
+          "type": "string"
+        },
+        "semantic_status": {
+          "enum": [
+            "supports",
+            "contradicts",
+            "says_nothing",
+            "unknown",
+            "not_run"
+          ],
+          "title": "Semantic Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "content_hash",
+        "evidence_hash",
+        "policy_hash",
+        "screen_edition",
+        "screen_status",
+        "semantic_status"
+      ],
+      "title": "Assessment",
+      "type": "object"
+    },
+    "Content": {
+      "$defs": {
+        "EditorialLiteral": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+              "title": "Name",
+              "type": "string"
+            },
+            "role": {
+              "enum": [
+                "count",
+                "cadence",
+                "horizon"
+              ],
+              "title": "Role",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "value": {
+              "maximum": 90,
+              "minimum": 1,
+              "title": "Value",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "name",
+            "role",
+            "value"
+          ],
+          "title": "EditorialLiteral",
+          "type": "object"
+        },
+        "EvidenceKey": {
+          "additionalProperties": false,
+          "description": "Domain-neutral resolution key; a reference is not proof that evidence exists.",
+          "properties": {
+            "evidence_id": {
+              "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+              "title": "Evidence Id",
+              "type": "string"
+            },
+            "generation": {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Generation",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "scope": {
+              "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+              "title": "Scope",
+              "type": "string"
+            }
+          },
+          "required": [
+            "generation",
+            "evidence_id",
+            "scope"
+          ],
+          "title": "EvidenceKey",
+          "type": "object"
+        },
+        "GroundedItem": {
+          "additionalProperties": false,
+          "description": "A proposed item. Shape/hash strings do not establish grounding, approval or provenance.",
+          "properties": {
+            "citations": {
+              "items": {
+                "$ref": "#/$defs/MetricCitation"
+              },
+              "title": "Citations",
+              "type": "array"
+            },
+            "content_hash": {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Content Hash",
+              "type": "string"
+            },
+            "item_id": {
+              "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+              "title": "Item Id",
+              "type": "string"
+            },
+            "kind": {
+              "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+              "title": "Kind",
+              "type": "string"
+            },
+            "parent_id": {
+              "anyOf": [
+                {
+                  "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Parent Id"
+            },
+            "parent_revision": {
+              "anyOf": [
+                {
+                  "exclusiveMinimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Parent Revision"
+            },
+            "revision": {
+              "exclusiveMinimum": 0,
+              "title": "Revision",
+              "type": "integer"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "scope": {
+              "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+              "title": "Scope",
+              "type": "string"
+            },
+            "snapshot_id": {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Snapshot Id",
+              "type": "string"
+            },
+            "text": {
+              "maxLength": 16384,
+              "minLength": 1,
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "item_id",
+            "revision",
+            "kind",
+            "scope",
+            "snapshot_id",
+            "text",
+            "citations",
+            "content_hash"
+          ],
+          "title": "GroundedItem",
+          "type": "object"
+        },
+        "MetricCitation": {
+          "additionalProperties": false,
+          "properties": {
+            "metric_id": {
+              "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+              "title": "Metric Id",
+              "type": "string"
+            },
+            "quoted_value": {
+              "pattern": "^-?(?:0|[1-9][0-9]{0,31})(?:\\.[0-9]{1,8})?$",
+              "title": "Quoted Value",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "scope": {
+              "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+              "title": "Scope",
+              "type": "string"
+            },
+            "snapshot_id": {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Snapshot Id",
+              "type": "string"
+            },
+            "unit": {
+              "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+              "title": "Unit",
+              "type": "string"
+            }
+          },
+          "required": [
+            "snapshot_id",
+            "metric_id",
+            "scope",
+            "quoted_value",
+            "unit"
+          ],
+          "title": "MetricCitation",
+          "type": "object"
+        },
+        "PassageCitation": {
+          "additionalProperties": false,
+          "properties": {
+            "key": {
+              "$ref": "#/$defs/EvidenceKey"
+            },
+            "quoted_text": {
+              "maxLength": 16384,
+              "minLength": 1,
+              "title": "Quoted Text",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "key",
+            "quoted_text"
+          ],
+          "title": "PassageCitation",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "editorial": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/EditorialLiteral"
+          },
+          "title": "Editorial",
+          "type": "array"
+        },
+        "item": {
+          "$ref": "#/$defs/GroundedItem"
+        },
+        "passages": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/PassageCitation"
+          },
+          "title": "Passages",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "item"
+      ],
+      "title": "Content",
+      "type": "object"
+    },
+    "EditorialLiteral": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+          "title": "Name",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "count",
+            "cadence",
+            "horizon"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "value": {
+          "maximum": 90,
+          "minimum": 1,
+          "title": "Value",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "role",
+        "value"
+      ],
+      "title": "EditorialLiteral",
+      "type": "object"
+    },
+    "ExportRequest": {
+      "$defs": {
+        "ItemVersion": {
+          "additionalProperties": false,
+          "properties": {
+            "content_hash": {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Content Hash",
+              "type": "string"
+            },
+            "evidence_generation": {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Evidence Generation",
+              "type": "string"
+            },
+            "item_id": {
+              "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+              "title": "Item Id",
+              "type": "string"
+            },
+            "revision": {
+              "exclusiveMinimum": 0,
+              "title": "Revision",
+              "type": "integer"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "item_id",
+            "revision",
+            "content_hash",
+            "evidence_generation"
+          ],
+          "title": "ItemVersion",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "actor_label": {
+          "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+          "title": "Actor Label",
+          "type": "string"
+        },
+        "expected_sequence": {
+          "minimum": 0,
+          "title": "Expected Sequence",
+          "type": "integer"
+        },
+        "generation": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Generation",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/ItemVersion"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "policy_hash": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Policy Hash",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "idempotency_key",
+        "actor_label",
+        "generation",
+        "policy_hash",
+        "expected_sequence",
+        "items"
+      ],
+      "title": "ExportRequest",
+      "type": "object"
+    },
+    "PassageCitation": {
+      "$defs": {
+        "EvidenceKey": {
+          "additionalProperties": false,
+          "description": "Domain-neutral resolution key; a reference is not proof that evidence exists.",
+          "properties": {
+            "evidence_id": {
+              "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+              "title": "Evidence Id",
+              "type": "string"
+            },
+            "generation": {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Generation",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "scope": {
+              "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+              "title": "Scope",
+              "type": "string"
+            }
+          },
+          "required": [
+            "generation",
+            "evidence_id",
+            "scope"
+          ],
+          "title": "EvidenceKey",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "$ref": "#/$defs/EvidenceKey"
+        },
+        "quoted_text": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Quoted Text",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "key",
+        "quoted_text"
+      ],
+      "title": "PassageCitation",
+      "type": "object"
+    },
+    "PassageEvidence": {
+      "$defs": {
+        "EvidenceKey": {
+          "additionalProperties": false,
+          "description": "Domain-neutral resolution key; a reference is not proof that evidence exists.",
+          "properties": {
+            "evidence_id": {
+              "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+              "title": "Evidence Id",
+              "type": "string"
+            },
+            "generation": {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Generation",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "scope": {
+              "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+              "title": "Scope",
+              "type": "string"
+            }
+          },
+          "required": [
+            "generation",
+            "evidence_id",
+            "scope"
+          ],
+          "title": "EvidenceKey",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "excerpt": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Excerpt",
+          "type": "string"
+        },
+        "key": {
+          "$ref": "#/$defs/EvidenceKey"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "unavailable"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "excerpt",
+        "status"
+      ],
+      "title": "PassageEvidence",
+      "type": "object"
+    },
+    "Policy": {
+      "additionalProperties": false,
+      "properties": {
+        "edition": {
+          "default": "grounded-policy.v1",
+          "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+          "title": "Edition",
+          "type": "string"
+        },
+        "max_bundle_items": {
+          "default": 100,
+          "maximum": 1000,
+          "minimum": 1,
+          "title": "Max Bundle Items",
+          "type": "integer"
+        },
+        "minimum_sample": {
+          "default": 5,
+          "maximum": 100000,
+          "minimum": 1,
+          "title": "Minimum Sample",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "screen_edition": {
+          "pattern": "^\\S(?:[^\\x00-\\x1f]*\\S)?$",
+          "title": "Screen Edition",
+          "type": "string"
+        },
+        "validator_version": {
+          "const": "grounded-validator.v1",
+          "default": "grounded-validator.v1",
+          "title": "Validator Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "screen_edition"
+      ],
+      "title": "Policy",
+      "type": "object"
+    }
+  },
+  "schema_version": 1,
+  "structural_only": true
+}

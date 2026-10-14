@@ -1,4 +1,4 @@
-"""Structural models and identity only; validation/approval/export engines are not implemented."""
+"""Portable structural records and local grounding policy; no app/provider imports."""
 
 from .identity import (
     canonical_config,
