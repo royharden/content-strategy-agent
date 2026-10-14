@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling==1.32.4"]
+build-backend = "hatchling.build"
+
+[project]
+name = "content-strategy-agent"
+version = "0.1.0.dev0"
+description = "Local metric-grounded content review; scaffold only."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = "MIT"
+dependencies = ["pydantic==2.14.1"]
+
+[dependency-groups]
+dev = ["pytest==9.1.1", "ruff==0.17.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/content_strategy"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/scaffold"]
+pythonpath = ["src"]
+addopts = "--strict-config --strict-markers"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

@@ -1,0 +1,13 @@
+{
+  "status": "proposal-only-not-an-executable-contract",
+  "edition": 1,
+  "minimum_eligible_posts": 5,
+  "trend_window_weeks": 4,
+  "analysis_clock": "posted-local",
+  "canonical_decimal_places": 8,
+  "rounding": "ROUND_HALF_EVEN",
+  "length_bins_code_points": {
+    "x": [0, 70, 140, 210],
+    "linkedin": [0, 140, 500, 1500]
+  }
+}

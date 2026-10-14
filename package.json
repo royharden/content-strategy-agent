@@ -1,0 +1,20 @@
+{
+  "name": "content-strategy-agent",
+  "version": "0.1.0-dev.0",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=24.0.0 <25.0.0"},
+  "scripts": {
+    "dev": "vite --config vite.config.mts",
+    "preview": "vite preview --config vite.config.mts",
+    "build": "vite build --config vite.config.mts",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test tests/config/*.test.mjs"
+  },
+  "dependencies": {"react": "19.3.1", "react-dom": "19.3.1"},
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "typescript": "7.0.2",
+    "vite": "8.3.4"
+  }
+}
