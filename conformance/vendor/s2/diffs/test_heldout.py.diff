@@ -1,0 +1,17 @@
+--- conformance/vendor/s2/upstream/tests/evalkit/test_heldout.py
++++ conformance/vendor/s2/adapted/tests/evalkit/test_heldout.py
+@@ -7,10 +7,10 @@
+ from test_corpus import fixture
+ from test_runner import Adapter, H, Runner, lookup
+ 
+-from rfr.shared.evalkit.corpus import FrozenCorpusError
+-from rfr.shared.evalkit.identity import canonical_bytes
+-from rfr.shared.evalkit.models import GoldRecord, Manifest
+-from rfr.shared.evalkit.runner import HeldoutAdmission, HeldoutHistory, MethodConfig, compare
++from content_strategy.shared.evalkit.corpus import FrozenCorpusError
++from content_strategy.shared.evalkit.identity import canonical_bytes
++from content_strategy.shared.evalkit.models import GoldRecord, Manifest
++from content_strategy.shared.evalkit.runner import HeldoutAdmission, HeldoutHistory, MethodConfig, compare
+ 
+ 
+ def test_heldout_missing_authority_refuses_before_source_or_method_effects(tmp_path):

@@ -1,0 +1,54 @@
+--- conformance/vendor/s2/upstream/tests/evalkit/test_evalkit_detached.py
++++ conformance/vendor/s2/adapted/tests/evalkit/test_evalkit_detached.py
+@@ -8,19 +8,23 @@
+ from pathlib import Path
+ 
+ ROOT = Path(__file__).resolve().parents[2]
++if not (ROOT / "portable_evalkit").is_dir():
++    ROOT = Path(__file__).resolve().parents[6]
++CONTROL_TESTS = ROOT / ("tests/evalkit" if (ROOT / "portable_evalkit").is_dir()
++    else "conformance/vendor/s2/adapted/tests/evalkit")
+ 
+ 
+ def test_detached_actual_corpus_runner_math_resampling_report_and_negative_canaries(tmp_path):
+     shutil.copytree(
+-        ROOT / "src/rfr/shared/evalkit",
++        ROOT / "src/content_strategy/shared/evalkit",
+         tmp_path / "portable_evalkit",
+         ignore=shutil.ignore_patterns("__pycache__"),
+     )
+     # Explicitly move tiny authored dev controls. They are not private data or held-out Gold.
+     for name in ("test_corpus.py", "test_runner.py", "test_statistics.py", "test_resampling.py"):
+-        content = (ROOT / "tests/evalkit" / name).read_text(encoding="utf-8")
++        content = (CONTROL_TESTS / name).read_text(encoding="utf-8")
+         (tmp_path / name).write_text(
+-            content.replace("rfr.shared.evalkit", "portable_evalkit"), encoding="utf-8"
++            content.replace("content_strategy.shared.evalkit", "portable_evalkit"), encoding="utf-8"
+         )
+     script = f"""
+ import importlib,importlib.abc,json,socket,sys
+@@ -28,7 +32,7 @@
+ sys.path.insert(0,{str(tmp_path)!r})
+ class Guard(importlib.abc.MetaPathFinder):
+     def find_spec(self,name,path=None,target=None):
+-        if name.split('.')[0] in {{'rfr','openai','typesafe','PIL','pytesseract','fastapi'}}:
++        if name.split('.')[0] in {{'content_strategy','openai','typesafe','PIL','pytesseract','fastapi'}}:
+             raise RuntimeError('original/domain/provider import forbidden')
+ sys.meta_path.insert(0,Guard())
+ def denied(*args,**kwargs): raise RuntimeError('network disabled')
+@@ -64,13 +68,13 @@
+ try: load_corpus(root,manifest,'dev',Adapter())
+ except FrozenCorpusError: pass
+ else: raise AssertionError('changed frozen bytes not detected')
+-try: importlib.import_module('rfr.pipeline')
++try: importlib.import_module('content_strategy.pipeline')
+ except RuntimeError: pass
+ else: raise AssertionError('original import canary not detected')
+ try: socket.create_connection(('example.invalid',443))
+ except RuntimeError: pass
+ else: raise AssertionError('network canary not detected')
+-assert not any(n=='rfr' or n.startswith('rfr.') for n in sys.modules)
++assert not any(n=='content_strategy' or n.startswith('content_strategy.') for n in sys.modules)
+ print(json.dumps({{'status':'passed','draws':2000,'fixed_cases':len(rows),
+     'original_import_control':'detected','network_control':'detected'}}))
+ """

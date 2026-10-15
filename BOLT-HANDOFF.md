@@ -33,6 +33,10 @@ commands, and show the unfinished static page honestly. Keep Python approval/sto
 on the server. Do not create a cloud database, deploy functions, add secrets or publish from
 this handoff; provisioning and hosting require their own concrete authorization/readiness.
 
+Canonical S2 evaluation components are vendored with exact source/license/test provenance.
+They provide generic statistics/comparison boundaries; no application corpus or model
+quality result follows from their synthetic conformance controls.
+
 The local review service joins retained metric snapshots to the actual SQLite approval/export
 store with required host callbacks and explicit activation/version/sequence checks. Pure
 loopback session checks are available. Neither component starts a listener or supplies a

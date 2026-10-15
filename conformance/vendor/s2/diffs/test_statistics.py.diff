@@ -1,0 +1,13 @@
+--- conformance/vendor/s2/upstream/tests/evalkit/test_statistics.py
++++ conformance/vendor/s2/adapted/tests/evalkit/test_statistics.py
+@@ -4,8 +4,8 @@
+ 
+ import pytest
+ 
+-from rfr.shared.evalkit.models import ConfusionCounts, Outcome
+-from rfr.shared.evalkit.statistics import (
++from content_strategy.shared.evalkit.models import ConfusionCounts, Outcome
++from content_strategy.shared.evalkit.statistics import (
+     accuracy,
+     agreement,
+     classification_rates,

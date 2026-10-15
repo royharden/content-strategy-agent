@@ -1,0 +1,17 @@
+--- conformance/vendor/s2/upstream/tests/evalkit/test_runner.py
++++ conformance/vendor/s2/adapted/tests/evalkit/test_runner.py
+@@ -3,10 +3,10 @@
+ import pytest
+ from test_corpus import fixture
+ 
+-from rfr.shared.evalkit.corpus import FrozenCorpusError
+-from rfr.shared.evalkit.models import Outcome, Prediction, PublicMethodInput
+-from rfr.shared.evalkit.runner import MethodConfig, SourceView, compare
+-from rfr.shared.evalkit.statistics import accuracy, typed_equal
++from content_strategy.shared.evalkit.corpus import FrozenCorpusError
++from content_strategy.shared.evalkit.models import Outcome, Prediction, PublicMethodInput
++from content_strategy.shared.evalkit.runner import MethodConfig, SourceView, compare
++from content_strategy.shared.evalkit.statistics import accuracy, typed_equal
+ 
+ H = "a" * 64
+ 

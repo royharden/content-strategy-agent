@@ -1,0 +1,208 @@
+{
+  "publication": {
+    "source_repository": "https://github.com/royharden/receipt-field-review",
+    "publication_sha256": "28dbf310102f0bf316525c4945d474b9bca8d7276a9753dd72cfbb824c4d2af3",
+    "commit": "249262839c4247ff37cc5a75c6a89a422738c759",
+    "tree": "e60e8ba5efef185a6706c5d266ce3a1ccad5c553"
+  },
+  "files": [
+    {
+      "path": "src/rfr/shared/evalkit/README.md",
+      "sha256": "1308c679caa5413229ba41de0e6fc4f9cdfd8d76fcb66c0cb1aa4597d2dade94",
+      "git_blob": "e1c3b2ab26460a5245708feba9d011f6ea35ed60",
+      "bytes": 4297,
+      "target": "src/content_strategy/shared/evalkit/README.md",
+      "adaptation": "NONE exactGitblob",
+      "copied_sha256": "1308c679caa5413229ba41de0e6fc4f9cdfd8d76fcb66c0cb1aa4597d2dade94"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/__init__.py",
+      "sha256": "3017cebcf1f80d410a61712cd8207c1803e09954936ce33238d886760683843e",
+      "git_blob": "c0401907d6b0cb0491051cb4732385a1e78aaf3c",
+      "bytes": 90,
+      "target": "src/content_strategy/shared/evalkit/__init__.py",
+      "adaptation": "NONE exactGitblob",
+      "copied_sha256": "3017cebcf1f80d410a61712cd8207c1803e09954936ce33238d886760683843e"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/corpus.py",
+      "sha256": "427ade409f4fb83b59a2d9952c890cb830096af948e1dc9d393a8aef47c23fa0",
+      "git_blob": "a6aea0bbbed151bc550200183d675d63d1aeed04",
+      "bytes": 6793,
+      "target": "src/content_strategy/shared/evalkit/corpus.py",
+      "adaptation": "NONE exactGitblob",
+      "copied_sha256": "427ade409f4fb83b59a2d9952c890cb830096af948e1dc9d393a8aef47c23fa0"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/identity.py",
+      "sha256": "5897c07d4b0f5d55dd8fee8cb74a325caaebc03b9e70bbf9c426c431d968f1b2",
+      "git_blob": "d4ed3a66d9f39ce948cc4d992617282c68a16484",
+      "bytes": 2419,
+      "target": "src/content_strategy/shared/evalkit/identity.py",
+      "adaptation": "NONE exactGitblob",
+      "copied_sha256": "5897c07d4b0f5d55dd8fee8cb74a325caaebc03b9e70bbf9c426c431d968f1b2"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/interfaces.py",
+      "sha256": "d23bc8be5188a968388272580b259ad4af4b1a4cbf393be52d7933514235ed9d",
+      "git_blob": "b90636c575f743eb5e93e13697effa40e0a858fb",
+      "bytes": 2041,
+      "target": "src/content_strategy/shared/evalkit/interfaces.py",
+      "adaptation": "NONE exactGitblob",
+      "copied_sha256": "d23bc8be5188a968388272580b259ad4af4b1a4cbf393be52d7933514235ed9d"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/models.py",
+      "sha256": "b18613383987a24569e7a9a133b2c212d858c2cf9ee147720b350c06126596c4",
+      "git_blob": "43bcb7314dc6085a532765ff68725165f44dbc56",
+      "bytes": 19004,
+      "target": "src/content_strategy/shared/evalkit/models.py",
+      "adaptation": "NONE exactGitblob",
+      "copied_sha256": "b18613383987a24569e7a9a133b2c212d858c2cf9ee147720b350c06126596c4"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/reporting.py",
+      "sha256": "96d439870fe13d5c2ff5064d34eeb66fd5a96cf86fa5e5983ba243a6279aa283",
+      "git_blob": "e6c46c9226cd4b80a732d0ec16a04e0a1e5b56f9",
+      "bytes": 6018,
+      "target": "src/content_strategy/shared/evalkit/reporting.py",
+      "adaptation": "NONE exactGitblob",
+      "copied_sha256": "96d439870fe13d5c2ff5064d34eeb66fd5a96cf86fa5e5983ba243a6279aa283"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/resampling.py",
+      "sha256": "005c21b6d9f113db22132f0a660c3a2713e5aeaffb4dbb3c4c5349d66c194619",
+      "git_blob": "e22ebf62aebac01a02e3a9be842a8584c68caa20",
+      "bytes": 6851,
+      "target": "src/content_strategy/shared/evalkit/resampling.py",
+      "adaptation": "NONE exactGitblob",
+      "copied_sha256": "005c21b6d9f113db22132f0a660c3a2713e5aeaffb4dbb3c4c5349d66c194619"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/runner.py",
+      "sha256": "b3a9078cf3265d750296907572dfeb66de780c01028b715cfdafb39dbad7bccb",
+      "git_blob": "3a4871fed7ac5a5fe81b0bf6a5f3fe45fb27967c",
+      "bytes": 9780,
+      "target": "src/content_strategy/shared/evalkit/runner.py",
+      "adaptation": "NONE exactGitblob",
+      "copied_sha256": "b3a9078cf3265d750296907572dfeb66de780c01028b715cfdafb39dbad7bccb"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/schema.json",
+      "sha256": "b44b9f4cea1b90d6524ddf9aa56327667a92340810b19000bb8d47702695ffb7",
+      "git_blob": "cf5c8740da190f5a603eb4187b382ebb05f3e2f2",
+      "bytes": 68367,
+      "target": "src/content_strategy/shared/evalkit/schema.json",
+      "adaptation": "NONE exactGitblob",
+      "copied_sha256": "b44b9f4cea1b90d6524ddf9aa56327667a92340810b19000bb8d47702695ffb7"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/statistics.py",
+      "sha256": "9e9ec5e9ba86489c8938a87bd064debbedc143126952959729ab46fd624784dc",
+      "git_blob": "529b70140f40af2ae60a115a8903e68827258efe",
+      "bytes": 8370,
+      "target": "src/content_strategy/shared/evalkit/statistics.py",
+      "adaptation": "NONE exactGitblob",
+      "copied_sha256": "9e9ec5e9ba86489c8938a87bd064debbedc143126952959729ab46fd624784dc"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "431665582156c442d0448d1f5cd2e45663ab96e6cf098711ffa58c4bb01b69e6",
+      "git_blob": "024bbc5e5a3503b3f719ccb4e68c773e4d840e2a",
+      "bytes": 1067,
+      "target": "conformance/vendor/s2/LICENSE",
+      "adaptation": "NONE exactGitblob",
+      "copied_sha256": "431665582156c442d0448d1f5cd2e45663ab96e6cf098711ffa58c4bb01b69e6"
+    },
+    {
+      "path": "tests/evalkit/conftest.py",
+      "sha256": "fa889c24ed0c5599792de4f9a46dee7d09d8e9261ead18804bc1175b32507bff",
+      "git_blob": "f726c49166ad55012fd5147339683f6b84dec82a",
+      "bytes": 400,
+      "target": "conformance/vendor/s2/upstream/tests/evalkit/conftest.py",
+      "adapted_target": "conformance/vendor/s2/adapted/tests/evalkit/conftest.py",
+      "adaptation": "testnamespace/root only, full original/adapted SHA and exactdiff; no silent test deselection",
+      "copied_sha256": "fa889c24ed0c5599792de4f9a46dee7d09d8e9261ead18804bc1175b32507bff"
+    },
+    {
+      "path": "tests/evalkit/test_corpus.py",
+      "sha256": "c6127c483acb8c6fc25887bd677243b5297e275941f4fed461d659b6bfad0d18",
+      "git_blob": "434b7c1869438e1485e3b0963ecc9807085dee32",
+      "bytes": 7842,
+      "target": "conformance/vendor/s2/upstream/tests/evalkit/test_corpus.py",
+      "adapted_target": "conformance/vendor/s2/adapted/tests/evalkit/test_corpus.py",
+      "adaptation": "testnamespace/root only, full original/adapted SHA and exactdiff; no silent test deselection",
+      "copied_sha256": "c6127c483acb8c6fc25887bd677243b5297e275941f4fed461d659b6bfad0d18"
+    },
+    {
+      "path": "tests/evalkit/test_evalkit_detached.py",
+      "sha256": "9ce522799442e9acdc1a17b946ce4601205094df146725d27e20ea1eae23bcf1",
+      "git_blob": "9d1a5e1742453f63ad2b469475d22aa64c5d4d67",
+      "bytes": 4222,
+      "target": "conformance/vendor/s2/upstream/tests/evalkit/test_evalkit_detached.py",
+      "adapted_target": "conformance/vendor/s2/adapted/tests/evalkit/test_evalkit_detached.py",
+      "adaptation": "testnamespace/root only, full original/adapted SHA and exactdiff; no silent test deselection",
+      "copied_sha256": "9ce522799442e9acdc1a17b946ce4601205094df146725d27e20ea1eae23bcf1"
+    },
+    {
+      "path": "tests/evalkit/test_evalkit_moved_suite.py",
+      "sha256": "1ea3f864073ed745001fe00c9996f50d0f2eaaa665d1a5bdb92f6a4a6b84f2ea",
+      "git_blob": "fa0d4e0b5a803003995ecd9c067e2ffb49ee8326",
+      "bytes": 3272,
+      "target": "conformance/vendor/s2/upstream/tests/evalkit/test_evalkit_moved_suite.py",
+      "adapted_target": "conformance/vendor/s2/adapted/tests/evalkit/test_evalkit_moved_suite.py",
+      "adaptation": "testnamespace/root only, full original/adapted SHA and exactdiff; no silent test deselection",
+      "copied_sha256": "1ea3f864073ed745001fe00c9996f50d0f2eaaa665d1a5bdb92f6a4a6b84f2ea"
+    },
+    {
+      "path": "tests/evalkit/test_heldout.py",
+      "sha256": "e80a02fc8e1ff5e81b007de3d87534eb36b0001dadf2251a3de0a246360e0528",
+      "git_blob": "377e552bb533b64ca6ebeba1168f8cea58f7fb0e",
+      "bytes": 4714,
+      "target": "conformance/vendor/s2/upstream/tests/evalkit/test_heldout.py",
+      "adapted_target": "conformance/vendor/s2/adapted/tests/evalkit/test_heldout.py",
+      "adaptation": "testnamespace/root only, full original/adapted SHA and exactdiff; no silent test deselection",
+      "copied_sha256": "e80a02fc8e1ff5e81b007de3d87534eb36b0001dadf2251a3de0a246360e0528"
+    },
+    {
+      "path": "tests/evalkit/test_reporting.py",
+      "sha256": "a5b0a537c7b0593fa7bab210d8e9e79c9aba6d462dfb3895f211d30293aa44b9",
+      "git_blob": "3235a52908c6c065e1c4629eb967ff5bdb346e92",
+      "bytes": 4913,
+      "target": "conformance/vendor/s2/upstream/tests/evalkit/test_reporting.py",
+      "adapted_target": "conformance/vendor/s2/adapted/tests/evalkit/test_reporting.py",
+      "adaptation": "testnamespace/root only, full original/adapted SHA and exactdiff; no silent test deselection",
+      "copied_sha256": "a5b0a537c7b0593fa7bab210d8e9e79c9aba6d462dfb3895f211d30293aa44b9"
+    },
+    {
+      "path": "tests/evalkit/test_resampling.py",
+      "sha256": "64739c9b0b274542717a19285dd27968442d782979f138345c4e113861d54cef",
+      "git_blob": "31db52f0b6b91ddb34fe80965de7d566075c8dd8",
+      "bytes": 5469,
+      "target": "conformance/vendor/s2/upstream/tests/evalkit/test_resampling.py",
+      "adapted_target": "conformance/vendor/s2/adapted/tests/evalkit/test_resampling.py",
+      "adaptation": "testnamespace/root only, full original/adapted SHA and exactdiff; no silent test deselection",
+      "copied_sha256": "64739c9b0b274542717a19285dd27968442d782979f138345c4e113861d54cef"
+    },
+    {
+      "path": "tests/evalkit/test_runner.py",
+      "sha256": "365b553de35064978cb488049627cd09cf9de2b4c3adc59502c97244e8877a03",
+      "git_blob": "f06981a4eea99d25e739b0ad88df560fd129c6ed",
+      "bytes": 8274,
+      "target": "conformance/vendor/s2/upstream/tests/evalkit/test_runner.py",
+      "adapted_target": "conformance/vendor/s2/adapted/tests/evalkit/test_runner.py",
+      "adaptation": "testnamespace/root only, full original/adapted SHA and exactdiff; no silent test deselection",
+      "copied_sha256": "365b553de35064978cb488049627cd09cf9de2b4c3adc59502c97244e8877a03"
+    },
+    {
+      "path": "tests/evalkit/test_statistics.py",
+      "sha256": "c786947db47453f532a63894679d7b57886e4a2a5bdd3db6e03e582ae343ab65",
+      "git_blob": "ea5ff4f45ac206371c8cb13953688bb5e5d59909",
+      "bytes": 6051,
+      "target": "conformance/vendor/s2/upstream/tests/evalkit/test_statistics.py",
+      "adapted_target": "conformance/vendor/s2/adapted/tests/evalkit/test_statistics.py",
+      "adaptation": "testnamespace/root only, full original/adapted SHA and exactdiff; no silent test deselection",
+      "copied_sha256": "c786947db47453f532a63894679d7b57886e4a2a5bdd3db6e03e582ae343ab65"
+    }
+  ]
+}

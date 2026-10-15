@@ -1,0 +1,58 @@
+--- conformance/vendor/s2/upstream/tests/evalkit/test_evalkit_moved_suite.py
++++ conformance/vendor/s2/adapted/tests/evalkit/test_evalkit_moved_suite.py
+@@ -9,23 +9,27 @@
+ from pathlib import Path
+ 
+ ROOT = Path(__file__).resolve().parents[2]
++if not (ROOT / "portable_evalkit").is_dir():
++    ROOT = Path(__file__).resolve().parents[6]
++CONTROL_TESTS = ROOT / ("tests/evalkit" if (ROOT / "portable_evalkit").is_dir()
++    else "conformance/vendor/s2/adapted/tests/evalkit")
+ 
+ 
+ def test_entire_moved_runtime_controls_without_original_app_or_provider(tmp_path):
+     shutil.copytree(
+-        ROOT / "src/rfr/shared/evalkit",
++        ROOT / "src/content_strategy/shared/evalkit",
+         tmp_path / "portable_evalkit",
+         ignore=shutil.ignore_patterns("__pycache__"),
+     )
+     target = tmp_path / "tests/evalkit"
+     target.mkdir(parents=True)
+     moved = []
+-    for source in sorted((ROOT / "tests/evalkit").glob("*.py")):
++    for source in sorted((CONTROL_TESTS).glob("*.py")):
+         if source.name == Path(__file__).name:
+             continue  # Prevent recursively launching this same isolation harness.
+         original = source.read_text(encoding="utf-8")
+-        content = original.replace("rfr.shared.evalkit", "portable_evalkit")
+-        content = content.replace('ROOT / "src/rfr/shared/evalkit"', 'ROOT / "portable_evalkit"')
++        content = original.replace("content_strategy.shared.evalkit", "portable_evalkit")
++        content = content.replace('ROOT / "src/content_strategy/shared/evalkit"', 'ROOT / "portable_evalkit"')
+         (target / source.name).write_text(content, encoding="utf-8")
+         moved.append(source.name)
+     assert len(moved) == 8  # Seven test files and their explicit no-network conftest.
+@@ -35,12 +39,12 @@
+ sys.path.insert(0,{str(tmp_path)!r})
+ class Guard(importlib.abc.MetaPathFinder):
+     def find_spec(self,name,path=None,target=None):
+-        if name.split('.')[0] in {{'rfr','openai','typesafe','PIL','pytesseract','fastapi'}}:
++        if name.split('.')[0] in {{'content_strategy','openai','typesafe','PIL','pytesseract','fastapi'}}:
+             raise RuntimeError('forbidden original/domain/provider import')
+ sys.meta_path.insert(0,Guard())
+ def denied(*args,**kwargs): raise RuntimeError('network disabled')
+ socket.create_connection=denied;socket.socket.connect=denied
+-try: importlib.import_module('rfr.pipeline')
++try: importlib.import_module('content_strategy.pipeline')
+ except RuntimeError: pass
+ else: raise AssertionError('original import control did not fire')
+ try: socket.create_connection(('example.invalid',443))
+@@ -52,7 +56,7 @@
+ for name,module in tuple(sys.modules.items()):
+     if name=='portable_evalkit' or name.startswith('portable_evalkit.'):
+         Path(module.__file__).resolve().relative_to(Path({str(tmp_path / "portable_evalkit")!r}))
+-assert not any(n=='rfr' or n.startswith('rfr.') for n in sys.modules)
++assert not any(n=='content_strategy' or n.startswith('content_strategy.') for n in sys.modules)
+ print(json.dumps({{'pytest_exit':code,'import_canary':'detected','network_canary':'detected'}}))
+ raise SystemExit(code)
+ """

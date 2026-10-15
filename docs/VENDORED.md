@@ -43,3 +43,18 @@ current source atomically before persistent writes. Full application workflow in
 live SDK access, calibrated thresholds, real token/billing proof, deployment and finished-app
 acceptance are unestablished. The archived legacy captured-request seam remains unavailable
 without the explicit native binding.
+## S2 published evaluation module
+
+The `shared/evalkit/` runtime, schema and README are unchanged Git blobs from
+receipt-field-review commit `249262839c4247ff37cc5a75c6a89a422738c759`, tree
+`e60e8ba5efef185a6706c5d266ce3a1ccad5c553`. Source: royharden/receipt-field-review;
+the run's exact S2-evalkit-001 publication grants these 11 files and nine named
+synthetic conformance files. The complete MIT notice is retained at
+`conformance/vendor/s2/LICENSE`. The manifest pins each original Git blob and SHA256;
+original tests remain under `upstream/`, namespace/root-only adaptations under
+`adapted/`, with exact diffs and both byte hashes recorded.
+
+This module supplies canonical fixed-population comparison, statistics, resampling and
+reporting. Its synthetic held-out controls establish implementation behavior only.
+Actual independent source rights, seals, exposure authority, domain scoring, corpus
+execution and finished-app acceptance require separate evidence.

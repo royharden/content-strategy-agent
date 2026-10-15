@@ -1,0 +1,15 @@
+--- conformance/vendor/s2/upstream/tests/evalkit/test_resampling.py
++++ conformance/vendor/s2/adapted/tests/evalkit/test_resampling.py
+@@ -3,9 +3,9 @@
+ import pytest
+ from test_statistics import outcome
+ 
+-from rfr.shared.evalkit.models import ResamplingSpec
+-from rfr.shared.evalkit.resampling import paired_group_resample, percentile
+-from rfr.shared.evalkit.statistics import Statistic, accuracy
++from content_strategy.shared.evalkit.models import ResamplingSpec
++from content_strategy.shared.evalkit.resampling import paired_group_resample, percentile
++from content_strategy.shared.evalkit.statistics import Statistic, accuracy
+ 
+ 
+ def spec(**changes):

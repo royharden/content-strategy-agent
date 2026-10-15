@@ -1,0 +1,15 @@
+--- conformance/vendor/s2/upstream/tests/evalkit/test_reporting.py
++++ conformance/vendor/s2/adapted/tests/evalkit/test_reporting.py
+@@ -3,9 +3,9 @@
+ import pytest
+ from test_statistics import outcome
+ 
+-from rfr.shared.evalkit.models import MetricSpec, PublicProjectionPolicy
+-from rfr.shared.evalkit.reporting import metric_row, not_measured_row, public_aggregate
+-from rfr.shared.evalkit.statistics import accuracy
++from content_strategy.shared.evalkit.models import MetricSpec, PublicProjectionPolicy
++from content_strategy.shared.evalkit.reporting import metric_row, not_measured_row, public_aggregate
++from content_strategy.shared.evalkit.statistics import accuracy
+ 
+ 
+ @pytest.mark.parametrize(

@@ -64,3 +64,8 @@ is invented from the focused controls. Actual evaluation must generate its own r
 sealed inputs and the candidate. See [limitations](docs/LIMITATIONS.md),
 [input contract](docs/input-contract.md), [grounding contract](conformance/grounding.md),
 [boundary inventory](docs/contracts/BOUNDARY-PROPOSALS.md) and [Bolt handoff](BOLT-HANDOFF.md).
+
+The published S2 `shared/evalkit/` module now supplies the canonical comparison,
+statistics, resampling and reporting types. Its original synthetic controls and tiny
+S9 validator-consumer tests establish component integration; they are separate from
+the independent application corpus, its provisional labels and any held-out campaign.
