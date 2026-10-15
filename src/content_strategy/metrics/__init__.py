@@ -4,7 +4,7 @@ import hashlib
 import json
 import unicodedata
 from collections import defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import UTC, date, datetime
 from decimal import ROUND_HALF_EVEN, Context, Decimal, DecimalException, localcontext
 from fractions import Fraction
@@ -14,6 +14,7 @@ from ..ingest import INPUT_CONTRACT_VERSION, Dataset, PostRow
 from ..shared.grounded import Metric, MetricSnapshot, SnapshotIdentity, TagProvenance, metric_slugs
 
 COMPUTE_VERSION = "metrics.v1"
+TAGGED_COMPUTE_VERSION = "metrics.v2-tagged"
 WEEKDAYS = ("mon", "tue", "wed", "thu", "fri", "sat", "sun")
 X_EDGES = (0, 70, 140, 210)
 DEFAULT_EDGES = (0, 140, 500, 1500)
@@ -119,30 +120,79 @@ def _bucket(row: PostRow) -> str:
 
 
 def compute_metrics(
-    dataset: Dataset, config: AnalysisConfig | None = None, *, created_at: datetime | None = None
+    dataset: Dataset,
+    config: AnalysisConfig | None = None,
+    *,
+    created_at: datetime | None = None,
+    tag_provenance: tuple[TagProvenance, ...] | None = None,
 ) -> AnalyticsReport:
     """Compute the complete local report; no source text is included in the metric table."""
     config = AnalysisConfig() if config is None else config
     if type(dataset) is not Dataset or type(config) is not AnalysisConfig:
         raise ValueError("validated_dataset_and_config_required")
     rows = tuple(sorted(dataset.rows, key=lambda row: row.post_id))
-    clocks = {row.post_id: _clock(row, config) for row in rows}
-    tags = tuple(
-        TagProvenance(
-            source_id=row.post_id,
-            field=field,
-            value=getattr(row, field) or "untagged",
-            method="supplied" if getattr(row, field) is not None else "missing",
-            taxonomy_version="supplied-labels.v1",
+    compute_version = COMPUTE_VERSION
+    if tag_provenance is not None:
+        if type(tag_provenance) is not tuple or any(
+            type(tag) is not TagProvenance for tag in tag_provenance
+        ):
+            raise ValueError("tag_provenance_records_tuple_required")
+        tag_provenance = tuple(
+            TagProvenance.model_validate(tag.model_dump(mode="python")) for tag in tag_provenance
         )
-        for row in rows
-        for field in ("topic", "format")
+        expected = {(row.post_id, field) for row in rows for field in ("topic", "format")}
+        keys = [(tag.source_id, tag.field) for tag in tag_provenance]
+        if len(set(keys)) != len(keys) or set(keys) != expected:
+            raise ValueError("full_unique_source_field_provenance_required")
+        lookup = {(tag.source_id, tag.field): tag for tag in tag_provenance}
+        assigned = []
+        for row in rows:
+            fields = {}
+            for field in ("topic", "format"):
+                tag = lookup[(row.post_id, field)]
+                original = getattr(row, field)
+                if original is not None:
+                    if (
+                        tag.value != original
+                        or tag.method != "supplied"
+                        or tag.model is not None
+                        or tag.threshold is not None
+                    ):
+                        raise ValueError("supplied_tag_immutable")
+                elif tag.method == "supplied":
+                    raise ValueError("supplied_tag_absent_in_source")
+                if (
+                    tag.method == "missing" or tag.method.endswith("_abstained")
+                ) and tag.value != "untagged":
+                    raise ValueError("missing_tag_cannot_assign_label")
+                fields[field] = None if original is None and tag.value == "untagged" else tag.value
+            replacement = replace(row, **fields)
+            if any(getattr(replacement, field) != value for field, value in fields.items()):
+                raise ValueError("tag_label_not_canonical")
+            assigned.append(replacement)
+        rows = tuple(assigned)
+        compute_version = TAGGED_COMPUTE_VERSION
+    clocks = {row.post_id: _clock(row, config) for row in rows}
+    tags = (
+        tag_provenance
+        if tag_provenance is not None
+        else tuple(
+            TagProvenance(
+                source_id=row.post_id,
+                field=field,
+                value=getattr(row, field) or "untagged",
+                method="supplied" if getattr(row, field) is not None else "missing",
+                taxonomy_version="supplied-labels.v1",
+            )
+            for row in rows
+            for field in ("topic", "format")
+        )
     )
     identity = SnapshotIdentity(
         dataset_fingerprint=dataset.fingerprint,
         tag_provenance=tags,
         config_json=json.dumps(config.document()),
-        compute_version=COMPUTE_VERSION,
+        compute_version=compute_version,
     )
     snapshot_id = identity.snapshot_id
     platform_slugs = metric_slugs(sorted({row.platform for row in rows}))
@@ -192,7 +242,7 @@ def compute_metrics(
             unit=unit,
             sample_size=count,
             excluded_size=len(group) - len(eligible),
-            computed_by=f"{COMPUTE_VERSION}.{family}",
+            computed_by=f"{compute_version}.{family}",
             status=status,
             status_reason=reason,
         )

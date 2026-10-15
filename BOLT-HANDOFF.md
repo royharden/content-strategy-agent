@@ -1,18 +1,30 @@
-# Bolt handoff — scaffold inventory, inspection only
+# Bolt handoff — local components, inspection only
 
-Status: structural models and scaffold only. No app workflow, provisioned backend, cloud account, remote repository or publication is established.
+The Python core has local ingestion/analytics, exact grounding and SQLite approval/audit/receipt
+functions. App pipeline/tagging ports are staged and require actual verified owner integrations.
+The root CLI reports inventory only. The Vite browser output is an unfinished static page;
+React workflow, application API/storage and browser acceptance remain pending.
 
-| Inventory | Implemented now | Planned / gap |
-|---|---|---|
-| Frontend | Vite configuration and static unfinished-state HTML | React workflow/UI and integrated browser checks |
-| Core | Python structural models/identity/generic resolver protocol, generated schemas and explicit contracts-only status | CSV analytics, actual grounded validation, approval/export and local FastAPI |
-| Database | Not required by scaffold | Local SQLite for proposed single-user MVP; no hosted database or migrations yet |
-| Functions/auth/storage | None | Public use needs authenticated hosting and a separately assessed storage/access model |
-| Provider secrets | Reserved server-only env names, no values or calls | Actual approved owner adapters and bounded tests |
-| Results | None | Offline demo/evaluation, baselines, costs and limitations |
+The module-owned SQLite migration is real local code, not a provisioned cloud database. Its
+transaction tests cover exact two-format bytes, approvals, restart, CAS and crash timing.
+No account, hosted backend, remote repository, Bolt import or publication is established.
 
-The proposed Python backend is not a Bolt-supported JavaScript backend. A future import can build browser assets; full operation needs an authenticated external Python service or an explicitly approved port passing the same conformance. Import does not provision Python, SQLite, providers or approval persistence. See [Bolt supported technologies](https://support.bolt.new/reference/supported-technologies).
+Python is not a Bolt JavaScript backend. Bolt can inspect/build browser assets; a full workflow
+needs separately authorized authenticated Python hosting or an approved port that passes the
+same conformance. See [supported technologies](https://support.bolt.new/reference/supported-technologies).
+Import alone does not provision Python, SQLite, providers or approval persistence.
 
-Both lockfiles are committed. Setup/build commands: `uv sync --locked`; `uv run pytest`; `uv run python scripts/export_schemas.py --check`; `npm ci`; `npm run typecheck`; `npm run build`. Build output is `dist/`. No listener is needed to build. Local serving requires the actual claimed loopback port via `CSA_WEB_PORT`.
+Both lockfiles are committed. Setup/build commands: `uv sync --locked`; `uv run pytest`;
+`uv run python scripts/export_schemas.py --check`;
+`uv run python conformance/export_runtime_schemas.py --check`; `npm ci`; `npm run typecheck`;
+`npm run build`. Browser output is `dist/`. Local serving requires an actual resource claim and
+allocated loopback `CSA_WEB_PORT`. No serving resource is created by these source files.
 
-Future inspection prompt: Inspect the structural models/scaffold and stated workflow gaps. Confirm dependency install/build and show only the unfinished static page. Model/schema construction is not evidence validation, authenticated approval or export permission. Do not provision a database, deploy functions, add secrets, publish, or claim the planned workflow exists. Replace this inspection inventory only after actual application resources and checks exist.
+Server-only secret names are reserved; there are no provider calls or secret values in this
+artifact. S3/S6 owner source/licence/adoption, X parser/official target checks, independent
+fixtures/evaluation, the application journey and independent finished-app review remain pending.
+
+Inspection prompt: inspect the local components and explicit gaps, verify locked build/schema
+commands, and show the unfinished static page honestly. Keep Python approval/storage authority
+on the server. Do not create a cloud database, deploy functions, add secrets or publish from
+this handoff; provisioning and hosting require their own concrete authorization/readiness.

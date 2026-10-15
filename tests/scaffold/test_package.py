@@ -35,11 +35,13 @@ class PackageScaffoldTests(unittest.TestCase):
             result = self.invoke(REPO / "src", cwd, "--status-json")
             self.assertEqual(result.returncode, 0, result.stderr)
             status = json.loads(result.stdout)
-            self.assertEqual(status["stage"], "contracts-only")
+            self.assertEqual(status["stage"], "local-components")
             self.assertFalse(status["schema_validation_is_authorization"])
             self.assertEqual(status["implemented_workflows"], [])
             self.assertFalse(status["provider_calls"])
             self.assertFalse(status["approval_export_available"])
+            self.assertTrue(status["local_module_approval_export"])
+            self.assertFalse(status["x_drafts_supported"])
             self.assertEqual(list(cwd.iterdir()), [])
 
     def test_detached_package_import_has_no_workspace_or_test_dependency(self) -> None:

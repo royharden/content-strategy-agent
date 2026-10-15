@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "content-strategy-agent"
 version = "0.1.0.dev0"
-description = "Local metric-grounded content review; scaffold only."
+description = "Local metric-grounded review components; application integration pending."
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 license = "MIT"

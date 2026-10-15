@@ -242,6 +242,21 @@ class AuditStore:
         with self._transaction():
             return self._state(self._load(item_id, revision))[0]
 
+    def read_content(self, item_id: str, revision: int, *, actor_label: str) -> Content:
+        """Authorized historical content read; it confers no current approval."""
+        with self._transaction():
+            content = self._load(item_id, revision)
+            self._permission(actor_label, "read_content", content)
+            return content
+
+    def require_approved(self, item_id: str, revision: int, *, actor_label: str) -> Content:
+        """Return the currently approved exact version, never a persistent approval token."""
+        with self._transaction():
+            content = self._load(item_id, revision)
+            self._permission(actor_label, "read_approved", content)
+            self._approval(content)
+            return content
+
     def _latest(self, content):
         if self._latest_revision(content.item.item_id) != content.item.revision:
             raise GateError("stale_item_revision")

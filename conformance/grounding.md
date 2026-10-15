@@ -36,6 +36,12 @@ approval and current parent approval are required before export. Edits invalidat
 approvals and dependent drafts; evidence/policy/screen-edition changes append context and
 invalidation events. Old revisions cannot become current through receipt replay.
 
+`read_content(id, revision, actor_label=...)` is an authorized exact historical read,
+with no approval claim. `require_approved(...)` additionally checks the current version,
+generation, policy, screen and semantic assessment inside BEGIN IMMEDIATE. Its immutable
+Content return is not a lasting approval token. Callers recheck after generation; saving
+a dependent draft and exporting still perform their own current-parent checks.
+
 SQLite is authoritative. Module-owned migration 001 creates namespaced immutable versions,
 events and receipts. Hash/actual DDL checks detect edition/schema changes. INSERT replacement,
 UPDATE and DELETE guards prevent rewriting rows. The database file, host callbacks and code

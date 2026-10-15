@@ -56,3 +56,12 @@ fingerprint. Snapshot identity includes config, supplied/missing label provenanc
 compute version. Reordering equivalent rows or changing the original byte envelope does
 not change normalized identity. This contract adds local computation and no storage,
 provider, citation authorization, approval or export authority.
+
+Optional derived tagging uses `compute_metrics(..., tag_provenance=...)` and explicit
+`metrics.v2-tagged` computation identity. The provenance tuple must contain exactly topic
+and format for every known source ID, with no duplicates or omissions. Supplied source
+labels must retain their value and supplied provenance. Assigned labels must already be
+canonical; abstention stays `untagged`. Derived grouping uses those assignments while the
+dataset fingerprint remains the original source fingerprint. Provenance/model/threshold/
+taxonomy changes bind a new snapshot. `compute_tagged_metrics` also checks the TagRun's
+original source fingerprint before reuse. The default `metrics.v1` path is unchanged.

@@ -1,37 +1,46 @@
 # Content Strategy Agent
 
-Planned: import historical-post CSV data, compute metrics in code, review cited recommendations and approve exact drafts before export. No publishing or scheduling.
+Local components for importing historical-post CSVs, computing metrics, validating cited
+content and preserving exact approvals and Markdown/CSV receipts. Application integration
+is in progress. Publishing and scheduling are outside the product scope.
 
-**Current state: structural contracts only.** Reusable `grounded` models, canonical identity and generated structural schemas are implemented. CSV ingestion, analytics, citation resolution/validation, model adapters, review UI, persistent approval and exports are not implemented. The static page identifies the unfinished workflow; it is not the fixture demo. Constructing an approval/receipt record does not authenticate a human or authorize an export.
+Implemented components include atomic bounded CSV ingestion, deterministic platform metrics,
+immutable source/config identity, numeric/passage grounding checks and a SQLite approval/audit/
+receipt engine. Pipeline staging uses injected generation, screening and semantic ports;
+supplied/keyword/untagged tagging and a conservative LinkedIn UTF-16 target check are present.
+X draft support is unavailable until its proposed parser and official conformance pass.
 
-## Keyless scaffold check
-
-Python 3.12 and Node 24 are the runtimes. The root status command needs no credentials or third-party imports; the structural models require the locked Pydantic dependency:
+The CLI currently exposes status/version/help. There is no complete application API/UI workflow,
+shipping mock/replay provider integration or actual S3/S6 vendoring. Test-only authored doubles
+are not production providers, screen implementations or measured model results. The static
+Vite page still identifies the unfinished workflow. Root status creates no runtime file.
 
 ```powershell
-$env:PYTHONPATH = 'src'
-python -m content_strategy --status-json
-python -m unittest discover -s tests/scaffold -v
-npm test
+uv run --offline --no-sync python -m content_strategy --status-json
+uv run --offline --no-sync pytest tests/ingest tests/metrics tests/grounded tests/pipeline tests/platforms tests/scaffold
+uv run --offline --no-sync python scripts/export_schemas.py --check
+uv run --offline --no-sync python conformance/export_runtime_schemas.py --check
 ```
 
-Use a Python 3.12 interpreter for `python` above. Those scaffold commands need no network, API key, database or listener. Both lockfiles are committed. `uv sync --locked`, `uv run pytest`, `uv run python scripts/export_schemas.py --check`, `npm ci`, `npm run typecheck` and `npm run build` validate the configured toolchains. Installation can require registry access on a fresh machine. Structural checks do not establish application acceptance.
+These commands need the existing locked Python 3.12 environment. Fresh setup uses `uv sync --locked`.
+Node 24/Vite commands are `npm ci`, `npm test`, `npm run typecheck`, `npm run build`; `dist/` is
+the browser output. Dependency setup may require registry access. Local serving needs an actual
+resource claim and an allocated loopback `CSA_WEB_PORT`; build/status checks need no listener.
 
-The eventual workflow is CSV → computed metrics → validated strategy → recommendation approval → screened draft → draft approval → audited Markdown/CSV export. The reusable Python `grounded` structural models and generic resolver protocol have detached synthetic M3/M8-style consumer tests; no actual downstream app integration is claimed. See [boundary contracts and remaining proposals](docs/contracts/BOUNDARY-PROPOSALS.md).
+The intended journey is CSV → computed metrics → validated strategy → recommendation approval →
+screened draft → exact draft approval → audited Markdown/CSV download. The reusable grounding
+module has detached corpus/queue consumer tests and actual local transaction/crash/CAS controls.
+Those tests do not establish real downstream application integration or finished-app acceptance.
 
-## Evidence and limits
+Metric-only planning requests contain a bounded, declared stratified selection of metric rows,
+never raw post rows/text. A screen hold or unavailable required judge stops subsequent model
+stages. One content repair is bounded; fewer than five survivors is explicit underfill. Supplied
+tags stay unchanged; optional typed tags use an explicit exact confidence threshold and report
+unassigned fields. Jev and Luna task ports have no SDK, key lookup or network default.
 
-| Evidence | Current status |
-|---|---|
-| Scaffold import/status and detached-copy checks | Run separately; no workflow result inferred |
-| Structural model/identity/generated-schema checks | Local tests; no grounding or approval authorization inferred |
-| npm lock/install/typecheck/static build | Local scaffold checks; no application UI inferred |
-| Deterministic metric/citation/approval evaluation | Not implemented, not measured |
-| Tagged/untagged or model comparison | Not measured |
-| Provider usage, cost and latency | No calls; not measured |
-| Application/browser/security acceptance | Not performed |
-| Deployment or public release | Not performed |
-
-No results table or fixture accuracy is invented. Future `scripts/demo.py` and `scripts/eval.py` must work offline and generate their own result tables; scaffold checks are not substitutes. Coding agents prepare the code; later checks and independent review must be reported against actual candidates.
-
-Local serving requires an actual resource claim and `CSA_WEB_PORT`; commands fail without explicit in-band port configuration. The configuration does not allocate a port. Do not put server credentials in frontend variables. [BOLT-HANDOFF.md](BOLT-HANDOFF.md) describes the deployment boundary and unfinished inventory.
+Independent Gold/held-out fixtures, calibrated comparisons, real provider usage/cost/latency,
+API/browser/security acceptance and deployment remain pending. No benchmark or accuracy table
+is invented from the focused controls. Actual evaluation must generate its own results against
+sealed inputs and the candidate. See [limitations](docs/LIMITATIONS.md),
+[input contract](docs/input-contract.md), [grounding contract](conformance/grounding.md),
+[boundary inventory](docs/contracts/BOUNDARY-PROPOSALS.md) and [Bolt handoff](BOLT-HANDOFF.md).
