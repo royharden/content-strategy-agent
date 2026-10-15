@@ -1,12 +1,12 @@
 """Metric-only orchestration through injected staging ports; no default provider/screen."""
 
-from collections import defaultdict, deque
 from dataclasses import dataclass
 
 from ..metrics.grounding import MetricsResolver
 from ..shared.grounded.identity import identity_hash
 from ..shared.grounded.models import MetricSnapshot
 from ..shared.grounded.validation import Checked, Policy, seal_content, validate
+from .assembly import plan_document, plan_repair_document, plan_support_document, select_metrics
 from .ports import (
     Assembly,
     Bindings,
@@ -116,31 +116,11 @@ class Pipeline:
         snapshot = MetricSnapshot.model_validate(snapshot.model_dump(mode="python"))
         if not isinstance(brief, str) or len(brief) > 4000:
             raise PortRefusal("brief_limit")
-        citable = sorted(
-            (
-                metric
-                for metric in snapshot.metrics
-                if metric.status == "ok" and metric.sample_size >= 5
-            ),
-            key=lambda metric: metric.metric_id,
-        )
-        groups = defaultdict(deque)
-        for metric in citable:
-            dimension = (
-                metric.metric_id.split(".")[2] if metric.metric_id.startswith("er.") else "trend"
-            )
-            groups[(metric.scope, dimension)].append(metric)
-        selected = []
-        while groups and len(selected) < self.policy.max_metric_rows:
-            for key in sorted(tuple(groups)):
-                selected.append(groups[key].popleft())
-                if not groups[key]:
-                    del groups[key]
-                if len(selected) == self.policy.max_metric_rows:
-                    break
+        projection = select_metrics(snapshot, self.policy.max_metric_rows)
+        citable, selected = projection.citable, projection.selected
         if not selected:
             return Strategy((), (), 0, 0, 0, 0)
-        table = [metric.model_dump(mode="python") for metric in selected]
+        table = projection.table()
         generation = snapshot.snapshot_id
         bindings.require(
             [
@@ -151,12 +131,7 @@ class Pipeline:
             generation,
             self.policy,
         )
-        document = {
-            "brief": brief,
-            "metrics": table,
-            "selection": "metric-projection.v1",
-            "requested_recommendations": {"minimum": 5, "maximum": 10},
-        }
+        document = plan_document(brief, table)
         resolver = MetricsResolver(snapshot)
         selected_keys = {metric.metric_id for metric in selected}
         accepted, dropped = [], []
@@ -166,9 +141,7 @@ class Pipeline:
             if phase == "repair":
                 if not dropped or len(accepted) >= 10:
                     break
-                document = document | {
-                    "repair_errors": [{"codes": list(value.codes)} for value in dropped]
-                }
+                document = plan_repair_document(document, (value.codes for value in dropped))
             try:
                 assembly = Assembly.build(document, generation)
                 result = self._generate(assembly, "plan." + phase, bindings)
@@ -211,20 +184,7 @@ class Pipeline:
                     pending.append(checked)
             if not pending:
                 continue
-            support_assembly = Assembly.build(
-                {
-                    "items": [
-                        {
-                            "item_id": value.content.item.item_id,
-                            "text": value.rendered,
-                            "citations": value.content.item.model_dump(mode="python")["citations"],
-                        }
-                        for value in pending
-                    ],
-                    "metrics": table,
-                },
-                generation,
-            )
+            support_assembly = Assembly.build(plan_support_document(pending, table), generation)
             try:
                 screen = self.screened(
                     support_assembly, stage="screen.support." + phase, bindings=bindings

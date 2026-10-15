@@ -9,6 +9,7 @@ from ..shared.grounded.identity import identity_hash
 from ..shared.grounded.models import MetricSnapshot
 from ..shared.grounded.validation import Content, seal_content, validate
 from . import Drop, Evaluated, Pipeline
+from .assembly import draft_document, draft_repair_document, draft_support_document
 from .ports import Assembly, Bindings, PortRefusal, SupportResult
 
 
@@ -69,24 +70,12 @@ def draft(
         generation,
         pipeline.policy,
     )
-    keys = {citation.metric_id for citation in parent.item.citations}
-    table = [
-        metric.model_dump(mode="python") for metric in snapshot.metrics if metric.metric_id in keys
-    ]
-    document = {
-        "task": "draft",
-        "brief": brief,
-        "parent": parent_checked.rendered,
-        "scope": parent.item.scope,
-        "citations": parent.item.model_dump(mode="python")["citations"],
-        "metrics": table,
-        "requested_drafts": 1,
-    }
+    document = draft_document(parent_checked, snapshot, brief)
     proposed, drops = 0, []
     for phase in ("initial", "repair"):
         _parent_current(authority, parent, actor_label)
         if drops:
-            document = document | {"repair_errors": [list(value.codes) for value in drops]}
+            document = draft_repair_document(document, (value.codes for value in drops))
         try:
             result = pipeline._generate(
                 Assembly.build(document, generation), "draft." + phase, bindings
@@ -139,13 +128,7 @@ def draft(
             drops.append(Drop(item_id, (target.reason,)))
             continue
         assembly = Assembly.build(
-            {
-                "draft": checked.rendered,
-                "parent": parent_checked.rendered,
-                "citations": document["citations"],
-                "metrics": table,
-            },
-            generation,
+            draft_support_document(checked, parent_checked, document), generation
         )
         try:
             screen = pipeline.screened(
