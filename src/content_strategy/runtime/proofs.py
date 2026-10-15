@@ -84,7 +84,18 @@ class ProofStore:
             or runtime.strategy is None
         ):
             raise GateError("actual_completed_mock_required")
-        known = {"screen.plan.initial", "plan.initial", "screen.support.initial", "support.initial"}
+        kind = runtime.kind
+        if kind not in {"plan", "draft"}:
+            raise GateError("mock_operation_kind")
+        support_stage = "support" if kind == "plan" else "support.draft"
+        generation_purpose = "s9." + kind + ".initial"
+        support_purpose = "s9." + support_stage + ".initial"
+        known = {
+            "screen." + kind + ".initial",
+            kind + ".initial",
+            "screen." + support_stage + ".initial",
+            support_stage + ".initial",
+        }
         if (
             runtime.ports.completed != known
             or runtime.ledger.operation_state(runtime.allocation) != "complete"
@@ -95,7 +106,7 @@ class ProofStore:
             raise GateError("mock_result_coverage")
         generation, support = runtime.ports.results
         for purpose, result in zip(
-            ("s9.plan.initial", "s9.support.initial"), (generation, support), strict=True
+            (generation_purpose, support_purpose), (generation, support), strict=True
         ):
             call = calls[purpose]
             result.validate_for(call.request)
@@ -114,7 +125,7 @@ class ProofStore:
         if runtime.ledger.totals()["dispatched_attempts"] != 0:
             raise GateError("mock_dispatch_forbidden")
         policy = runtime.pipeline.grounded_policy
-        screen = runtime.ports.screen_results.get("s9.screen.support.initial")
+        screen = runtime.ports.screen_results.get("s9.screen." + support_stage + ".initial")
         if (
             screen is None
             or screen.decision != "pass"
@@ -122,7 +133,7 @@ class ProofStore:
             or screen.method != "typed_mock"
             or screen.policy_sha256 != policy.screen_edition
             or screen.accounting_ref != runtime.allocation.allocation_id
-            or screen.input_sha256 != calls["s9.support.initial"].assembly.digest
+            or screen.input_sha256 != calls[support_purpose].assembly.digest
         ):
             raise GateError("mock_screen_binding")
         stages = {}
@@ -143,7 +154,7 @@ class ProofStore:
         # SourceCaptureRef contains measured latency floats only for live captures;
         # these original synthetic refs retain null latency/unknown usage.
         rows = []
-        for accepted in runtime.strategy.accepted:
+        for accepted in runtime.accepted:
             checked = validate(accepted.checked.content, MetricsResolver(runtime.snapshot), policy)
             item = checked.content.item
             answer = support.typed.answers.get(item.item_id)

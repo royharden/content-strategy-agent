@@ -27,6 +27,28 @@ def recommendation_content(candidate: Candidate, generation: str):
     )
 
 
+def draft_content(candidate: Candidate, parent: Checked, generation: str):
+    content = parent.content
+    return seal_content(
+        item_id="draft-"
+        + identity_hash(
+            {
+                "parent": content.item.content_hash,
+                "candidate": candidate.model_dump(mode="python"),
+            }
+        )[:24],
+        revision=1,
+        kind="draft",
+        scope=candidate.scope,
+        snapshot_id=generation,
+        text=candidate.text,
+        citations=candidate.citations,
+        editorial=candidate.editorial,
+        parent_id=content.item.item_id,
+        parent_revision=content.item.revision,
+    )
+
+
 @dataclass(frozen=True)
 class MetricProjection:
     citable: tuple[Metric, ...]

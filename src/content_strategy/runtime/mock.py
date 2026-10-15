@@ -16,12 +16,17 @@ from ..adapters.screening import NativeScreen
 from ..metrics.grounding import MetricsResolver
 from ..pipeline import Pipeline
 from ..pipeline.assembly import (
+    draft_content,
+    draft_document,
+    draft_support_document,
     plan_document,
     plan_support_document,
     recommendation_content,
     select_metrics,
 )
+from ..pipeline.drafting import draft, require_parent
 from ..pipeline.ports import Assembly, Bindings, CallBinding, Candidate, PortRefusal, WorkflowPolicy
+from ..platforms import check_target
 from ..shared.callledger import Ledger
 from ..shared.callledger.ledger import LedgerError
 from ..shared.callledger.models import (
@@ -35,7 +40,7 @@ from ..shared.callledger.models import (
 )
 from ..shared.callledger.pricing import RequestEvidence
 from ..shared.grounded.models import MetricSnapshot
-from ..shared.grounded.validation import Policy, validate
+from ..shared.grounded.validation import Content, Policy, validate
 from ..shared.providers.adapters import ModelSupport, Outcome, ProviderConfig, prepare_request
 from ..shared.providers.captures import FixtureIndex, synthetic_capture
 from ..shared.providers.controller import Provider
@@ -46,11 +51,6 @@ from ..shared.screen.models import HAZARDS
 MODEL = "s9-authored-mock"
 REPORTED = "s9-authored-mock-output"
 VERDICTS = ("supports", "contradicts", "says_nothing", "unknown")
-STAGES = tuple(
-    prefix + phase
-    for phase in ("initial", "repair")
-    for prefix in ("screen.plan.", "plan.", "screen.support.", "support.")
-)
 
 
 def _config(typed):
@@ -108,13 +108,38 @@ class MockPlan:
     used: bool = False
     closed: bool = False
     strategy: object = None
+    kind: str = "plan"
+    parent: Content | None = None
+    parent_authority: object = None
+    actor_label: str | None = None
+
+    @property
+    def accepted(self):
+        if self.strategy is None:
+            return ()
+        if self.kind == "plan":
+            return self.strategy.accepted
+        return () if self.strategy.accepted is None else (self.strategy.accepted,)
 
     def run(self):
         if self.used or self.closed:
             raise PortRefusal("compiled_operation_already_used")
         self.used = True
         try:
-            self.strategy = self.pipeline.plan(self.snapshot, self.brief, bindings=self.bindings)
+            if self.kind == "plan":
+                self.strategy = self.pipeline.plan(
+                    self.snapshot, self.brief, bindings=self.bindings
+                )
+            else:
+                self.strategy = draft(
+                    self.pipeline,
+                    self.parent,
+                    self.snapshot,
+                    self.brief,
+                    authority=self.parent_authority,
+                    actor_label=self.actor_label,
+                    bindings=self.bindings,
+                )
             return self.strategy
         finally:
             self.finish()
@@ -207,6 +232,112 @@ def compile_plan(
     generation = snapshot.snapshot_id
     plan_assembly = Assembly.build(plan_document(brief, table), generation)
     support_assembly = Assembly.build(plan_support_document(checked, table), generation)
+    return _compile(
+        database,
+        snapshot,
+        brief,
+        candidates,
+        checked,
+        plan_assembly,
+        support_assembly,
+        namespace=namespace,
+        screen_policy=screen_policy,
+        screen_scores=screen_scores,
+        support_verdicts=support_verdicts,
+        workflow=workflow,
+        policy=policy,
+    )
+
+
+def compile_draft(
+    database: Path,
+    snapshot: MetricSnapshot,
+    brief: str,
+    parent: Content,
+    candidate: Candidate,
+    *,
+    namespace: str,
+    screen_policy: ScreenPolicy,
+    screen_scores: dict,
+    support_verdict: str,
+    authority,
+    actor_label: str,
+) -> MockPlan:
+    parent = Content.model_validate(parent.model_dump(mode="python"))
+    snapshot = MetricSnapshot.model_validate(snapshot.model_dump(mode="python"))
+    candidate = Candidate.model_validate(candidate.model_dump(mode="python"))
+    require_parent(authority, parent, actor_label)
+    if not isinstance(brief, str) or len(brief) > 4000:
+        raise PortRefusal("brief_limit")
+    if type(screen_policy) is not ScreenPolicy or screen_policy.required_method != "typed":
+        raise PortRefusal("typed_mock_policy_required")
+    if set(screen_scores) != set(HAZARDS) or support_verdict not in VERDICTS:
+        raise PortRefusal("complete_authored_answers_required")
+    if candidate.scope != parent.item.scope or {
+        c.model_dump_json() for c in candidate.citations
+    } != {c.model_dump_json() for c in parent.item.citations}:
+        raise PortRefusal("parent_evidence_mismatch")
+    policy = Policy(screen_edition=screen_policy.sha256)
+    workflow = WorkflowPolicy(
+        screen_policy_sha256=screen_policy.sha256, required_method="typed_mock", origin="mock"
+    )
+    parent_checked = validate(parent, MetricsResolver(snapshot), policy)
+    if parent_checked.report.failures:
+        raise PortRefusal("invalid_parent_grounding")
+    content = draft_content(candidate, parent_checked, snapshot.snapshot_id)
+    checked = validate(content, MetricsResolver(snapshot), policy)
+    if checked.report.failures or not check_target(candidate.scope, checked.rendered).valid:
+        raise PortRefusal("authored_draft_invalid_or_target_unavailable")
+    document = draft_document(parent_checked, snapshot, brief)
+    runtime = _compile(
+        database,
+        snapshot,
+        brief,
+        (candidate,),
+        [checked],
+        Assembly.build(document, snapshot.snapshot_id),
+        Assembly.build(
+            draft_support_document(checked, parent_checked, document), snapshot.snapshot_id
+        ),
+        namespace=namespace,
+        screen_policy=screen_policy,
+        screen_scores=screen_scores,
+        support_verdicts={content.item.item_id: support_verdict},
+        workflow=workflow,
+        policy=policy,
+        kind="draft",
+    )
+    runtime.parent, runtime.parent_authority, runtime.actor_label = parent, authority, actor_label
+    return runtime
+
+
+def _compile(
+    database,
+    snapshot,
+    brief,
+    candidates,
+    checked,
+    plan_assembly,
+    support_assembly,
+    *,
+    namespace,
+    screen_policy,
+    screen_scores,
+    support_verdicts,
+    workflow,
+    policy,
+    kind="plan",
+):
+    generation = snapshot.snapshot_id
+    ids = tuple(c.content.item.item_id for c in checked)
+    support_stage = "support" if kind == "plan" else "support.draft"
+    prefixes = (
+        "screen." + kind + ".",
+        kind + ".",
+        "screen." + support_stage + ".",
+        support_stage + ".",
+    )
+    stages = tuple(prefix + phase for phase in ("initial", "repair") for prefix in prefixes)
     if max(len(a.text.encode("utf-8")) for a in (plan_assembly, support_assembly)) > 32768:
         raise PortRefusal("input_too_large")
     generated = GenerateRequest.model_validate(
@@ -225,13 +356,16 @@ def compile_plan(
     native_plan = NativeScreen.prepare(plan_assembly, policy=screen_policy, model=MODEL)
     native_support = NativeScreen.prepare(support_assembly, policy=screen_policy, model=MODEL)
     requests = {
-        "screen.plan.initial": native_plan.request,
-        "plan.initial": generated,
-        "screen.support.initial": native_support.request,
-        "support.initial": support,
+        "screen." + kind + ".initial": native_plan.request,
+        kind + ".initial": generated,
+        "screen." + support_stage + ".initial": native_support.request,
+        support_stage + ".initial": support,
     }
     assemblies = {
-        stage: plan_assembly if "plan" in stage else support_assembly for stage in requests
+        stage: plan_assembly
+        if stage in {"screen." + kind + ".initial", kind + ".initial"}
+        else support_assembly
+        for stage in requests
     }
     configs = {False: _config(False), True: _config(True)}
     deadline = (datetime.now(UTC) + timedelta(seconds=120)).isoformat().replace("+00:00", "Z")
@@ -268,11 +402,11 @@ def compile_plan(
         task_id="content-strategy",
         span_id=operation,
         consumer_namespace=namespace,
-        purpose="s9.plan",
+        purpose="s9." + kind,
         source_generation=generation,
         consumer_context_sha256=workflow.digest,
         policy_sha256=screen_policy.sha256,
-        template_sha256=canonical_digest("s9-authored-plan.v1"),
+        template_sha256=canonical_digest("s9-authored-" + kind + ".v1"),
         config_sha256=canonical_digest([c.sha256 for c in configs.values()]),
     )
     contexts = {
@@ -284,11 +418,11 @@ def compile_plan(
                 "purpose": "s9." + stage,
             }
         )
-        for stage in STAGES
+        for stage in stages
     }
     evidence, captures, children = [], {False: [], True: []}, []
-    for stage in STAGES:
-        typed = not stage.startswith("plan.")
+    for stage in stages:
+        typed = not stage.startswith(kind + ".")
         config = configs[typed]
         bound = canonical_digest({"synthetic_no_dispatch_stage": stage, "operation": operation})
         request = requests.get(stage)
@@ -397,7 +531,7 @@ def compile_plan(
             stage: CallBinding(
                 "s9." + stage, ledger, authority, contexts[stage], limits, allocation
             )
-            for stage in STAGES
+            for stage in stages
         }
         calls, screens = {}, {}
         for stage, request in requests.items():
@@ -412,7 +546,7 @@ def compile_plan(
                 else (),
             )
             if stage.startswith("screen."):
-                native = native_plan if "plan" in stage else native_support
+                native = native_plan if stage == "screen." + kind + ".initial" else native_support
                 screens["s9." + stage] = (
                     call,
                     NativeScreen(native, provider=providers[typed], policy=screen_policy),
@@ -432,6 +566,7 @@ def compile_plan(
             ledger,
             allocation,
             tuple(children),
+            kind=kind,
         )
     except BaseException:
         ledger.close()

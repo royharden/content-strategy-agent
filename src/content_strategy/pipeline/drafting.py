@@ -5,11 +5,10 @@ from typing import Protocol
 
 from ..metrics.grounding import MetricsResolver
 from ..platforms import check_target
-from ..shared.grounded.identity import identity_hash
 from ..shared.grounded.models import MetricSnapshot
-from ..shared.grounded.validation import Content, seal_content, validate
+from ..shared.grounded.validation import Content, validate
 from . import Drop, Evaluated, Pipeline
-from .assembly import draft_document, draft_repair_document, draft_support_document
+from .assembly import draft_content, draft_document, draft_repair_document, draft_support_document
 from .ports import Assembly, Bindings, PortRefusal, SupportResult
 
 
@@ -24,7 +23,7 @@ class DraftResult:
     proposed: int
 
 
-def _parent_current(authority, parent, actor_label):
+def require_parent(authority, parent, actor_label):
     try:
         current = Content.model_validate(
             authority.require_approved(
@@ -51,7 +50,7 @@ def draft(
     snapshot = MetricSnapshot.model_validate(snapshot.model_dump(mode="python"))
     if not isinstance(brief, str) or len(brief) > 4000:
         raise PortRefusal("brief_limit")
-    _parent_current(authority, parent, actor_label)
+    require_parent(authority, parent, actor_label)
     if parent.item.snapshot_id != snapshot.snapshot_id:
         raise PortRefusal("parent_snapshot_mismatch")
     if not check_target(parent.item.scope, "").supported:
@@ -73,14 +72,14 @@ def draft(
     document = draft_document(parent_checked, snapshot, brief)
     proposed, drops = 0, []
     for phase in ("initial", "repair"):
-        _parent_current(authority, parent, actor_label)
+        require_parent(authority, parent, actor_label)
         if drops:
             document = draft_repair_document(document, (value.codes for value in drops))
         try:
             result = pipeline._generate(
                 Assembly.build(document, generation), "draft." + phase, bindings
             )
-            _parent_current(authority, parent, actor_label)
+            require_parent(authority, parent, actor_label)
         except PortRefusal as error:
             drops.append(Drop("draft." + phase, (str(error),)))
             break
@@ -95,27 +94,8 @@ def draft(
             drops.append(Drop("draft." + phase, ("parent_evidence_mismatch",)))
             continue
         try:
-            item_id = (
-                "draft-"
-                + identity_hash(
-                    {
-                        "parent": parent.item.content_hash,
-                        "candidate": candidate.model_dump(mode="python"),
-                    }
-                )[:24]
-            )
-            content = seal_content(
-                item_id=item_id,
-                revision=1,
-                kind="draft",
-                scope=candidate.scope,
-                snapshot_id=generation,
-                text=candidate.text,
-                citations=candidate.citations,
-                editorial=candidate.editorial,
-                parent_id=parent.item.item_id,
-                parent_revision=parent.item.revision,
-            )
+            content = draft_content(candidate, parent_checked, generation)
+            item_id = content.item.item_id
             checked = validate(content, resolver, pipeline.grounded_policy)
         except ValueError:
             drops.append(Drop("draft." + phase, ("invalid_draft_encoding_or_shape",)))
@@ -160,7 +140,7 @@ def draft(
             drops.append(Drop(item_id, ("semantic_" + support.decisions[0].verdict,)))
             continue
         try:
-            _parent_current(authority, parent, actor_label)
+            require_parent(authority, parent, actor_label)
         except PortRefusal as error:
             drops.append(Drop(item_id, (str(error),)))
             break

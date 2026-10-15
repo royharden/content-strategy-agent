@@ -37,6 +37,26 @@ class App:
             self.selection, "An authored plan", self.candidates, **kwargs
         )
 
+    def draft(self, version, *, text=None, verdict="supports", **changes):
+        review = self.host.review
+        parent = review.read(self.selection, version)
+        candidate = Candidate(
+            scope=parent.item.scope,
+            text=text
+            or "A practical lesson "
+            + " ".join("{{cite:" + c.metric_id + "}}" for c in parent.item.citations),
+            citations=parent.item.citations,
+        )
+        kwargs = dict(
+            screen_scores=dict.fromkeys(HAZARDS, 0.01),
+            support_verdict=verdict,
+            expected_sequence=review.sequence(self.selection),
+        )
+        kwargs.update(changes)
+        return self.host.run_authored_draft(
+            self.selection, version, "An authored draft", candidate, **kwargs
+        )
+
 
 @pytest.fixture
 def make(tmp_path):
@@ -269,3 +289,74 @@ def test_actual_screen_hold_creates_no_proof_content_or_automatic_decision(make)
         assert not db.execute(
             "SELECT name FROM sqlite_master WHERE name='mock_execution_proofs'"
         ).fetchall()
+
+
+def test_actual_two_approvals_required_for_draft_export_and_restart_receipt(make):
+    app = make()
+    planned = app.run()
+    review = app.host.review
+    parent = planned.versions[0]
+    with pytest.raises(ValueError, match="parent_approval_required"):
+        app.draft(parent)
+    review.decide(app.selection, parent, approve=True, expected_sequence=planned.sequence)
+    drafted = app.draft(parent)
+    assert drafted.version is not None and not drafted.dropped_codes
+    checked, _, sequence = reopen(app).preview(
+        app.selection, drafted.version, expected_sequence=drafted.sequence
+    )
+    assert checked.content.item.parent_id == parent.item_id
+    with pytest.raises(GateError):
+        review.export(
+            app.selection,
+            idempotency_key="bundle-before-draft-approval",
+            items=(drafted.version,),
+            expected_sequence=sequence,
+        )
+    review.decide(app.selection, drafted.version, approve=True, expected_sequence=sequence)
+    bundle = review.export(
+        app.selection,
+        idempotency_key="actual-mock-bundle",
+        items=(drafted.version,),
+        expected_sequence=review.sequence(app.selection),
+    )
+    assert bundle.markdown and bundle.csv
+    restarted = reopen(app)
+    replayed = restarted.download_receipt(app.selection, "actual-mock-bundle")
+    assert replayed.markdown == bundle.markdown and replayed.csv == bundle.csv
+    with sqlite3.connect(review.database) as db:
+        assert db.execute("SELECT count(*) FROM mock_execution_proofs").fetchone()[0] == 6
+
+
+@pytest.mark.parametrize("condition", ["reject", "edited_parent", "screen", "semantic", "limit"])
+def test_actual_draft_parent_and_output_holds_cannot_create_a_saved_draft(make, condition):
+    app = make()
+    planned = app.run()
+    review = app.host.review
+    parent = planned.versions[0]
+    review.decide(
+        app.selection, parent, approve=condition != "reject", expected_sequence=planned.sequence
+    )
+    if condition == "edited_parent":
+        content = review.read(app.selection, parent)
+        fields = content.item.model_dump(mode="python", exclude={"content_hash"})
+        fields.update(revision=2, text="Edited " + fields["text"])
+        review.save(
+            app.selection,
+            seal_content(**fields),
+            expected_revision=1,
+            expected_sequence=review.sequence(app.selection),
+        )
+    if condition in {"reject", "edited_parent"}:
+        with pytest.raises(ValueError, match="parent_approval_required"):
+            app.draft(parent)
+    elif condition == "limit":
+        with pytest.raises(ValueError, match="target_unavailable"):
+            app.draft(parent, text="a" * 3001 + " {{cite:er.linkedin.topic.untagged}}")
+    else:
+        result = app.draft(
+            parent,
+            verdict="contradicts" if condition == "semantic" else "supports",
+            screen_scores=dict.fromkeys(HAZARDS, 0.9 if condition == "screen" else 0.01),
+        )
+        assert result.version is None and result.dropped_codes
+    assert not any(row.kind == "draft" for row in review.history(app.selection))
