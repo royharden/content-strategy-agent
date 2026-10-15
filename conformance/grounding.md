@@ -67,3 +67,19 @@ The JSON vectors describe validator/state/export cases executed by focused tests
 tests exercise actual process exits, two SQLite connections, tamper, stale approvals and
 detached renamed M3 corpus/M8 queue consumers with valid and invalid controls. These are
 portable consumer proofs, not integration acceptance by the real M3/M8 applications.
+# Additive current review and historical metadata APIs
+
+`AuditStore.require_context` authorizes `read_context` with no content argument, checks
+current generation/policy and optional exact event sequence in the existing transaction,
+and returns an observation, never a lease. `history` first authorizes the empty inventory
+and then every exact version with `read_history`; it returns metadata only, with no partial
+list on denial and no raw or rendered body. Callbacks must explicitly support `None` for
+these context/inventory checks. Item labels and historical state are not capabilities.
+
+`review` authorizes the exact item and reuses `_checked` for latest/current source,
+structural grounding and exact screen/semantic binding, plus current parent approval for
+a draft. It returns checked disclosure only after those gates; it appends no event and
+cannot approve or export. The service checks sequence/context again before disclosure.
+An authorized historical `read_content` remains a trusted storage operation and must not
+be exposed as an unscreened browser-body route. Original DTO schemas and migration bytes
+remain unchanged by these additive APIs.

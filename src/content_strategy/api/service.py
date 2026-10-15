@@ -93,6 +93,34 @@ class LocalReviewService:
         with self._audit(selection) as store:
             return store.sequence
 
+    def require_context(self, selection: Selection, *, expected_sequence: int | None = None) -> int:
+        with self._audit(selection) as store:
+            return store.require_context(
+                selection.snapshot_id,
+                actor_label=self.actor_label,
+                expected_sequence=expected_sequence,
+            )
+
+    def history(self, selection: Selection):
+        with self._audit(selection) as store:
+            rows = store.history(actor_label=self.actor_label)
+        return tuple(
+            row for row in rows if row.version.evidence_generation == selection.snapshot_id
+        )
+
+    def preview(
+        self, selection: Selection, version: ItemVersion, *, expected_sequence: int
+    ) -> tuple[Checked, Assessment, int]:
+        """Only this checked path may feed a browser body; raw read() is trusted storage."""
+        self.require_context(selection, expected_sequence=expected_sequence)
+        content = self.read(selection, version)
+        with self._audit(selection) as store:
+            checked, assessment = store.review(
+                content.item.item_id, content.item.revision, actor_label=self.actor_label
+            )
+        sequence = self.require_context(selection, expected_sequence=expected_sequence)
+        return checked, assessment, sequence
+
     def activate(self, selection: Selection, *, expected_sequence: int) -> int:
         self._allow("activate_context")
         with self._audit(selection) as store:
@@ -120,6 +148,7 @@ class LocalReviewService:
             return store.sequence
 
     def read(self, selection: Selection, version: ItemVersion) -> Content:
+        """Trusted historical storage read; not a browser disclosure or approval capability."""
         version = ItemVersion.model_validate(version.model_dump(mode="python"))
         if version.evidence_generation != selection.snapshot_id:
             raise GateError("selection_generation_mismatch")

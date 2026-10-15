@@ -298,3 +298,48 @@ def test_assessment_callback_failure_never_becomes_implicit_support(make):
     assert h.service.sequence(h.selection) == sequence
     h.service.assess = original_assess
     assert h.approve(rec)
+
+
+def test_checked_preview_and_metadata_history_do_not_create_approval(make):
+    h = make()
+    assert h.service.history(h.selection) == ()
+    h.service.activate(h.selection, expected_sequence=0)
+    rec = h.content()
+    h.save(rec)
+    sequence = h.service.sequence(h.selection)
+    checked, assessment, observed = h.service.preview(
+        h.selection, version(rec), expected_sequence=sequence
+    )
+    assert checked.rendered and assessment.semantic_status == "supports" and observed == sequence
+    rows = h.service.history(h.selection)
+    assert len(rows) == 1 and rows[0].state == "draft" and rows[0].version == version(rec)
+    assert not hasattr(rows[0], "text") and not hasattr(rows[0], "citations")
+    h.denied.add("read_history")
+    with pytest.raises(GateError, match="not_authorized"):
+        h.service.history(h.selection)
+    h.denied.clear()
+    h.denied.add("review")
+    with pytest.raises(GateError, match="not_authorized"):
+        h.service.preview(h.selection, version(rec), expected_sequence=sequence)
+
+
+def test_context_change_between_review_and_disclosure_returns_no_preview(make, monkeypatch):
+    from content_strategy.shared.grounded.audit import AuditStore
+
+    h = make()
+    rec, _ = h.journey()
+    sequence = h.service.sequence(h.selection)
+    original = AuditStore.review
+
+    def intervening(store, *args, **kwargs):
+        result = original(store, *args, **kwargs)
+        retained = h.service.import_csv(source(), config=AnalysisConfig("fixed-utc"))
+        newer = Selection(
+            dataset_id=retained.dataset_id, snapshot_id=retained.report.snapshot.snapshot_id
+        )
+        h.service.activate(newer, expected_sequence=h.service.sequence(newer))
+        return result
+
+    monkeypatch.setattr(AuditStore, "review", intervening)
+    with pytest.raises(GateError, match="stale_evidence_or_policy"):
+        h.service.preview(h.selection, version(rec), expected_sequence=sequence)

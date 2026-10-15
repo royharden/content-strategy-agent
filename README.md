@@ -52,6 +52,11 @@ historical receipts. `api.security.SessionGuard` supplies pure loopback Host/Ori
 checks. No HTTP factory, listener or default passing assessment is provided by these components;
 HTTP integration and browser acceptance remain pending dependency setup and resource allocation.
 
+Metadata history and checked previews now use additive canonical audit APIs. Preview
+rechecks current source, policy, version, assessment, parent and event sequence before
+returning a body. Raw historical content reads are trusted storage operations; the browser
+interface must use checked preview. Context observations and metadata grant no approval.
+
 Metric-only planning requests contain a bounded, declared stratified selection of metric rows,
 never raw post rows/text. A screen hold or unavailable required judge stops subsequent model
 stages. One content repair is bounded; fewer than five survivors is explicit underfill. Supplied

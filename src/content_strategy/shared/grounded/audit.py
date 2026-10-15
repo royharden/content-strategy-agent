@@ -53,6 +53,17 @@ class Bundle:
     historical_replay: bool
 
 
+@dataclass(frozen=True)
+class VersionMetadata:
+    """Authorized historical inventory only; contains no body or approval capability."""
+
+    version: ItemVersion
+    kind: str
+    parent_id: str | None
+    parent_revision: int | None
+    state: str
+
+
 def _version(content: Content) -> ItemVersion:
     item = content.item
     return ItemVersion(
@@ -86,7 +97,7 @@ class AuditStore:
         namespace: str,
         policy: Policy,
         resolver: CurrentEvidence,
-        authorize: Callable[[str, str, Content], bool],
+        authorize: Callable[[str, str, Content | None], bool],
         assess: Callable[[Checked, Policy], Assessment],
         fault: Callable[[str], None] | None = None,
     ):
@@ -248,6 +259,52 @@ class AuditStore:
             content = self._load(item_id, revision)
             self._permission(actor_label, "read_content", content)
             return content
+
+    def require_context(
+        self, generation: str, *, actor_label: str, expected_sequence: int | None = None
+    ) -> int:
+        """Observe authorized current context inside a transaction; the result is not a lease."""
+        with self._transaction():
+            self._permission(actor_label, "read_context", None)
+            self._current_context(generation)
+            if expected_sequence is not None:
+                self._cas(expected_sequence)
+            return self.sequence
+
+    def history(self, *, actor_label: str) -> tuple[VersionMetadata, ...]:
+        """All namespace versions, authorized per item before any metadata is returned."""
+        with self._transaction():
+            # The empty inventory still requires host authorization.
+            self._permission(actor_label, "read_history", None)
+            result = []
+            for item_id, revision in self.connection.execute(
+                "SELECT item_id,revision FROM grounded_versions WHERE namespace=? "
+                "ORDER BY item_id,revision",
+                (self.namespace,),
+            ).fetchall():
+                content = self._load(item_id, revision)
+                self._permission(actor_label, "read_history", content)
+                result.append(
+                    VersionMetadata(
+                        _version(content),
+                        content.item.kind,
+                        content.item.parent_id,
+                        content.item.parent_revision,
+                        self._state(content)[0],
+                    )
+                )
+            return tuple(result)
+
+    def review(
+        self, item_id: str, revision: int, *, actor_label: str
+    ) -> tuple[Checked, Assessment]:
+        """Current checked disclosure; no event, approval, export token or historical bypass."""
+        with self._transaction():
+            content = self._load(item_id, revision)
+            self._permission(actor_label, "review", content)
+            checked, assessment = self._checked(content)
+            self._parent(content)
+            return checked, assessment
 
     def require_approved(self, item_id: str, revision: int, *, actor_label: str) -> Content:
         """Return the currently approved exact version, never a persistent approval token."""

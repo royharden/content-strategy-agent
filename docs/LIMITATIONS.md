@@ -40,3 +40,8 @@ The local review service uses host-injected authorization and assessment callbac
 default approving reviewer, authenticated HTTP session, or implicit active-source pointer.
 Pure session-header tests establish component behavior only. HTTP framework, browser journey,
 resource lifecycle and independent security acceptance remain pending.
+
+Current-context observations are not leases. Checked previews and metadata history
+reuse the actual approval store; an authorized raw historical content read must never
+be treated as permission to disclose an unscreened browser body. Actual host review
+callbacks are required for previews as well as decisions and exports.
