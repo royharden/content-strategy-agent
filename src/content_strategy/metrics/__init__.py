@@ -119,6 +119,23 @@ def _bucket(row: PostRow) -> str:
     return f"{edges[-1]}+"
 
 
+def source_default_tags(dataset: Dataset) -> tuple[TagProvenance, ...]:
+    """The default producer provenance, derived only from canonical source cells."""
+    if type(dataset) is not Dataset:
+        raise ValueError("validated_dataset_required")
+    return tuple(
+        TagProvenance(
+            source_id=row.post_id,
+            field=field,
+            value=getattr(row, field) or "untagged",
+            method="supplied" if getattr(row, field) is not None else "missing",
+            taxonomy_version="supplied-labels.v1",
+        )
+        for row in sorted(dataset.rows, key=lambda row: row.post_id)
+        for field in ("topic", "format")
+    )
+
+
 def compute_metrics(
     dataset: Dataset,
     config: AnalysisConfig | None = None,
@@ -173,21 +190,7 @@ def compute_metrics(
         rows = tuple(assigned)
         compute_version = TAGGED_COMPUTE_VERSION
     clocks = {row.post_id: _clock(row, config) for row in rows}
-    tags = (
-        tag_provenance
-        if tag_provenance is not None
-        else tuple(
-            TagProvenance(
-                source_id=row.post_id,
-                field=field,
-                value=getattr(row, field) or "untagged",
-                method="supplied" if getattr(row, field) is not None else "missing",
-                taxonomy_version="supplied-labels.v1",
-            )
-            for row in rows
-            for field in ("topic", "format")
-        )
-    )
+    tags = tag_provenance if tag_provenance is not None else source_default_tags(dataset)
     identity = SnapshotIdentity(
         dataset_fingerprint=dataset.fingerprint,
         tag_provenance=tags,
