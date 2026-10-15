@@ -1,47 +1,37 @@
 # Current implementation limitations
 
-WP02 provides local atomic CSV ingestion and deterministic analytics as Python functions.
-WP03 adds generic exact-evidence validation, a bounded numeric/passage renderer and
-SQLite approval/audit/two-format export functions. These are local module functions, with
-focused injected-assessment and authorization tests. A finished user workflow, application
-API/UI and shipping end-to-end recommendation generation remain absent. Local source/report
-storage and explicit CLI analysis commands are implemented. Retention is historical and supplies
-no activation or approval. Pipeline and
-tagging components have focused staging controls. Published S3/S6 source, actual rules screening
-and a zero-dispatch provider gateway are present; [provenance](VENDORED.md) describes the scope.
-Structural schema acceptance does not authorize a citation or an action.
+Development is paused. The local Python host API has a complete authored mock review journey;
+the CLI exposes analysis commands and the browser is a static scaffold. The HTTP factory
+exists but its owned routes have not run. Real server, browser, security and independent
+finished-application acceptance remain outstanding.
 
-Runtime policy, migration, historical-receipt and host-trust boundaries are documented in
-[grounding.md](../conformance/grounding.md). Actor labels are attribution, not human
-authentication; screen/semantic fixtures do not establish S6 or model readiness. Detached
-corpus/queue proofs do not establish acceptance by the real downstream applications.
+All current generation, screening and semantic model answers are authored synthetic data.
+Actual shared provider/accounting and native screening classes enforce offline request and
+allocation contracts with zero outbound dispatches. These controls do not measure live model
+accuracy, latency, usage or cost. SDK integration, calibrated comparisons and a full application
+evaluation campaign are unfinished.
 
-The input contract is `csv.v2-bounded-counts`. INT1 approved an explicit MVP-first drift on
-2026-10-14: raw numeric count cells may contain at most 128 ASCII digits, including leading
-zeros. Longer numeric cells reject the whole upload rather than silently excluding rows.
-The original plan did not bound numeric cell size. This guard was chosen before Gold or
-held-out evaluation; no held-out data was opened or used to choose it.
+Host authorization/assessment callbacks are trusted boundaries. Browser inputs contain no
+actor, policy or passing judgment. Actor labels provide attribution rather than verified human
+identity. Loopback sessions are not public or multi-user authentication. Retention does not
+activate a context, an assessment does not approve content, and context observations are not
+leases. Browser bodies must use checked preview.
 
-Exact accepted integer counts can exceed Decimal precision-28/eight-place representability.
-Those metrics retain exact integer sums and eligible counts, but their value is unavailable
-with `arithmetic_out_of_range`. High rates are not clamped. Date-only input never supplies
-an hour. Fixed-UTC calendar overflow is an explicit error. Input normalization, bin edges,
-minimum samples and clock configuration are described in [input-contract.md](input-contract.md).
+The `csv.v2-bounded-counts` contract permits at most 10 MiB, 5,000 posts, 4,000 text code points
+and 128 ASCII digits per raw count cell. Invalid rows reject the whole upload. Exact integer
+sums can exceed Decimal precision-28/eight-place representation; those values are unavailable
+with `arithmetic_out_of_range`, while exact sums and eligible counts remain retained. High rates
+are not clamped. Date-only inputs supply no hour; UTC calendar overflow is explicit.
 
-Supplied labels are untrusted source data. There is no calibrated model tagging or measured
-prompt-screen quality here. Actual S6 rules and native zero-dispatch typed adapters have
-synthetic contract controls; full application workflow integration remains pending.
-Diagnostics for individual posts are insufficient-data records.
-Focused synthetic hand-computed tests establish these domain behaviors only; they do not
-establish real-world recommendation quality, independent app acceptance or live provider
-readiness.
+Only adequately sampled `ok` metrics are citable. Individual-post diagnostics have sample size
+one and remain uncitable. Supplied labels are source data. Model tagging and screen quality
+are uncalibrated. Metric-evidence pointer integration and comparative evaluation are unfinished.
 
-The local review service uses host-injected authorization and assessment callbacks. It has no
-default approving reviewer, authenticated HTTP session, or implicit active-source pointer.
-Pure session-header tests establish component behavior only. HTTP framework, browser journey,
-resource lifecycle and independent security acceptance remain pending.
+Standard X validity/length uses the required mapped v3 profile, not full upstream API
+certification or paid long-form support. LinkedIn uses the application's conservative
+3,000 UTF-16-unit bound. Neither target has a publishing integration.
 
-Current-context observations are not leases. Checked previews and metadata history
-reuse the actual approval store; an authorized raw historical content read must never
-be treated as permission to disclose an unscreened browser body. Actual host review
-callbacks are required for previews as well as decisions and exports.
+Local approval, revision, two-format export and restart behavior have development regression
+coverage. The normal/refusal exercises are synthetic component and host-API checks. A runnable
+interactive launcher and independent application acceptance remain required. See
+[current status](../DEVELOPMENT-STATUS.md) and [input contract](input-contract.md).

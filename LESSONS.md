@@ -1,0 +1,28 @@
+# Development lessons
+
+- Keep retention, activation, assessment and approval explicit. A valid DTO or cached
+  assessment grants no human approval or export permission.
+- Recheck source, policy, exact version, parent and sequence after expensive work and before
+  persistence/disclosure. An earlier current-context observation is not a lease.
+- Human edits need fresh screening/support and an immutable revision. Preserve historical
+  receipt bytes while requiring fresh approval for new bytes.
+- Share sealing/assembly functions between runtime and pre-admission compilation. Concrete
+  requests and native screen nonces precede admission; unknown requests refuse.
+- Label synthetic model answers and decisions. Actual native-class execution in mock mode
+  verifies integration contracts rather than live model or human agreement quality.
+- Source retention verifies its reserved table prefix. Give unrelated proof tables a distinct
+  prefix; preserve the source integrity check.
+- Strict tuple DTOs need JSON validation for wire arrays. Python-list validation can reject
+  an otherwise valid JSON payload.
+- Match official vectors to the API their expected shape describes. Directional URL objects
+  with indices require the indexed extractor. Preserve original cases and expected bytes.
+- Preserve licensed vendor algorithms/data/notices. Scoped Git whitespace attributes retain
+  exact upstream fixtures and patch context without rewriting them.
+- Archive entry counts can include directories. Track total entries, regular files and exact
+  unpacked file bytes separately, alongside integrity and path safety.
+- Windows asyncio startup may construct a TCP socketpair even for an in-memory client.
+  A direct socket-free ASGI check has limited scope; real HTTP/browser checks remain necessary.
+- Preserve timed-out/incomplete records. Serial test groups must retain the same distinct-case
+  denominator; partial output establishes no pass.
+- Separate source/review storage from the call ledger database. Keep runtime artifacts in
+  ignored local data directories. Bolt preview does not provision Python or approval storage.

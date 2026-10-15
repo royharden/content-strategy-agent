@@ -1,44 +1,37 @@
-# Bolt handoff — local components, inspection only
+# Bolt handoff — local backend, frontend scaffold
 
-The Python core has local ingestion/analytics, exact grounding and SQLite approval/audit/receipt
-functions. App pipeline/tagging ports are staged. Published S3/S6 components, a real rules-screen
-adapter and a zero-dispatch provider gateway are present; typed workflow integration is pending.
-The root CLI supports explicit local CSV import and historical report retrieval as well as
-inventory. Local retention creates no active-context or approval authority. The Vite browser
-output is an unfinished static page;
-React workflow, application API integration and browser acceptance remain pending.
+Development is paused. The stack is Python 3.12, Pydantic/FastAPI and local SQLite,
+with Node 24, React, TypeScript and Vite scaffolding. Both lockfiles are committed.
+Browser output is `dist/`; a complete browser workflow is outstanding.
 
-The module-owned SQLite migration is real local code, not a provisioned cloud database. Its
-transaction tests cover exact two-format bytes, approvals, restart, CAS and crash timing.
-No account, hosted backend, remote repository, Bolt import or publication is established.
+The host API supports retained metrics, actual shared screening/accounting in authored mock
+mode, checked review, separate recommendation/draft approvals, revision invalidation and audited
+Markdown/CSV receipts across restart. Live model calls and quality remain unvalidated. The HTTP
+factory is written, but its application routes have not run. A separate constant-route ASGI
+check does not establish application HTTP acceptance.
 
-Python is not a Bolt JavaScript backend. Bolt can inspect/build browser assets; a full workflow
-needs separately authorized authenticated Python hosting or an approved port that passes the
-same conformance. See [supported technologies](https://support.bolt.new/reference/supported-technologies).
-Import alone does not provision Python, SQLite, providers or approval persistence.
+SQLite migrations and append-only review/source/proof storage are real local code. The call
+ledger uses a separate database. There is no provisioned cloud database, authentication
+service, edge function, hosted Python backend or publishing/scheduling integration.
 
-Both lockfiles are committed. Setup/build commands: `uv sync --locked`; `uv run pytest`;
-`uv run python scripts/export_schemas.py --check`;
-`uv run python conformance/export_runtime_schemas.py --check`; `npm ci`; `npm run typecheck`;
-`npm run build`. Browser output is `dist/`. Local serving requires an actual resource claim and
-allocated loopback `CSA_WEB_PORT`. No serving resource is created by these source files.
+The MVP portability decision preserves the Python core and local approval authority. Full
+Bolt-hosted operation needs separately authorized authenticated Python hosting or a separately
+validated JavaScript/Deno port. Static frontend inspection does not provision persistence or
+model access. Public hosting and multi-user authentication are outstanding decisions.
 
-Server-only secret names are reserved; there are no provider calls or secret values in this
-artifact. See [source provenance](docs/VENDORED.md). Typed S3/S6 workflow integration,
-X parser/official target checks, independent
-fixtures/evaluation, the application journey and independent finished-app review remain pending.
+Setup/build entry points are `uv sync --locked`, `npm ci`, `npm run typecheck` and
+`npm run build`. These describe source tooling rather than completed frontend acceptance.
+React type dependency setup is unfinished. Local serving needs an explicit loopback origin
+and a registered listening resource. No server launcher or listener is currently provided.
 
-Inspection prompt: inspect the local components and explicit gaps, verify locked build/schema
-commands, and show the unfinished static page honestly. Keep Python approval/storage authority
-on the server. Do not create a cloud database, deploy functions, add secrets or publish from
-this handoff; provisioning and hosting require their own concrete authorization/readiness.
+Preserve server-controlled actor/namespace/policy and assessment boundaries. Browser bodies
+must use checked preview; exact human approvals precede export. Provider secrets belong on
+the server. Browser request models accept no actor, judgment or proof fields.
 
-Canonical S2 evaluation components are vendored with exact source/license/test provenance.
-They provide generic statistics/comparison boundaries; no application corpus or model
-quality result follows from their synthetic conformance controls.
+Inspection prompt: inspect the components and scaffold, preserve the documented local/cloud
+boundary, and show unfinished browser behavior honestly. Any backend port must preserve input,
+grounding, approval, receipt and target conformance. Provisioning, hosting, provider access and
+publication require separate readiness and authorization.
 
-The local review service joins retained metric snapshots to the actual SQLite approval/export
-store with required host callbacks and explicit activation/version/sequence checks. Pure
-loopback session checks are available. Neither component starts a listener or supplies a
-passing model assessment. Framework integration and browser acceptance remain pending;
-keep these host-controlled authority boundaries when adapting the interface.
+See [development status](DEVELOPMENT-STATUS.md), [limitations](docs/LIMITATIONS.md) and
+[third-party provenance](THIRD_PARTY.md).
