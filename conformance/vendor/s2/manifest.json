@@ -1,9 +1,10 @@
 {
   "publication": {
-    "source_repository": "https://github.com/royharden/receipt-field-review",
     "publication_sha256": "28dbf310102f0bf316525c4945d474b9bca8d7276a9753dd72cfbb824c4d2af3",
     "commit": "249262839c4247ff37cc5a75c6a89a422738c759",
-    "tree": "e60e8ba5efef185a6706c5d266ce3a1ccad5c553"
+    "tree": "e60e8ba5efef185a6706c5d266ce3a1ccad5c553",
+    "source_project": "receipt-field-review",
+    "remote": null
   },
   "files": [
     {

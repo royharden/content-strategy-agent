@@ -53,7 +53,7 @@ without the explicit native binding.
 
 The `shared/evalkit/` runtime, schema and README are unchanged Git blobs from
 receipt-field-review commit `249262839c4247ff37cc5a75c6a89a422738c759`, tree
-`e60e8ba5efef185a6706c5d266ce3a1ccad5c553`. Source: royharden/receipt-field-review;
+`e60e8ba5efef185a6706c5d266ce3a1ccad5c553`. Source: the local receipt-field-review project;
 the run's exact S2-evalkit-001 publication grants these 11 files and nine named
 synthetic conformance files. The complete MIT notice is retained at
 `conformance/vendor/s2/LICENSE`. The manifest pins each original Git blob and SHA256;

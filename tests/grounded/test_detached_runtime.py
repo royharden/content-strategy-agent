@@ -13,6 +13,7 @@ def test_actual_renamed_corpus_and_queue_runtime_consumers(tmp_path):
     shutil.copytree(REPO / "src/content_strategy/shared/grounded", package / "evidence")
     program = r"""
 import sys
+import socket
 
 
 class BlockOwner:
@@ -22,11 +23,29 @@ class BlockOwner:
             or fullname.startswith("content_strategy.")
             or fullname == "tests"
             or fullname.startswith("tests.")
+            or fullname.split('.')[0] in {'openai', 'typesafe'}
         ):
             raise ImportError("owner/test package unavailable")
 
 
 sys.meta_path.insert(0, BlockOwner())
+def no_network(*args, **kwargs):
+    raise RuntimeError("detached network unavailable")
+socket.create_connection = no_network
+socket.socket.connect = no_network
+for name in ('content_strategy', 'openai', 'typesafe'):
+    try:
+        __import__(name)
+    except ImportError as error:
+        assert str(error) == 'owner/test package unavailable'
+    else:
+        raise AssertionError('owner/provider canary escaped')
+try:
+    socket.create_connection(('example.invalid', 443))
+except RuntimeError as error:
+    assert str(error) == 'detached network unavailable'
+else:
+    raise AssertionError('network canary escaped')
 sys.path.insert(0, sys.argv[1])
 from renamed_plugin.evidence.models import EvidenceKey, Metric, MetricCitation
 from renamed_plugin.evidence.validation import (
@@ -126,6 +145,8 @@ store = AuditStore(
     assess=assess,
 )
 store.activate_context(generation, expected_sequence=0)
+assert store.history(actor_label='reviewer') == ()
+assert store.require_context(generation, actor_label='reviewer', expected_sequence=1) == 1
 citation = MetricCitation(
     snapshot_id=generation, metric_id="units", scope="gateway", quoted_value="7", unit="units"
 )
@@ -152,6 +173,27 @@ draft = seal_content(
     parent_revision=1,
 )
 store.save(draft, actor_label="reviewer", expected_revision=0, expected_sequence=store.sequence)
+observed_sequence = store.sequence
+inventory = store.history(actor_label='reviewer')
+assert len(inventory) == 2 and all(not hasattr(row, 'text') for row in inventory)
+reviewed, assessment = store.review('response', 1, actor_label='reviewer')
+assert reviewed.rendered == 'Allowed 7 units' and store.sequence == observed_sequence
+held = assessment.model_copy(update={'screen_status':'hold'})
+store.assess = lambda *args: held
+try:
+    store.review('response', 1, actor_label='reviewer')
+except GateError as error:
+    assert str(error) == 'screen_not_passed'
+else:
+    raise AssertionError('held body was disclosed')
+store.assess = assess
+try:
+    store.history(actor_label='intruder')
+except GateError as error:
+    assert str(error) == 'not_authorized'
+else:
+    raise AssertionError('unauthorized history returned')
+assert store.sequence == observed_sequence
 request = ExportRequest(
     idempotency_key="bundle",
     actor_label="reviewer",
@@ -177,7 +219,8 @@ assert not any(
 )
 print(
     "PASS: detached M3 exact passage positive/wrong-quote negative; "
-    "M8 two approvals/export/refusal/replay"
+    "M8 two approvals/export/refusal/replay; current review/context/history; "
+    "owner/provider/network controls"
 )
 """
     result = subprocess.run(

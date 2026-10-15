@@ -1,6 +1,5 @@
 {
   "component": "S3 offline purpose successor",
-  "source_repository": "https://github.com/royharden/llm-router-eval",
   "commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
   "tree": "2887e018acff384fc1a872080f399c2aeb44c5e0",
   "publication_sha256": "c18c5a2b52a96d408985734422a10dbb48b4255a00b57229f3832add320969a0",
@@ -183,5 +182,7 @@
       "action": "exactGitcopy original; testnamespace/root-onlyadaptation with exactdiff",
       "actual_source_sha256": "5fab62021f0d4cea121994c39b5f9fd3930fc3f17594d49f16205c3987e8fcad"
     }
-  ]
+  ],
+  "source_project": "llm-router-eval",
+  "remote": null
 }
