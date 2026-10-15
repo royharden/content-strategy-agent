@@ -85,9 +85,9 @@ class ProofStore:
         ):
             raise GateError("actual_completed_mock_required")
         kind = runtime.kind
-        if kind not in {"plan", "draft"}:
+        if kind not in {"plan", "draft", "edit"}:
             raise GateError("mock_operation_kind")
-        support_stage = "support" if kind == "plan" else "support.draft"
+        support_stage = "support" if kind == "plan" else "support." + kind
         generation_purpose = "s9." + kind + ".initial"
         support_purpose = "s9." + support_stage + ".initial"
         known = {
@@ -96,18 +96,20 @@ class ProofStore:
             "screen." + support_stage + ".initial",
             support_stage + ".initial",
         }
+        if kind == "edit":
+            known = {"screen.support.edit.initial", "support.edit.initial"}
         if (
             runtime.ports.completed != known
             or runtime.ledger.operation_state(runtime.allocation) != "complete"
         ):
             raise GateError("mock_operation_incomplete")
         calls = runtime.ports.calls
-        if len(runtime.ports.results) != 2:
+        if len(runtime.ports.results) != (1 if kind == "edit" else 2):
             raise GateError("mock_result_coverage")
-        generation, support = runtime.ports.results
-        for purpose, result in zip(
-            (generation_purpose, support_purpose), (generation, support), strict=True
-        ):
+        generation = None if kind == "edit" else runtime.ports.results[0]
+        support = runtime.ports.results[-1]
+        purposes = (support_purpose,) if kind == "edit" else (generation_purpose, support_purpose)
+        for purpose, result in zip(purposes, runtime.ports.results, strict=True):
             call = calls[purpose]
             result.validate_for(call.request)
             if (
@@ -147,7 +149,10 @@ class ProofStore:
             "origin": "authored_synthetic_mock",
             "quality_measurement": False,
             "allocation": runtime.allocation.model_dump(mode="python"),
-            "generation_capture": generation.source_capture.model_dump(mode="python"),
+            "input_origin": "human_edit" if kind == "edit" else "authored_synthetic_candidate",
+            "generation_capture": None
+            if generation is None
+            else generation.source_capture.model_dump(mode="python"),
             "support_capture": support.source_capture.model_dump(mode="python"),
             "screens": stages,
         }

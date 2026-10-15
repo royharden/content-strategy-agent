@@ -14,7 +14,7 @@ from ..adapters.compiled import CompiledCall, CompiledPorts
 from ..adapters.provider import OfflineGateway
 from ..adapters.screening import NativeScreen
 from ..metrics.grounding import MetricsResolver
-from ..pipeline import Pipeline
+from ..pipeline import Drop, Evaluated, Pipeline
 from ..pipeline.assembly import (
     draft_content,
     draft_document,
@@ -24,8 +24,16 @@ from ..pipeline.assembly import (
     recommendation_content,
     select_metrics,
 )
-from ..pipeline.drafting import draft, require_parent
-from ..pipeline.ports import Assembly, Bindings, CallBinding, Candidate, PortRefusal, WorkflowPolicy
+from ..pipeline.drafting import DraftResult, draft, require_parent
+from ..pipeline.ports import (
+    Assembly,
+    Bindings,
+    CallBinding,
+    Candidate,
+    PortRefusal,
+    SupportResult,
+    WorkflowPolicy,
+)
 from ..platforms import check_target
 from ..shared.callledger import Ledger
 from ..shared.callledger.ledger import LedgerError
@@ -112,6 +120,7 @@ class MockPlan:
     parent: Content | None = None
     parent_authority: object = None
     actor_label: str | None = None
+    edit_content: Content | None = None
 
     @property
     def accepted(self):
@@ -130,7 +139,7 @@ class MockPlan:
                 self.strategy = self.pipeline.plan(
                     self.snapshot, self.brief, bindings=self.bindings
                 )
-            else:
+            elif self.kind == "draft":
                 self.strategy = draft(
                     self.pipeline,
                     self.parent,
@@ -140,6 +149,10 @@ class MockPlan:
                     actor_label=self.actor_label,
                     bindings=self.bindings,
                 )
+            elif self.kind == "edit":
+                self.strategy = _assess_edit(self)
+            else:
+                raise PortRefusal("unknown_compiled_operation")
             return self.strategy
         finally:
             self.finish()
@@ -311,6 +324,123 @@ def compile_draft(
     return runtime
 
 
+def compile_edit(
+    database: Path,
+    snapshot: MetricSnapshot,
+    content: Content,
+    *,
+    namespace: str,
+    screen_policy: ScreenPolicy,
+    screen_scores: dict,
+    support_verdict: str,
+    parent: Content | None,
+    authority,
+    actor_label: str,
+) -> MockPlan:
+    snapshot = MetricSnapshot.model_validate(snapshot.model_dump(mode="python"))
+    content = Content.model_validate(content.model_dump(mode="python"))
+    if type(screen_policy) is not ScreenPolicy or screen_policy.required_method != "typed":
+        raise PortRefusal("typed_mock_policy_required")
+    if set(screen_scores) != set(HAZARDS) or support_verdict not in VERDICTS:
+        raise PortRefusal("complete_authored_answers_required")
+    policy = Policy(screen_edition=screen_policy.sha256)
+    resolver = MetricsResolver(snapshot)
+    checked = validate(content, resolver, policy)
+    if checked.report.failures:
+        raise PortRefusal("edited_content_invalid")
+    parent_checked = None
+    if content.item.kind == "draft":
+        if parent is None or (parent.item.item_id, parent.item.revision) != (
+            content.item.parent_id,
+            content.item.parent_revision,
+        ):
+            raise PortRefusal("parent_version_mismatch")
+        require_parent(authority, parent, actor_label)
+        parent_checked = validate(parent, resolver, policy)
+        if parent_checked.report.failures:
+            raise PortRefusal("invalid_parent_grounding")
+        if not check_target(content.item.scope, checked.rendered).valid:
+            raise PortRefusal("edited_target_unavailable")
+        if {c.model_dump_json() for c in content.item.citations} != {
+            c.model_dump_json() for c in parent.item.citations
+        }:
+            raise PortRefusal("parent_evidence_mismatch")
+    elif parent is not None:
+        raise PortRefusal("unexpected_parent")
+    assembly = Assembly.build(
+        {
+            "task": "review_human_edit",
+            "item_id": content.item.item_id,
+            "kind": content.item.kind,
+            "content": checked.rendered,
+            "citations": content.item.model_dump(mode="python")["citations"],
+            "metrics": [m.model_dump(mode="python") for m in checked.evidence],
+            "parent": parent_checked.rendered if parent_checked is not None else None,
+        },
+        snapshot.snapshot_id,
+    )
+    workflow = WorkflowPolicy(
+        screen_policy_sha256=screen_policy.sha256, required_method="typed_mock", origin="mock"
+    )
+    runtime = _compile(
+        database,
+        snapshot,
+        "",
+        (),
+        [checked],
+        assembly,
+        assembly,
+        namespace=namespace,
+        screen_policy=screen_policy,
+        screen_scores=screen_scores,
+        support_verdicts={content.item.item_id: support_verdict},
+        workflow=workflow,
+        policy=policy,
+        kind="edit",
+    )
+    runtime.parent, runtime.parent_authority, runtime.actor_label = parent, authority, actor_label
+    runtime.edit_content = content
+    return runtime
+
+
+def _assess_edit(runtime):
+    content = runtime.edit_content
+    item_id = content.item.item_id
+    try:
+        if runtime.parent is not None:
+            require_parent(runtime.parent_authority, runtime.parent, runtime.actor_label)
+        checked = validate(
+            content, MetricsResolver(runtime.snapshot), runtime.pipeline.grounded_policy
+        )
+        if checked.report.failures:
+            raise PortRefusal("edited_content_invalid")
+        assembly = runtime.ports.calls["s9.support.edit.initial"].assembly
+        screen = runtime.pipeline.screened(
+            assembly, stage="screen.support.edit.initial", bindings=runtime.bindings
+        )
+        binding = runtime.bindings.get(
+            "support.edit.initial", runtime.snapshot.snapshot_id, runtime.pipeline.policy
+        )
+        result = SupportResult.model_validate(
+            runtime.ports.judge((checked,), assembly, binding=binding).model_dump(mode="python")
+        )
+        if (
+            result.status != "ok"
+            or result.origin != "mock"
+            or len(result.decisions) != 1
+            or result.decisions[0].item_id != item_id
+            or result.accounting_ref != runtime.allocation.allocation_id
+        ):
+            raise PortRefusal("edited_semantic_unavailable")
+        if result.decisions[0].verdict != "supports":
+            raise PortRefusal("edited_semantic_" + result.decisions[0].verdict)
+        if runtime.parent is not None:
+            require_parent(runtime.parent_authority, runtime.parent, runtime.actor_label)
+        return DraftResult(Evaluated(checked, screen, result.method, result.origin), (), 1)
+    except PortRefusal as error:
+        return DraftResult(None, (Drop(item_id, (str(error),)),), 1)
+
+
 def _compile(
     database,
     snapshot,
@@ -330,44 +460,57 @@ def _compile(
 ):
     generation = snapshot.snapshot_id
     ids = tuple(c.content.item.item_id for c in checked)
-    support_stage = "support" if kind == "plan" else "support.draft"
-    prefixes = (
-        "screen." + kind + ".",
-        kind + ".",
-        "screen." + support_stage + ".",
-        support_stage + ".",
-    )
-    stages = tuple(prefix + phase for phase in ("initial", "repair") for prefix in prefixes)
+    support_stage = "support" if kind == "plan" else "support." + kind
+    prefixes = ("screen." + support_stage + ".", support_stage + ".")
+    phases = ("initial",)
+    if kind != "edit":
+        prefixes = ("screen." + kind + ".", kind + ".", *prefixes)
+        phases = ("initial", "repair")
+    stages = tuple(prefix + phase for phase in phases for prefix in prefixes)
     if max(len(a.text.encode("utf-8")) for a in (plan_assembly, support_assembly)) > 32768:
         raise PortRefusal("input_too_large")
-    generated = GenerateRequest.model_validate(
-        {
-            "schema_version": 1,
-            "kind": "generate",
-            "model": MODEL,
-            "messages": [
-                {"role": "user", "content": [{"type": "text", "text": plan_assembly.text}]}
-            ],
-            "max_output_tokens": 4096,
-            "stream": False,
-        }
+    generated = (
+        None
+        if kind == "edit"
+        else GenerateRequest.model_validate(
+            {
+                "schema_version": 1,
+                "kind": "generate",
+                "model": MODEL,
+                "messages": [
+                    {"role": "user", "content": [{"type": "text", "text": plan_assembly.text}]}
+                ],
+                "max_output_tokens": 4096,
+                "stream": False,
+            }
+        )
     )
     support = support_request(support_assembly, ids)
-    native_plan = NativeScreen.prepare(plan_assembly, policy=screen_policy, model=MODEL)
+    native_plan = (
+        None
+        if kind == "edit"
+        else NativeScreen.prepare(plan_assembly, policy=screen_policy, model=MODEL)
+    )
     native_support = NativeScreen.prepare(support_assembly, policy=screen_policy, model=MODEL)
     requests = {
-        "screen." + kind + ".initial": native_plan.request,
-        kind + ".initial": generated,
         "screen." + support_stage + ".initial": native_support.request,
         support_stage + ".initial": support,
     }
+    if kind != "edit":
+        requests = {
+            "screen." + kind + ".initial": native_plan.request,
+            kind + ".initial": generated,
+            **requests,
+        }
     assemblies = {
         stage: plan_assembly
         if stage in {"screen." + kind + ".initial", kind + ".initial"}
         else support_assembly
         for stage in requests
     }
-    configs = {False: _config(False), True: _config(True)}
+    configs = (
+        {True: _config(True)} if kind == "edit" else {False: _config(False), True: _config(True)}
+    )
     deadline = (datetime.now(UTC) + timedelta(seconds=120)).isoformat().replace("+00:00", "Z")
     operation = "mock-" + uuid4().hex
     authority = BudgetAuthority(
@@ -524,7 +667,7 @@ def _compile(
             context_sha256=canonical_digest(root.model_dump(mode="json")),
             children=children,
         )
-        allocation = providers[False].admit_operation(
+        allocation = next(iter(providers.values())).admit_operation(
             plan, ledger=ledger, budget=authority, context=root, limits=limits
         )
         bindings = {

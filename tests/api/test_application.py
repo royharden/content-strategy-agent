@@ -1,5 +1,6 @@
 """Synthetic local sourceâ†’actual mock executionâ†’durable proof/review development controls."""
 
+import json
 import sqlite3
 from dataclasses import dataclass, replace
 
@@ -56,6 +57,15 @@ class App:
         return self.host.run_authored_draft(
             self.selection, version, "An authored draft", candidate, **kwargs
         )
+
+    def edit(self, version, text, *, verdict="supports", **changes):
+        kwargs = dict(
+            screen_scores=dict.fromkeys(HAZARDS, 0.01),
+            support_verdict=verdict,
+            expected_sequence=self.host.review.sequence(self.selection),
+        )
+        kwargs.update(changes)
+        return self.host.run_authored_edit(self.selection, version, text, **kwargs)
 
 
 @pytest.fixture
@@ -360,3 +370,148 @@ def test_actual_draft_parent_and_output_holds_cannot_create_a_saved_draft(make, 
         )
         assert result.version is None and result.dropped_codes
     assert not any(row.kind == "draft" for row in review.history(app.selection))
+
+
+def approved_draft(app):
+    plan = app.run()
+    review = app.host.review
+    parent = plan.versions[0]
+    review.decide(app.selection, parent, approve=True, expected_sequence=plan.sequence)
+    draft = app.draft(parent)
+    review.decide(app.selection, draft.version, approve=True, expected_sequence=draft.sequence)
+    return parent, draft.version
+
+
+def test_actual_human_edit_draft_two_typed_stages_fresh_approval_and_historical_receipt(make):
+    app = make()
+    _, old = approved_draft(app)
+    review = app.host.review
+    original = review.read(app.selection, old)
+    prior = review.export(
+        app.selection,
+        idempotency_key="before-edit",
+        items=(old,),
+        expected_sequence=review.sequence(app.selection),
+    )
+    result = app.edit(old, "Revised " + original.item.text)
+    assert result.version.revision == old.revision + 1
+    assert result.version.item_id == old.item_id and result.version.content_hash != old.content_hash
+    assert result.execution_origin == "human_edit_with_authored_synthetic_assessment"
+    _, _, sequence = reopen(app).preview(
+        app.selection, result.version, expected_sequence=result.sequence
+    )
+    with pytest.raises(GateError):
+        review.export(
+            app.selection,
+            idempotency_key="unapproved-edit",
+            items=(result.version,),
+            expected_sequence=sequence,
+        )
+    review.decide(app.selection, result.version, approve=True, expected_sequence=sequence)
+    bundle = review.export(
+        app.selection,
+        idempotency_key="approved-edit",
+        items=(result.version,),
+        expected_sequence=review.sequence(app.selection),
+    )
+    assert bundle.markdown != prior.markdown
+    assert reopen(app).download_receipt(app.selection, "before-edit").markdown == prior.markdown
+    with sqlite3.connect(review.database) as db:
+        payload = json.loads(
+            db.execute(
+                "SELECT payload FROM mock_execution_proofs ORDER BY sequence DESC LIMIT 1"
+            ).fetchone()[0]
+        )
+    provenance = payload["provenance"]
+    assert provenance["input_origin"] == "human_edit" and provenance["generation_capture"] is None
+    operation_id = provenance["allocation"]["operation_id"]
+    with sqlite3.connect(app.host.call_database) as db:
+        rows = db.execute(
+            "SELECT child_id FROM children WHERE operation_id=?", (operation_id,)
+        ).fetchall()
+        assert {row[0] for row in rows} == {"screen.support.edit.initial", "support.edit.initial"}
+        assert not db.execute(
+            "SELECT id FROM attempts WHERE operation_id=?", (operation_id,)
+        ).fetchall()
+
+
+def test_actual_human_edit_recommendation_invalidates_dependent_approved_draft(make):
+    app = make()
+    parent, draft = approved_draft(app)
+    review = app.host.review
+    original = review.read(app.selection, parent)
+    result = app.edit(parent, "Revised " + original.item.text)
+    assert result.version.item_id == parent.item_id and result.version.revision == 2
+    with pytest.raises(GateError):
+        review.preview(app.selection, draft, expected_sequence=result.sequence)
+    with pytest.raises(GateError):
+        review.export(
+            app.selection,
+            idempotency_key="stale-parent",
+            items=(draft,),
+            expected_sequence=result.sequence,
+        )
+
+
+@pytest.mark.parametrize("condition", ["screen", "semantic", "numeric", "permission"])
+def test_actual_human_edit_hold_creates_no_new_revision(make, condition):
+    app = make()
+    plan = app.run()
+    review = app.host.review
+    version = plan.versions[0]
+    original = review.read(app.selection, version)
+    text = ("42 " if condition == "numeric" else "Revised ") + original.item.text
+    if condition == "permission":
+        app.denied.add("edit")
+    if condition in {"numeric", "permission"}:
+        with pytest.raises(ValueError):
+            app.edit(version, text)
+    else:
+        result = app.edit(
+            version,
+            text,
+            verdict="contradicts" if condition == "semantic" else "supports",
+            screen_scores=dict.fromkeys(HAZARDS, 0.9 if condition == "screen" else 0.01),
+        )
+        assert result.version is None and result.dropped_codes
+    assert all(row.version.revision == 1 for row in review.history(app.selection))
+
+
+def test_actual_human_edit_stale_version_refuses_before_new_operation(make):
+    app = make()
+    plan = app.run()
+    old = plan.versions[0]
+    text = "Revised " + app.host.review.read(app.selection, old).item.text
+    app.edit(old, text)
+    with sqlite3.connect(app.host.call_database) as db:
+        before = db.execute("SELECT count(*) FROM operations").fetchone()[0]
+    with pytest.raises(GateError):
+        app.edit(old, text)
+    with sqlite3.connect(app.host.call_database) as db:
+        assert db.execute("SELECT count(*) FROM operations").fetchone()[0] == before
+
+
+def test_actual_human_edit_parent_revoked_after_judgment_cannot_be_saved(make, monkeypatch):
+    app = make()
+    parent, version = approved_draft(app)
+    review = app.host.review
+    text = "Revised " + review.read(app.selection, version).item.text
+    from content_strategy.adapters.compiled import CompiledPorts
+
+    original = CompiledPorts.judge
+
+    def judge(port, items, assembly, *, binding):
+        result = original(port, items, assembly, binding=binding)
+        if binding.purpose == "s9.support.edit.initial":
+            review.decide(
+                app.selection,
+                parent,
+                approve=False,
+                expected_sequence=review.sequence(app.selection),
+            )
+        return result
+
+    monkeypatch.setattr(CompiledPorts, "judge", judge)
+    with pytest.raises(GateError):
+        app.edit(version, text)
+    assert all(row.version.revision == 1 for row in review.history(app.selection))

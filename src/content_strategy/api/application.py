@@ -4,10 +4,11 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from ..pipeline.ports import Candidate
-from ..runtime.mock import compile_draft, compile_plan
+from ..runtime.mock import compile_draft, compile_edit, compile_plan
 from ..runtime.proofs import ProofStore
 from ..shared.grounded.audit import GateError
 from ..shared.grounded.models import ItemVersion
+from ..shared.grounded.validation import seal_content
 from ..shared.screen import ScreenPolicy
 from .service import LocalReviewService, Selection
 
@@ -173,6 +174,85 @@ class PlanningHost:
                 review.require_context(selection, expected_sequence=sequence)
                 return Drafted(
                     version, sequence, result.proposed, tuple(drop.codes for drop in result.dropped)
+                )
+            finally:
+                runtime.close()
+
+    def run_authored_edit(
+        self,
+        selection: Selection,
+        version: ItemVersion,
+        text: str,
+        *,
+        screen_scores: dict,
+        support_verdict: str,
+        expected_sequence: int,
+    ) -> Drafted:
+        review = self.review
+        review._allow("edit")
+        review.require_context(selection, expected_sequence=expected_sequence)
+        retained = review.report(selection)
+        with review._audit(selection) as authority:
+            checked, _ = authority.review(
+                version.item_id, version.revision, actor_label=review.actor_label
+            )
+            original = checked.content
+            if (
+                original.item.content_hash != version.content_hash
+                or original.item.snapshot_id != version.evidence_generation
+            ):
+                raise GateError("version_mismatch")
+            fields = original.item.model_dump(mode="python", exclude={"content_hash"})
+            fields.update(text=text, revision=version.revision + 1)
+            content = seal_content(
+                **fields, editorial=original.editorial, passages=original.passages
+            )
+            parent = None
+            if original.item.kind == "draft":
+                parent = authority.require_approved(
+                    original.item.parent_id,
+                    original.item.parent_revision,
+                    actor_label=review.actor_label,
+                )
+            runtime = compile_edit(
+                self.call_database,
+                retained.report.snapshot,
+                content,
+                namespace=review.namespace,
+                screen_policy=self.screen_policy,
+                screen_scores=screen_scores,
+                support_verdict=support_verdict,
+                parent=parent,
+                authority=authority,
+                actor_label=review.actor_label,
+            )
+            try:
+                if runtime.pipeline.grounded_policy.digest != review.policy.digest:
+                    raise GateError("host_policy_mismatch")
+                result = runtime.run()
+                sequence = review.require_context(selection, expected_sequence=expected_sequence)
+                edited = None
+                if result.accepted is not None:
+                    self.proofs.retain(runtime)
+                    sequence = review.save(
+                        selection,
+                        content,
+                        expected_revision=version.revision,
+                        expected_sequence=sequence,
+                    )
+                    edited = ItemVersion(
+                        item_id=content.item.item_id,
+                        revision=content.item.revision,
+                        content_hash=content.item.content_hash,
+                        evidence_generation=content.item.snapshot_id,
+                    )
+                review.require_context(selection, expected_sequence=sequence)
+                return Drafted(
+                    edited,
+                    sequence,
+                    result.proposed,
+                    tuple(drop.codes for drop in result.dropped),
+                    execution_origin="human_edit_with_authored_synthetic_assessment",
                 )
             finally:
                 runtime.close()
