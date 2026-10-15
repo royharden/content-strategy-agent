@@ -107,13 +107,15 @@ class MockPlan:
     cleanup: tuple = ()
     used: bool = False
     closed: bool = False
+    strategy: object = None
 
     def run(self):
         if self.used or self.closed:
             raise PortRefusal("compiled_operation_already_used")
         self.used = True
         try:
-            return self.pipeline.plan(self.snapshot, self.brief, bindings=self.bindings)
+            self.strategy = self.pipeline.plan(self.snapshot, self.brief, bindings=self.bindings)
+            return self.strategy
         finally:
             self.finish()
 

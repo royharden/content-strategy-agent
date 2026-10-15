@@ -48,6 +48,7 @@ class CompiledPorts:
         self.screens = MappingProxyType(dict(screens))
         self.completed = set()
         self.results = []
+        self.screen_results = {}
 
     def check(self, assembly, *, binding):
         pair = self.screens.get(binding.purpose)
@@ -65,6 +66,7 @@ class CompiledPorts:
             raise PortRefusal("uncompiled_screen_input")
         result = native.check(assembly, binding=binding)
         self.completed.add(binding.context.child_id)
+        self.screen_results[binding.purpose] = result
         return result
 
     def _call(self, assembly, binding):
