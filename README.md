@@ -10,7 +10,10 @@ receipt engine. Pipeline staging uses injected generation, screening and semanti
 supplied/keyword/untagged tagging and a conservative LinkedIn UTF-16 target check are present.
 X draft support is unavailable until its proposed parser and official conformance pass.
 
-The CLI currently exposes status/version/help. There is no complete application API/UI workflow,
+The CLI exposes status/version/help, `import-csv` and exact historical `report` commands.
+Imports retain validated source bytes and full reports atomically in an explicitly named local
+SQLite database/namespace. Reports remain historical; retention neither activates a source nor
+approves content. There is no complete application API/UI workflow,
 shipping end-to-end mock/replay pipeline integration. Published S3/S6 components and app rules/
 offline-call adapters are present; see [provenance and limits](docs/VENDORED.md). Authored doubles
 are not production providers, screen implementations or measured model results. The static
@@ -22,6 +25,12 @@ uv run --offline --no-sync pytest tests/ingest tests/metrics tests/grounded test
 uv run --offline --no-sync python scripts/export_schemas.py --check
 uv run --offline --no-sync python conformance/export_runtime_schemas.py --check
 ```
+
+For local analysis, run `python -m content_strategy import-csv --database <local.sqlite3>
+--namespace <user> --file <posts.csv>`. The result supplies dataset and snapshot IDs for
+`python -m content_strategy report --database <local.sqlite3> --namespace <user>
+--dataset-id <id> --snapshot-id <hash>`. Paths are explicit trusted host inputs. The CLI has
+no activation, approval or export command; it does not call providers.
 
 These commands need the existing locked Python 3.12 environment. Fresh setup uses `uv sync --locked`.
 Node 24/Vite commands are `npm ci`, `npm test`, `npm run typecheck`, `npm run build`; `dist/` is

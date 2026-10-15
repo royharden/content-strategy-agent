@@ -4,7 +4,9 @@ WP02 provides local atomic CSV ingestion and deterministic analytics as Python f
 WP03 adds generic exact-evidence validation, a bounded numeric/passage renderer and
 SQLite approval/audit/two-format export functions. These are local module functions, with
 focused injected-assessment and authorization tests. A finished user workflow, application
-storage/API/UI and shipping end-to-end recommendation generation remain absent. Pipeline and
+API/UI and shipping end-to-end recommendation generation remain absent. Local source/report
+storage and explicit CLI analysis commands are implemented. Retention is historical and supplies
+no activation or approval. Pipeline and
 tagging components have focused staging controls. Published S3/S6 source, actual rules screening
 and a zero-dispatch provider gateway are present; [provenance](VENDORED.md) describes the scope.
 Structural schema acceptance does not authorize a citation or an action.

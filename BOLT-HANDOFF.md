@@ -3,8 +3,10 @@
 The Python core has local ingestion/analytics, exact grounding and SQLite approval/audit/receipt
 functions. App pipeline/tagging ports are staged. Published S3/S6 components, a real rules-screen
 adapter and a zero-dispatch provider gateway are present; typed workflow integration is pending.
-The root CLI reports inventory only. The Vite browser output is an unfinished static page;
-React workflow, application API/storage and browser acceptance remain pending.
+The root CLI supports explicit local CSV import and historical report retrieval as well as
+inventory. Local retention creates no active-context or approval authority. The Vite browser
+output is an unfinished static page;
+React workflow, application API integration and browser acceptance remain pending.
 
 The module-owned SQLite migration is real local code, not a provisioned cloud database. Its
 transaction tests cover exact two-format bytes, approvals, restart, CAS and crash timing.

@@ -37,7 +37,7 @@ class PackageScaffoldTests(unittest.TestCase):
             status = json.loads(result.stdout)
             self.assertEqual(status["stage"], "local-components")
             self.assertFalse(status["schema_validation_is_authorization"])
-            self.assertEqual(status["implemented_workflows"], [])
+            self.assertEqual(status["implemented_workflows"], ["local_csv_analysis"])
             self.assertFalse(status["provider_calls"])
             self.assertFalse(status["approval_export_available"])
             self.assertTrue(status["local_module_approval_export"])
@@ -51,13 +51,15 @@ class PackageScaffoldTests(unittest.TestCase):
             shutil.copytree(REPO / "src", source)
             result = self.invoke(source, cwd, "--status-json")
             self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertEqual(json.loads(result.stdout)["implemented_workflows"], [])
+            self.assertEqual(
+                json.loads(result.stdout)["implemented_workflows"], ["local_csv_analysis"]
+            )
 
     def test_unimplemented_workflow_is_rejected_instead_of_faked(self) -> None:
         with tempfile.TemporaryDirectory() as folder:
             result = self.invoke(REPO / "src", Path(folder), "export", "--approve")
             self.assertEqual(result.returncode, 2)
-            self.assertIn("unrecognized arguments", result.stderr)
+            self.assertIn("invalid choice", result.stderr)
             self.assertNotIn("approved", result.stdout)
 
     def test_version_matches_package_metadata(self) -> None:
