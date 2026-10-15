@@ -35,6 +35,7 @@ def screen_typed(
     allocation,
     policy: ScreenPolicy,
     captured_wrapped=None,
+    request_binding=None,
 ):
     if isinstance(prepared, HeldInput):
         return result_for(prepared, policy)
@@ -82,7 +83,32 @@ def screen_typed(
             decision="needs_human",
             reason_codes=("accounting_context_unavailable",),
         )
-    if captured_wrapped is not None:
+    native_prepared = None
+    if request_binding is not None:
+        from .s3_adapter import observe_native_binding
+
+        try:
+            native_prepared = observe_native_binding(
+                request_binding,
+                prepared,
+                model=model,
+                captured_wrapped=captured_wrapped,
+                gateway=typed_gateway,
+                purpose=purpose,
+                ledger=ledger,
+                budget=budget,
+                context=context,
+                limits=limits,
+                allocation=allocation,
+            )
+        except Exception:
+            return result_for(
+                prepared, policy, decision="needs_human", reason_codes=("invalid_capture",)
+            )
+        wrapped = request_binding.wrapped
+        request = request_binding.request
+        question_sha256 = request_binding.question_spec_sha256
+    elif captured_wrapped is not None:
         if not validate_captured_wrapper(prepared, captured_wrapped):
             return result_for(
                 prepared, policy, decision="needs_human", reason_codes=("invalid_capture",)
@@ -105,38 +131,45 @@ def screen_typed(
             decision="needs_human",
             reason_codes=("capture_allocation_unavailable",),
         )
-    try:
-        wrapped = wrap_untrusted(prepared)
-    except ScreenValidationError:
-        return result_for(
-            prepared, policy, decision="needs_human", reason_codes=("wrapper_unavailable",)
-        )
-    request = {
-        "schema_version": 1,
-        "kind": "typed_judgment",
-        "model": model,
-        "state": dict(wrapped.state),
-        "questions": screen_questions(),
-    }
-    request_bound = _field(limits, "max_request_bytes")
-    if type(request_bound) is not int or request_bound < 1:
-        return result_for(
-            prepared,
-            policy,
-            decision="needs_human",
-            reason_codes=("accounting_context_unavailable",),
-        )
-    request_bytes = json.dumps(request, ensure_ascii=False, allow_nan=False).encode("utf-8")
-    if len(request_bytes) > request_bound:
-        return result_for(
-            prepared, policy, decision="needs_human", reason_codes=("request_too_large",)
-        )
+    else:
+        try:
+            wrapped = wrap_untrusted(prepared)
+        except ScreenValidationError:
+            return result_for(
+                prepared, policy, decision="needs_human", reason_codes=("wrapper_unavailable",)
+            )
+        request = {
+            "schema_version": 1,
+            "kind": "typed_judgment",
+            "model": model,
+            "state": dict(wrapped.state),
+            "questions": screen_questions(),
+        }
+        question_sha256 = QUESTION_SET_SHA256
+        request_bound = _field(limits, "max_request_bytes")
+        if type(request_bound) is not int or request_bound < 1:
+            return result_for(
+                prepared,
+                policy,
+                decision="needs_human",
+                reason_codes=("accounting_context_unavailable",),
+            )
+        request_bytes = json.dumps(request, ensure_ascii=False, allow_nan=False).encode("utf-8")
+        if len(request_bytes) > request_bound:
+            return result_for(
+                prepared, policy, decision="needs_human", reason_codes=("request_too_large",)
+            )
     common = {
         "decision": "needs_human",
         "model_requested": model,
-        "question_set_sha256": QUESTION_SET_SHA256,
+        "question_set_sha256": question_sha256,
         "wrapped_state_sha256": wrapped.sha256,
     }
+    if native_prepared is not None:
+        common.update(
+            request_identity_sha256=native_prepared.request_identity_sha256,
+            actual_dispatched_envelope_sha256=native_prepared.dispatched_envelope_sha256,
+        )
     try:
         response = typed_gateway.run(
             request,
@@ -190,7 +223,10 @@ def screen_typed(
             )
         typed = _field(response, "typed")
         # Fresh requests cannot become replay merely by returned origin.
-        if method not in ("typed_mock", "typed_live") or _field(response, "kind") != "typed":
+        allowed_methods = (
+            ("typed_mock", "typed_replay") if native_prepared else ("typed_mock", "typed_live")
+        )
+        if method not in allowed_methods or _field(response, "kind") != "typed":
             raise ValueError
         if _field(response, "text") is not None or _field(response, "parsed") is not None:
             raise ValueError
@@ -207,7 +243,7 @@ def screen_typed(
             or _field(typed, "schema_version") != 1
         ):
             raise ValueError
-        if _field(typed, "question_spec_sha256") != QUESTION_SET_SHA256:
+        if _field(typed, "question_spec_sha256") != question_sha256:
             raise ValueError
         answers = _field(typed, "answers")
         if not isinstance(answers, Mapping) or set(answers) != set(HAZARDS):

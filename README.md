@@ -15,7 +15,9 @@ Imports retain validated source bytes and full reports atomically in an explicit
 SQLite database/namespace. Reports remain historical; retention neither activates a source nor
 approves content. There is no complete application API/UI workflow,
 shipping end-to-end mock/replay pipeline integration. Published S3/S6 components and app rules/
-offline-call adapters are present; see [provenance and limits](docs/VENDORED.md). Authored doubles
+offline-call/native-screen adapters are present; see [provenance and limits](docs/VENDORED.md).
+Native screening prepares the exact request before caller admission and preserves mock
+provenance for synthetic fixtures. Authored doubles
 are not production providers, screen implementations or measured model results. The static
 Vite page still identifies the unfinished workflow. Root status creates no runtime file.
 

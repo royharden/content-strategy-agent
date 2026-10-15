@@ -1,0 +1,1318 @@
+{
+  "schema_version": 1,
+  "component": "S6 native offline successor",
+  "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+  "source_tree": "8fda4a904a6eeeb6badcd06af5d0ce067f35cdfb",
+  "licence": "MIT",
+  "sources": [
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "contracts/screen/README.md",
+      "git_blob": "f870d23124f068a573326e6232653184277431a6",
+      "target": "conformance/vendor/s6-native/upstream/contracts/screen/README.md",
+      "sha256": "6cfab6bf40465458763a307b66a8ba6e0bc754e3c4389f396985f5259703aaa4",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/INTERFACE.md",
+      "git_blob": "2cc07908d0649dc3cb67badc802febc38139b5d3",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/INTERFACE.md",
+      "sha256": "52f17a1b1e31d3ecee30d03a8feab6884e71d4ca762f67251f7be93b76e7516f",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/LIMITATIONS.md",
+      "git_blob": "bf587ae34299d7e2528a00b37388b978f0a03171",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/LIMITATIONS.md",
+      "sha256": "e4ee289a4d9332cf87ec7826a1941e7b74f71b6c890a3d27b8507995307e24f2",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/SOURCE.001.json",
+      "git_blob": "4c5d7fa0d3fad6492ceb564494d5ded3d2ff5a96",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/SOURCE.001.json",
+      "sha256": "737659d188ee4d6df19dd6b236f892cf37e58560d02bf41d6268655a56d80798",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/provider-contracts.md",
+      "git_blob": "817fb52770fb09dc69be9cf2a2c462ba4743479e",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/provider-contracts.md",
+      "sha256": "23e3560e3b4cf108e8029217a6fc012ec40d969429fc272f356f5d0badd0a71a",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/allocation.schema.json",
+      "git_blob": "e0c125e16c47ea91e1b2b934aebc6d1b1324b115",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/allocation.schema.json",
+      "sha256": "5a00f2b0002f56a0e0c6eddc7174f27303dc2fd1feef9eb232a98c33fa42dab4",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/billing-policy.schema.json",
+      "git_blob": "5e2ef7c13078b38ca3f6282fc4ba23c762ad6b06",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/billing-policy.schema.json",
+      "sha256": "48c2b0b75d6b2e8c004cdab781e4e230792175948ebe40c2e4f9c8f18720d483",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/budget-authority.schema.json",
+      "git_blob": "0454dc30a3e382e99d7098d231a5036f098ee2fd",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/budget-authority.schema.json",
+      "sha256": "f514326beda95a6de71084ef67f117a28dae4302df27b7f72f757808b2f2cdd9",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/call-context.schema.json",
+      "git_blob": "f9c5ffc1eeb918defec3f1c745f188775a873104",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/call-context.schema.json",
+      "sha256": "bd5ea2932394d21aed2384d6d3559c672cd82f7458d13ba5bdff218a53482d0b",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/capabilities.schema.json",
+      "git_blob": "6ee85cfa85f2dd3f9bbe027f5f8780873edf5472",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/capabilities.schema.json",
+      "sha256": "8f07c6595016d591a23c010a77699c61e77aac9bf45efb863d9f8cf662c2ef02",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/cost-observation.schema.json",
+      "git_blob": "15dbbfca0c0e9a865178be87e83c6841302357fe",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/cost-observation.schema.json",
+      "sha256": "e2c2ac6bc804caeb524e388951684ecec5f4bc9de7628dfabd739468018aeb60",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/execution-envelope.schema.json",
+      "git_blob": "1852f4ac6b0414105433c3d6a10a2ac98ed5609b",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/execution-envelope.schema.json",
+      "sha256": "9213ae4ea207c5b38bdacab28281e29ab785beb1a8413cbd9658e466d2cc57f4",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/funding-declaration.schema.json",
+      "git_blob": "29d0915a7a41848c74dab9b878421a930b5c3886",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/funding-declaration.schema.json",
+      "sha256": "badc0575ac98f301300d26a6fe7f112cd6a87958858007d151afe483df895f96",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/generate-request.schema.json",
+      "git_blob": "36caad500a5fdcf33851b6468c96c740efa116b9",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/generate-request.schema.json",
+      "sha256": "e21af31fb0a59ab2f7dc962910416477bee5a8126f08d967d9bba20c4b484641",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/image-part.schema.json",
+      "git_blob": "88ce6273d830d6a1ad996ff20c1445c367b5d9e3",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/image-part.schema.json",
+      "sha256": "b4e8131099cac1cac4d81e064a59ee2d1ff30579accc5d93a67501f05f3be8a4",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/limits.schema.json",
+      "git_blob": "5c728119e269c4fcee64759f91537c20a3c9b0d5",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/limits.schema.json",
+      "sha256": "756f32c1a6506190e583c05c1f308958744cd1ddec832a8cf0a684d3c3a63cfa",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/metadata-record.schema.json",
+      "git_blob": "101b785eed4abb51f7117b8963fd1ac9afe709dc",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/metadata-record.schema.json",
+      "sha256": "58f5317609cb5c603ba4ee3f540cd7365dd5a589f97a4d6e3f8a599c36d47988",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/non-model-span.schema.json",
+      "git_blob": "209a3816f2f0d23dbec0b3459944af9b355da80b",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/non-model-span.schema.json",
+      "sha256": "7e6af9f0bd414d199a544867a2e29585e07b4e58299d5c74e9c60220ceecab20",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/normalized-usage.schema.json",
+      "git_blob": "9940ec451cded2f0bf0ef9ead03556dd2f37451b",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/normalized-usage.schema.json",
+      "sha256": "c5fd7231623fc982faa04a8d18083b2c6b33a7e3d4e561696bca2cbcf5beca46",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/operation-plan.schema.json",
+      "git_blob": "d461cdfd0012d23eca77fa4423178979647876d6",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/operation-plan.schema.json",
+      "sha256": "ac490890f5f69d4f3abe29be618c7ea9810cf218465d4924834e552f6e5389a2",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/result.schema.json",
+      "git_blob": "e20d8b9f9185904fb59720123dfd4e701935a25b",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/result.schema.json",
+      "sha256": "bb97564c9664f42af979e54063a573b21a35c73c6511802dd3d08bdd84ee6fe5",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/typed-request.schema.json",
+      "git_blob": "884d9d876dcb520821db5447f56f6969a071f01c",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/typed-request.schema.json",
+      "sha256": "73a29c169b7f827aa72b65437ea49423dcb21a8d459c15c5133fbad87630ed5e",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "docs/vendor/s3/schemas/typed-result.schema.json",
+      "git_blob": "886652a01195cec9e4c9f421d7030f5755cad694",
+      "target": "conformance/vendor/s6-native/upstream/docs/vendor/s3/schemas/typed-result.schema.json",
+      "sha256": "2f7cd1368f79c02e13bc6d7dfab1897217be43bc6ad11cbcfb0d998786342241",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/LICENSE.S3",
+      "git_blob": "024bbc5e5a3503b3f719ccb4e68c773e4d840e2a",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/LICENSE.S3",
+      "sha256": "431665582156c442d0448d1f5cd2e45663ab96e6cf098711ffa58c4bb01b69e6",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/S3-VENDORED.md",
+      "git_blob": "0076b27acef0f0f4265d7de1e9699cd2f0a850a5",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/S3-VENDORED.md",
+      "sha256": "c80283fb0ed863e8881da1539f2fc6c8a3d22fff6a1473c2b38a3849ee6b0079",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/__init__.py",
+      "git_blob": "d54c1da1c6df701267a3ccc931aca3852992f333",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/__init__.py",
+      "sha256": "60913c6d12caa4ba9139d870ad493d4a68738580c996662d7ad7b8d71622e1b8",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/callledger/README.md",
+      "git_blob": "4eb6cce7d1bc853da62db8ce048247375caf0916",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/callledger/README.md",
+      "sha256": "bdc63ddb26832750654cdbffc09fca33d46b9e5ef2e0b7b1a34cac4e1cea0c50",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/callledger/__init__.py",
+      "git_blob": "6bb50990aee74ddaffdfd45933d87eb53d040be8",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/callledger/__init__.py",
+      "sha256": "0fe1e2b6e2b49e170e5e483d1406b8c36d1ce8e2b446845aad2bb741b7806571",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/callledger/ledger.py",
+      "git_blob": "595fc556e62adef5bef529b632445a152e718fbc",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/callledger/ledger.py",
+      "sha256": "207ccd4effe633f44863080957bafa4ca80752397e7aca4eafd541ff50eb2a1d",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/callledger/models.py",
+      "git_blob": "ad215ff2bbe06472295b06b66487f526cde59eb9",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/callledger/models.py",
+      "sha256": "7274d1eebed5370460d83af6e4187cc74037d0ab600889219423dbcdd81277e7",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/callledger/pricing.py",
+      "git_blob": "f8d63558e6238f3cabaf2c52611ab3e632dd29c9",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/callledger/pricing.py",
+      "sha256": "daf38f487eeb70b48cc4025c54a19eea581a2d5d00084f534d9f2b9a55056c74",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/callledger/projection.py",
+      "git_blob": "7d20500102b07471caec6362f3b71099ff92df10",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/callledger/projection.py",
+      "sha256": "5c0194e299b2c58f85e745ac093063dcb89689ea162ba378a37afc48a0f4dc69",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/ghapp/ARCHIVE.md",
+      "git_blob": "de2d39a05c7bcf47a3ceebcf2abc0c215c84e945",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/ghapp/ARCHIVE.md",
+      "sha256": "a86121ed291c105ad5c8f856f9311dc5e13fea21343689466aef5ab8249d9cad",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/ghapp/README.md",
+      "git_blob": "c589b249b1a3c2b429ad8b1fdb85142c62823834",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/ghapp/README.md",
+      "sha256": "ac96548e70159b01c8b72ebd87941d1dd3b72453f83b1609362a995fa089b345",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/ghapp/__init__.py",
+      "git_blob": "5fc1928eab7c5297e1d7381fbb746d517681833a",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/ghapp/__init__.py",
+      "sha256": "841e94cf71813df182b5f67241157c4e59420de13fc72f6dfc886a3ce5ba094d",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/ghapp/archive.py",
+      "git_blob": "49b347ee2f124153d4b72c9e5ee087435e9e7bf5",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/ghapp/archive.py",
+      "sha256": "69875ffff26bf6d0dadefbdd355647fb710338447d9e92b2cca8cc16a7fd0334",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/ghapp/auth.py",
+      "git_blob": "9ed642a7a619f01f43d47e1b88b2169850640cc2",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/ghapp/auth.py",
+      "sha256": "6d2bc45203b31b4b7531a5b4cb8e100928e1850f6cf5b9d7e1cceb857ef2d3b3",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/ghapp/reader.py",
+      "git_blob": "4ea60076eba1ce32099460ed65fd55bbdf014f3c",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/ghapp/reader.py",
+      "sha256": "08ce7dddb1b98c682657b90575df59419d651900e6a5d9a2da849a3646258a96",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/ghapp/signatures.py",
+      "git_blob": "9665badcb0d557b52cf4aa4f9136eabcce346094",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/ghapp/signatures.py",
+      "sha256": "821ffe72d861bd0b720408b198072f558b4ca44b234cdf9431ae5cafc9eb132a",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/ghapp/webhook.py",
+      "git_blob": "86fbd8095051d90aa1a5c5ee80d2e6aba287f0a3",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/ghapp/webhook.py",
+      "sha256": "16675c2e8171181ce52aca9959536fbc335359d9dccbeb33f1e90dc36a2a9d71",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/providers/__init__.py",
+      "git_blob": "67b42aa73e0e5cfa72f83c0669198f354ca4ed4a",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/providers/__init__.py",
+      "sha256": "5294e9e9a55d6f645ba1fae741f467accdf3aae0caf9e9094a46784bff57421f",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/providers/adapters.py",
+      "git_blob": "6baa3035f8bd7a04e54281833ff2fd144ed3f02b",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/providers/adapters.py",
+      "sha256": "0f04a7f3231c2a22c36541b9cdaeb53214899d4da111f264eab73278847a3023",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/providers/captures.py",
+      "git_blob": "a632ff56ae51d0a416c0d08bf3a2090aeddfcbe8",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/providers/captures.py",
+      "sha256": "0c91934a090d5f1481fd1116c4ee74a073e0cc8b6ee9c1c8d19cacdce2ebde00",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/providers/controller.py",
+      "git_blob": "a82937f5c363b5b069b918c490e8f385e5e65c52",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/providers/controller.py",
+      "sha256": "7e607e319bafe93354d04571f82e7fae35365e21fec8d5ce393843f4d41366ac",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/providers/images.py",
+      "git_blob": "9ff512f336a219cb7b4dedad400b523b4de1447e",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/providers/images.py",
+      "sha256": "d847124ef8dc76461f3257df2586075f7ca9602bebe4a15009c6a48aefa6aa13",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/providers/models.py",
+      "git_blob": "a2c2f478b881e1d172085355f9ee347bba919f9f",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/providers/models.py",
+      "sha256": "7d00a646f583aec1b77abd8c956f1b0c830726be3c17ce37737ac05841060ea2",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/providers/schema.py",
+      "git_blob": "0d84ca157fa6bbd1fac3b7cbc0aba75751f552c3",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/providers/schema.py",
+      "sha256": "a0c4a84b14a95d2834a150e8fa16224ccec03e1a84325b359b92868a61613391",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/__init__.py",
+      "git_blob": "0b1c299659558c561bba53118a64031020aae62e",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/screen/__init__.py",
+      "sha256": "847da0a534d478e8be45e2de1eef47613bc3f1058ed85e6b5c5f9e99b222e42b",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/__init__.py",
+      "git_blob": "0b1c299659558c561bba53118a64031020aae62e",
+      "target": "src/content_strategy/shared/screen/__init__.py",
+      "sha256": "847da0a534d478e8be45e2de1eef47613bc3f1058ed85e6b5c5f9e99b222e42b",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/models.py",
+      "git_blob": "891d6491df803b945aecd30cfe887d546ee5306c",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/screen/models.py",
+      "sha256": "1d33ba786df2cdbd81bd944ad69c11108d220fa268eca4960b4c51dcf1bab252",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/models.py",
+      "git_blob": "891d6491df803b945aecd30cfe887d546ee5306c",
+      "target": "src/content_strategy/shared/screen/models.py",
+      "sha256": "1d33ba786df2cdbd81bd944ad69c11108d220fa268eca4960b4c51dcf1bab252",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/prepare.py",
+      "git_blob": "0c09c41c7a235926054a953ab3062ccbf8c71b66",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/screen/prepare.py",
+      "sha256": "955e21a840cf00e56b7d431e3d0cf5aa2a5cd66de3e61433a054f31249bdb9dc",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/prepare.py",
+      "git_blob": "0c09c41c7a235926054a953ab3062ccbf8c71b66",
+      "target": "src/content_strategy/shared/screen/prepare.py",
+      "sha256": "955e21a840cf00e56b7d431e3d0cf5aa2a5cd66de3e61433a054f31249bdb9dc",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/questions.py",
+      "git_blob": "6259493d681c5fdfd916f7b244b2d284318c6dad",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/screen/questions.py",
+      "sha256": "663ad1437f6abc709caa5b0115051f6eee41debfd41a74e213895651fd47aec8",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/questions.py",
+      "git_blob": "6259493d681c5fdfd916f7b244b2d284318c6dad",
+      "target": "src/content_strategy/shared/screen/questions.py",
+      "sha256": "663ad1437f6abc709caa5b0115051f6eee41debfd41a74e213895651fd47aec8",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/rules.py",
+      "git_blob": "e8b158e66dbb4d1cc128a82e0dcf61b44f8747dd",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/screen/rules.py",
+      "sha256": "c0b8920063f0eb3157d44cc76995a459e40267c78d9a5feab3c706ae85357a9b",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/rules.py",
+      "git_blob": "e8b158e66dbb4d1cc128a82e0dcf61b44f8747dd",
+      "target": "src/content_strategy/shared/screen/rules.py",
+      "sha256": "c0b8920063f0eb3157d44cc76995a459e40267c78d9a5feab3c706ae85357a9b",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/s3_adapter.py",
+      "git_blob": "4c3f890ceeb3668a90f2480b41274d859569de1f",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/screen/s3_adapter.py",
+      "sha256": "fb5956b91fab5cf4fc992926b9f35b9c44f9bcfac61ec013126adc5d7495ae60",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/s3_adapter.py",
+      "git_blob": "4c3f890ceeb3668a90f2480b41274d859569de1f",
+      "target": "src/content_strategy/shared/screen/s3_adapter.py",
+      "sha256": "fb5956b91fab5cf4fc992926b9f35b9c44f9bcfac61ec013126adc5d7495ae60",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/typed.py",
+      "git_blob": "9e5abe31aabe89180c93abf3af41cc92a24b458e",
+      "target": "conformance/vendor/s6-native/upstream/src/issue_triage/shared/screen/typed.py",
+      "sha256": "50a40aeb850693c4f10d3ea8a4a1e263819e9bd3a5c9a1681d9ec58be14f4bfb",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/typed.py",
+      "git_blob": "9e5abe31aabe89180c93abf3af41cc92a24b458e",
+      "target": "src/content_strategy/shared/screen/typed.py",
+      "sha256": "50a40aeb850693c4f10d3ea8a4a1e263819e9bd3a5c9a1681d9ec58be14f4bfb",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/conftest.py",
+      "git_blob": "69302eca0281a66ddd6c0007ed4ba1ac432b36ab",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/conftest.py",
+      "sha256": "597cd649bfe77c7ed5d53310bdabc2413a4e19be451d052f0d7089385e5a98a2",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/allocation.schema.json",
+      "git_blob": "e0c125e16c47ea91e1b2b934aebc6d1b1324b115",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/allocation.schema.json",
+      "sha256": "5a00f2b0002f56a0e0c6eddc7174f27303dc2fd1feef9eb232a98c33fa42dab4",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/billing-policy.schema.json",
+      "git_blob": "5e2ef7c13078b38ca3f6282fc4ba23c762ad6b06",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/billing-policy.schema.json",
+      "sha256": "48c2b0b75d6b2e8c004cdab781e4e230792175948ebe40c2e4f9c8f18720d483",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/budget-authority.schema.json",
+      "git_blob": "0454dc30a3e382e99d7098d231a5036f098ee2fd",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/budget-authority.schema.json",
+      "sha256": "f514326beda95a6de71084ef67f117a28dae4302df27b7f72f757808b2f2cdd9",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/call-context.schema.json",
+      "git_blob": "f9c5ffc1eeb918defec3f1c745f188775a873104",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/call-context.schema.json",
+      "sha256": "bd5ea2932394d21aed2384d6d3559c672cd82f7458d13ba5bdff218a53482d0b",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/capabilities.schema.json",
+      "git_blob": "6ee85cfa85f2dd3f9bbe027f5f8780873edf5472",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/capabilities.schema.json",
+      "sha256": "8f07c6595016d591a23c010a77699c61e77aac9bf45efb863d9f8cf662c2ef02",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/cost-observation.schema.json",
+      "git_blob": "15dbbfca0c0e9a865178be87e83c6841302357fe",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/cost-observation.schema.json",
+      "sha256": "e2c2ac6bc804caeb524e388951684ecec5f4bc9de7628dfabd739468018aeb60",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/execution-envelope.schema.json",
+      "git_blob": "1852f4ac6b0414105433c3d6a10a2ac98ed5609b",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/execution-envelope.schema.json",
+      "sha256": "9213ae4ea207c5b38bdacab28281e29ab785beb1a8413cbd9658e466d2cc57f4",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/funding-declaration.schema.json",
+      "git_blob": "29d0915a7a41848c74dab9b878421a930b5c3886",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/funding-declaration.schema.json",
+      "sha256": "badc0575ac98f301300d26a6fe7f112cd6a87958858007d151afe483df895f96",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/generate-request.schema.json",
+      "git_blob": "36caad500a5fdcf33851b6468c96c740efa116b9",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/generate-request.schema.json",
+      "sha256": "e21af31fb0a59ab2f7dc962910416477bee5a8126f08d967d9bba20c4b484641",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/image-part.schema.json",
+      "git_blob": "88ce6273d830d6a1ad996ff20c1445c367b5d9e3",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/image-part.schema.json",
+      "sha256": "b4e8131099cac1cac4d81e064a59ee2d1ff30579accc5d93a67501f05f3be8a4",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/limits.schema.json",
+      "git_blob": "5c728119e269c4fcee64759f91537c20a3c9b0d5",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/limits.schema.json",
+      "sha256": "756f32c1a6506190e583c05c1f308958744cd1ddec832a8cf0a684d3c3a63cfa",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/metadata-record.schema.json",
+      "git_blob": "101b785eed4abb51f7117b8963fd1ac9afe709dc",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/metadata-record.schema.json",
+      "sha256": "58f5317609cb5c603ba4ee3f540cd7365dd5a589f97a4d6e3f8a599c36d47988",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/non-model-span.schema.json",
+      "git_blob": "209a3816f2f0d23dbec0b3459944af9b355da80b",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/non-model-span.schema.json",
+      "sha256": "7e6af9f0bd414d199a544867a2e29585e07b4e58299d5c74e9c60220ceecab20",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/normalized-usage.schema.json",
+      "git_blob": "9940ec451cded2f0bf0ef9ead03556dd2f37451b",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/normalized-usage.schema.json",
+      "sha256": "c5fd7231623fc982faa04a8d18083b2c6b33a7e3d4e561696bca2cbcf5beca46",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/operation-plan.schema.json",
+      "git_blob": "d461cdfd0012d23eca77fa4423178979647876d6",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/operation-plan.schema.json",
+      "sha256": "ac490890f5f69d4f3abe29be618c7ea9810cf218465d4924834e552f6e5389a2",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/result.schema.json",
+      "git_blob": "e20d8b9f9185904fb59720123dfd4e701935a25b",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/result.schema.json",
+      "sha256": "bb97564c9664f42af979e54063a573b21a35c73c6511802dd3d08bdd84ee6fe5",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/typed-request.schema.json",
+      "git_blob": "884d9d876dcb520821db5447f56f6969a071f01c",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/typed-request.schema.json",
+      "sha256": "73a29c169b7f827aa72b65437ea49423dcb21a8d459c15c5133fbad87630ed5e",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/docs/schemas/typed-result.schema.json",
+      "git_blob": "886652a01195cec9e4c9f421d7030f5755cad694",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/docs/schemas/typed-result.schema.json",
+      "sha256": "2f7cd1368f79c02e13bc6d7dfab1897217be43bc6ad11cbcfb0d998786342241",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/prices/synthetic-unit-v1.json",
+      "git_blob": "4b94ef22e4b4b8cb3fa9a3db34de145ffa786e25",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/prices/synthetic-unit-v1.json",
+      "sha256": "9cec5acd6b2e2de720df07b90ddb0cdd049866146a2f33c7577a7dd7f345b91f",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/scripts/generate_schemas.py",
+      "git_blob": "0f00658b29a1e68184b2c13273d80320ca069711",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/scripts/generate_schemas.py",
+      "sha256": "41e6d391b475417c0bd4072d89fe62e4bdb1d14ea19fa3c6c2e65ea209ad846d",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/scripts/update_prices.py",
+      "git_blob": "926789417e4eeefa883defd8efeddf403ccdcf30",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/scripts/update_prices.py",
+      "sha256": "abded9791dd2fc77dd5d8a08ee0f9e55c5e39e988ae8a6a249d9880966f32c46",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/callledger/conftest.py",
+      "git_blob": "edeeaf03fa251052268cccf748681d58dc2737a0",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/callledger/conftest.py",
+      "sha256": "d67426d55bfd278e2af767192f6be9ecc225d0b7ddae3104d9e250255e5c39b1",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/callledger/fixtures/wp02-schema-v1-case.json",
+      "git_blob": "b96dde87996773b5f9283e61db5dea3f3f188ebe",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/callledger/fixtures/wp02-schema-v1-case.json",
+      "sha256": "49313d66b9f4a5f27e847fd2058c2aad7ecd66e1020283b6c7582a6ef1a5c54d",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/callledger/fixtures/wp02-schema-v1.sql",
+      "git_blob": "debf4904e660772747c9a335958b6b6b2d2f4513",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/callledger/fixtures/wp02-schema-v1.sql",
+      "sha256": "d0f223301262223bb84e977de5da3394f7f4f575c19491ad6d3031102a2a3656",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/callledger/test_accounting.py",
+      "git_blob": "3aad806424ef01ae7cbd9bc0ecf5233dbc98814f",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/callledger/test_accounting.py",
+      "sha256": "296c2e39094ec74fde3f9cb9ae26150f8e105ce31f434a78e3db57a2d819354e",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/callledger/test_boundaries.py",
+      "git_blob": "955abf5ac382452ba4a2bc7369d3e449e46c5e7c",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/callledger/test_boundaries.py",
+      "sha256": "d193d49d59bd7823eedc560190df0e5943e2dff21089a43e4160405b75d1e1ba",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/callledger/test_caller_limits.py",
+      "git_blob": "d6eea527536fb117f7b6be051ae66142a4b6712a",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/callledger/test_caller_limits.py",
+      "sha256": "20fef48551dce5f815404782cad27985a417161f0c132c76a717c0297f8144d8",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/callledger/test_durability.py",
+      "git_blob": "5c37db944b81daec0c8865f49ad26de9961e583e",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/callledger/test_durability.py",
+      "sha256": "9c0e176f61cd318dc25e31b0acf77eee5d7d8c9e49103324ac643bc1c38e2e5e",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/callledger/test_privacy.py",
+      "git_blob": "193c3a49aab120c37a6e5d96e7e1196a641f1a3f",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/callledger/test_privacy.py",
+      "sha256": "1818887bc81765d3eb4f0b076e3a5202c22cbad31390b1d163203678227f093d",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/callledger/test_v1_migration.py",
+      "git_blob": "113a4c47fe88a98dd0126b25291ccdbef2318a5f",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/callledger/test_v1_migration.py",
+      "sha256": "323ca346623d6e340f2f04b14aba0f24c7a5b5d5bb8dbaa56981ce978e9e4520",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/contracts/conftest.py",
+      "git_blob": "5d266ae470ab73699b1016def541692904e6e790",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/contracts/conftest.py",
+      "sha256": "5d06d67af2db3e6ab5979ee9d7bca31911afafeae75dcb848986ecb137a512fe",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/contracts/test_accounting_models.py",
+      "git_blob": "80d18c4f11a1287f84d491455729aea71a93fa45",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/contracts/test_accounting_models.py",
+      "sha256": "e5756fd26fed7aaaa0e76b3be2439fa49e6a23fd3e5e1468ce6234d47b06ffc3",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/contracts/test_context_identity.py",
+      "git_blob": "73ebf77e627bf45f01100571ab55f212f9c16ed5",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/contracts/test_context_identity.py",
+      "sha256": "0645b2d912d723d9a56eb9e31cac20419ee7740e8feed869937ec59adaf2042b",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/contracts/test_result_provenance.py",
+      "git_blob": "3bf9714a6750c96638ae3e7d00bf8933acf54b26",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/contracts/test_result_provenance.py",
+      "sha256": "d7d60d1e12da8de017134edb2e7fe21483ef6b8b68643657330c0a96a5583721",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/contracts/test_results_and_copy.py",
+      "git_blob": "6141266025ec47abe63d93f09dee6c942963c0d0",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/contracts/test_results_and_copy.py",
+      "sha256": "c3a2ea34afa0603b476187445fd1d5b57f65ee45ae5c284e9c657b0c51698f81",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/contracts/test_typed_wire.py",
+      "git_blob": "d1e9ab0ecc3ccbc82cdd796f45e4d03cb7f45fc1",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/contracts/test_typed_wire.py",
+      "sha256": "20dfb4ee71de651a866aa071a22e7a63fcec2970dce0aba86be1252151ff92f3",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/prices/test_pricing.py",
+      "git_blob": "325c5d815b099541c76133bc83e4cc63bca8a69f",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/prices/test_pricing.py",
+      "sha256": "c0c86af47e4b7ec59fbac1a94a9877417901dea8a72dc8f25cfe8994ba5faed4",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/provider_payloads/README.md",
+      "git_blob": "602e55f8018d396a4f95b779a90e6393d4dde3f0",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/provider_payloads/README.md",
+      "sha256": "e90582e778189592456155d6c3a8951a7b31e2f525039a0a1e3d35be5c13700f",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/provider_payloads/foundation-cases.v1.json",
+      "git_blob": "149db5dbad0088b500fe946d09cddd5318bae1a0",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/provider_payloads/foundation-cases.v1.json",
+      "sha256": "516b49c863b27130b9a18ee3e058e5738d3c4286d6c4753abb74a03ad05fbf42",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/providers/conftest.py",
+      "git_blob": "fc94bf720473e70caebd08cf2de53d1a4178a9b6",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/providers/conftest.py",
+      "sha256": "a77e90550cd8e2eda604670c309fffc02981626716339e17407ec6ad4ef6c64a",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/providers/test_controller.py",
+      "git_blob": "0cee72e65510feea8c41b608fd6740de0a142648",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/providers/test_controller.py",
+      "sha256": "43d98d91e68b7b7d9c083afee625f04682be61b32b784e3939ad1acd13ee9042",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/providers/test_foundation_cases.py",
+      "git_blob": "899d337d5438611ed6139396c503a7731b9be1ae",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/providers/test_foundation_cases.py",
+      "sha256": "88adc213f2f7bc43228ff2d5d590cb3ce68b6cd9f184cf0b65acc02f6a37e112",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/providers/test_images.py",
+      "git_blob": "49f31b2df283002e8d1535c871e4f8c5cd85f79a",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/providers/test_images.py",
+      "sha256": "69d10d3fbd184b57deb16fe1ddd43276ef67fa9fe7b545e40569f0a1ea7e6878",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/providers/test_payloads.py",
+      "git_blob": "90f46d466c42caa37da7daf12b291a2ce63ef87f",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/providers/test_payloads.py",
+      "sha256": "7e0677f007b5ed54e4920193d55b9c4332a49f7f123c920ff205c144eb4b98bb",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/owner/tests/providers/test_provider_privacy.py",
+      "git_blob": "aad76f62ac95ebca75120af0e13a652577841d31",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/owner/tests/providers/test_provider_privacy.py",
+      "sha256": "3c97841ac16f7f07a6ce006561b0d5a0f217923ca983bf7268723525eb0235fd",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/contracts/consumers/s3/test_pinned_source.py",
+      "git_blob": "daf1b4530bd06d7634ce2fbd63f4e6b9cab22446",
+      "target": "conformance/vendor/s6-native/upstream/tests/contracts/consumers/s3/test_pinned_source.py",
+      "sha256": "e2b4e76b940b97d9b188374d407f5c6b219de48d60b3fa87875557040dfd754b",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/screen/test_s3_native.py",
+      "git_blob": "a83a6b5ac0aa65243006d98bd55f507a8b7e74d5",
+      "target": "conformance/vendor/s6-native/upstream/tests/screen/test_s3_native.py",
+      "sha256": "cbb76dee8fe6840c50f0833be65bb1eecdd760a0fed66adc5d30470f3e242e0d",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/screen/test_screen.py",
+      "git_blob": "a0207b74b87760f64b9d00d314e379d552fe1479",
+      "target": "conformance/vendor/s6-native/upstream/tests/screen/test_screen.py",
+      "sha256": "3c2ba42b14a8909135a8a9bd5f0079a7fb50294c9b2fdf7176c55f1b709eee47",
+      "basis": "Exact committed bytes, no normalization"
+    },
+    {
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "LICENSE",
+      "git_blob": "024bbc5e5a3503b3f719ccb4e68c773e4d840e2a",
+      "target": "conformance/vendor/s6-native/upstream/LICENSE",
+      "sha256": "431665582156c442d0448d1f5cd2e45663ab96e6cf098711ffa58c4bb01b69e6",
+      "basis": "Exact committed bytes, no normalization"
+    }
+  ],
+  "adapted_test_assets": [
+    {
+      "path": "conformance/vendor/s6-native/adapted/LICENSE",
+      "sha256": "431665582156c442d0448d1f5cd2e45663ab96e6cf098711ffa58c4bb01b69e6"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/contracts/screen/README.md",
+      "sha256": "6cfab6bf40465458763a307b66a8ba6e0bc754e3c4389f396985f5259703aaa4"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/INTERFACE.md",
+      "sha256": "52f17a1b1e31d3ecee30d03a8feab6884e71d4ca762f67251f7be93b76e7516f"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/LIMITATIONS.md",
+      "sha256": "e4ee289a4d9332cf87ec7826a1941e7b74f71b6c890a3d27b8507995307e24f2"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/provider-contracts.md",
+      "sha256": "23e3560e3b4cf108e8029217a6fc012ec40d969429fc272f356f5d0badd0a71a"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/SOURCE.001.json",
+      "sha256": "0153f2a1c96b0653307e3d8b69fb9284fb205fb554d4ebd9be930de34a510312"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/allocation.schema.json",
+      "sha256": "5a00f2b0002f56a0e0c6eddc7174f27303dc2fd1feef9eb232a98c33fa42dab4"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/billing-policy.schema.json",
+      "sha256": "48c2b0b75d6b2e8c004cdab781e4e230792175948ebe40c2e4f9c8f18720d483"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/budget-authority.schema.json",
+      "sha256": "f514326beda95a6de71084ef67f117a28dae4302df27b7f72f757808b2f2cdd9"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/call-context.schema.json",
+      "sha256": "bd5ea2932394d21aed2384d6d3559c672cd82f7458d13ba5bdff218a53482d0b"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/capabilities.schema.json",
+      "sha256": "8f07c6595016d591a23c010a77699c61e77aac9bf45efb863d9f8cf662c2ef02"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/cost-observation.schema.json",
+      "sha256": "e2c2ac6bc804caeb524e388951684ecec5f4bc9de7628dfabd739468018aeb60"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/execution-envelope.schema.json",
+      "sha256": "9213ae4ea207c5b38bdacab28281e29ab785beb1a8413cbd9658e466d2cc57f4"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/funding-declaration.schema.json",
+      "sha256": "badc0575ac98f301300d26a6fe7f112cd6a87958858007d151afe483df895f96"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/generate-request.schema.json",
+      "sha256": "e21af31fb0a59ab2f7dc962910416477bee5a8126f08d967d9bba20c4b484641"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/image-part.schema.json",
+      "sha256": "b4e8131099cac1cac4d81e064a59ee2d1ff30579accc5d93a67501f05f3be8a4"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/limits.schema.json",
+      "sha256": "756f32c1a6506190e583c05c1f308958744cd1ddec832a8cf0a684d3c3a63cfa"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/metadata-record.schema.json",
+      "sha256": "58f5317609cb5c603ba4ee3f540cd7365dd5a589f97a4d6e3f8a599c36d47988"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/non-model-span.schema.json",
+      "sha256": "7e6af9f0bd414d199a544867a2e29585e07b4e58299d5c74e9c60220ceecab20"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/normalized-usage.schema.json",
+      "sha256": "c5fd7231623fc982faa04a8d18083b2c6b33a7e3d4e561696bca2cbcf5beca46"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/operation-plan.schema.json",
+      "sha256": "ac490890f5f69d4f3abe29be618c7ea9810cf218465d4924834e552f6e5389a2"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/result.schema.json",
+      "sha256": "bb97564c9664f42af979e54063a573b21a35c73c6511802dd3d08bdd84ee6fe5"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/typed-request.schema.json",
+      "sha256": "73a29c169b7f827aa72b65437ea49423dcb21a8d459c15c5133fbad87630ed5e"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/docs/vendor/s3/schemas/typed-result.schema.json",
+      "sha256": "2f7cd1368f79c02e13bc6d7dfab1897217be43bc6ad11cbcfb0d998786342241"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/LICENSE.S3",
+      "sha256": "431665582156c442d0448d1f5cd2e45663ab96e6cf098711ffa58c4bb01b69e6"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/S3-VENDORED.md",
+      "sha256": "c80283fb0ed863e8881da1539f2fc6c8a3d22fff6a1473c2b38a3849ee6b0079"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/__init__.py",
+      "sha256": "60913c6d12caa4ba9139d870ad493d4a68738580c996662d7ad7b8d71622e1b8"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/callledger/ledger.py",
+      "sha256": "207ccd4effe633f44863080957bafa4ca80752397e7aca4eafd541ff50eb2a1d"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/callledger/models.py",
+      "sha256": "7274d1eebed5370460d83af6e4187cc74037d0ab600889219423dbcdd81277e7"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/callledger/pricing.py",
+      "sha256": "daf38f487eeb70b48cc4025c54a19eea581a2d5d00084f534d9f2b9a55056c74"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/callledger/projection.py",
+      "sha256": "5c0194e299b2c58f85e745ac093063dcb89689ea162ba378a37afc48a0f4dc69"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/callledger/README.md",
+      "sha256": "bdc63ddb26832750654cdbffc09fca33d46b9e5ef2e0b7b1a34cac4e1cea0c50"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/callledger/__init__.py",
+      "sha256": "0fe1e2b6e2b49e170e5e483d1406b8c36d1ce8e2b446845aad2bb741b7806571"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/ghapp/ARCHIVE.md",
+      "sha256": "a86121ed291c105ad5c8f856f9311dc5e13fea21343689466aef5ab8249d9cad"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/ghapp/archive.py",
+      "sha256": "69875ffff26bf6d0dadefbdd355647fb710338447d9e92b2cca8cc16a7fd0334"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/ghapp/auth.py",
+      "sha256": "6d2bc45203b31b4b7531a5b4cb8e100928e1850f6cf5b9d7e1cceb857ef2d3b3"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/ghapp/reader.py",
+      "sha256": "08ce7dddb1b98c682657b90575df59419d651900e6a5d9a2da849a3646258a96"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/ghapp/README.md",
+      "sha256": "ac96548e70159b01c8b72ebd87941d1dd3b72453f83b1609362a995fa089b345"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/ghapp/signatures.py",
+      "sha256": "821ffe72d861bd0b720408b198072f558b4ca44b234cdf9431ae5cafc9eb132a"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/ghapp/webhook.py",
+      "sha256": "16675c2e8171181ce52aca9959536fbc335359d9dccbeb33f1e90dc36a2a9d71"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/ghapp/__init__.py",
+      "sha256": "841e94cf71813df182b5f67241157c4e59420de13fc72f6dfc886a3ce5ba094d"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/providers/adapters.py",
+      "sha256": "0f04a7f3231c2a22c36541b9cdaeb53214899d4da111f264eab73278847a3023"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/providers/captures.py",
+      "sha256": "0c91934a090d5f1481fd1116c4ee74a073e0cc8b6ee9c1c8d19cacdce2ebde00"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/providers/controller.py",
+      "sha256": "7e607e319bafe93354d04571f82e7fae35365e21fec8d5ce393843f4d41366ac"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/providers/images.py",
+      "sha256": "d847124ef8dc76461f3257df2586075f7ca9602bebe4a15009c6a48aefa6aa13"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/providers/models.py",
+      "sha256": "7d00a646f583aec1b77abd8c956f1b0c830726be3c17ce37737ac05841060ea2"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/providers/schema.py",
+      "sha256": "a0c4a84b14a95d2834a150e8fa16224ccec03e1a84325b359b92868a61613391"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/providers/__init__.py",
+      "sha256": "5294e9e9a55d6f645ba1fae741f467accdf3aae0caf9e9094a46784bff57421f"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/screen/models.py",
+      "sha256": "1d33ba786df2cdbd81bd944ad69c11108d220fa268eca4960b4c51dcf1bab252"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/screen/prepare.py",
+      "sha256": "955e21a840cf00e56b7d431e3d0cf5aa2a5cd66de3e61433a054f31249bdb9dc"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/screen/questions.py",
+      "sha256": "663ad1437f6abc709caa5b0115051f6eee41debfd41a74e213895651fd47aec8"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/screen/rules.py",
+      "sha256": "c0b8920063f0eb3157d44cc76995a459e40267c78d9a5feab3c706ae85357a9b"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/screen/s3_adapter.py",
+      "sha256": "fb5956b91fab5cf4fc992926b9f35b9c44f9bcfac61ec013126adc5d7495ae60"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/screen/typed.py",
+      "sha256": "50a40aeb850693c4f10d3ea8a4a1e263819e9bd3a5c9a1681d9ec58be14f4bfb"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/src/content_strategy/shared/screen/__init__.py",
+      "sha256": "847da0a534d478e8be45e2de1eef47613bc3f1058ed85e6b5c5f9e99b222e42b"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/conftest.py",
+      "sha256": "597cd649bfe77c7ed5d53310bdabc2413a4e19be451d052f0d7089385e5a98a2"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/test_pinned_source.py",
+      "sha256": "0b76d9a76368ddeb6023253249559082d1c96e5760c3c21993852b5b5451a9a6"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/allocation.schema.json",
+      "sha256": "5a00f2b0002f56a0e0c6eddc7174f27303dc2fd1feef9eb232a98c33fa42dab4"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/billing-policy.schema.json",
+      "sha256": "48c2b0b75d6b2e8c004cdab781e4e230792175948ebe40c2e4f9c8f18720d483"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/budget-authority.schema.json",
+      "sha256": "f514326beda95a6de71084ef67f117a28dae4302df27b7f72f757808b2f2cdd9"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/call-context.schema.json",
+      "sha256": "bd5ea2932394d21aed2384d6d3559c672cd82f7458d13ba5bdff218a53482d0b"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/capabilities.schema.json",
+      "sha256": "8f07c6595016d591a23c010a77699c61e77aac9bf45efb863d9f8cf662c2ef02"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/cost-observation.schema.json",
+      "sha256": "e2c2ac6bc804caeb524e388951684ecec5f4bc9de7628dfabd739468018aeb60"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/execution-envelope.schema.json",
+      "sha256": "9213ae4ea207c5b38bdacab28281e29ab785beb1a8413cbd9658e466d2cc57f4"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/funding-declaration.schema.json",
+      "sha256": "badc0575ac98f301300d26a6fe7f112cd6a87958858007d151afe483df895f96"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/generate-request.schema.json",
+      "sha256": "e21af31fb0a59ab2f7dc962910416477bee5a8126f08d967d9bba20c4b484641"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/image-part.schema.json",
+      "sha256": "b4e8131099cac1cac4d81e064a59ee2d1ff30579accc5d93a67501f05f3be8a4"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/limits.schema.json",
+      "sha256": "756f32c1a6506190e583c05c1f308958744cd1ddec832a8cf0a684d3c3a63cfa"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/metadata-record.schema.json",
+      "sha256": "58f5317609cb5c603ba4ee3f540cd7365dd5a589f97a4d6e3f8a599c36d47988"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/non-model-span.schema.json",
+      "sha256": "7e6af9f0bd414d199a544867a2e29585e07b4e58299d5c74e9c60220ceecab20"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/normalized-usage.schema.json",
+      "sha256": "c5fd7231623fc982faa04a8d18083b2c6b33a7e3d4e561696bca2cbcf5beca46"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/operation-plan.schema.json",
+      "sha256": "ac490890f5f69d4f3abe29be618c7ea9810cf218465d4924834e552f6e5389a2"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/result.schema.json",
+      "sha256": "bb97564c9664f42af979e54063a573b21a35c73c6511802dd3d08bdd84ee6fe5"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/typed-request.schema.json",
+      "sha256": "73a29c169b7f827aa72b65437ea49423dcb21a8d459c15c5133fbad87630ed5e"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/docs/schemas/typed-result.schema.json",
+      "sha256": "2f7cd1368f79c02e13bc6d7dfab1897217be43bc6ad11cbcfb0d998786342241"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/prices/synthetic-unit-v1.json",
+      "sha256": "9cec5acd6b2e2de720df07b90ddb0cdd049866146a2f33c7577a7dd7f345b91f"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/scripts/generate_schemas.py",
+      "sha256": "29b8a0ae4a62f215d7f7e792351d2295e1f6d13f7333d4e104955c293ec6f162"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/scripts/update_prices.py",
+      "sha256": "2fd44d1b94dd94d957de1769578b39e493d45b37bf52659444b40e2530620d4a"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/callledger/conftest.py",
+      "sha256": "248d168871c403520067cfb7373ef578ed666466c3a7e4cd3adfa2741a09b35b"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/callledger/test_accounting.py",
+      "sha256": "611b780e6ea4e03fcffc071827b3ddae7d0b5e659c2d15adf1db3c5007fa4a18"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/callledger/test_boundaries.py",
+      "sha256": "ae8c8049ec8ee86305561ca78a67f18b42f1706be0823427671087f966b07a06"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/callledger/test_caller_limits.py",
+      "sha256": "4364faf99135cb593b5a035a06c166afae4f51f77886592ce5ad239b5e5eedde"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/callledger/test_durability.py",
+      "sha256": "b32bd929d786a5e57e7fc597eb2deca6838ae8c932ddeafddd3e22be358664d7"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/callledger/test_privacy.py",
+      "sha256": "890ec8b9c2223fb6f65f95841ab70aed62288d2f5e42b3eeaceb7a51ae758ef3"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/callledger/test_v1_migration.py",
+      "sha256": "3edac9e2ef8a796a74e62e925baf177e31efe0a11aba5265b6653414a747dd59"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/callledger/fixtures/wp02-schema-v1-case.json",
+      "sha256": "49313d66b9f4a5f27e847fd2058c2aad7ecd66e1020283b6c7582a6ef1a5c54d"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/callledger/fixtures/wp02-schema-v1.sql",
+      "sha256": "d0f223301262223bb84e977de5da3394f7f4f575c19491ad6d3031102a2a3656"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/contracts/conftest.py",
+      "sha256": "ad0a5cb34857fb39c22412c0b2ced507837fb272693ee26a8389a7999e6260f0"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/contracts/test_accounting_models.py",
+      "sha256": "f7a30ebe72e59b6596b4baac324ab282754b16ebda532be31039877a489b75f3"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/contracts/test_context_identity.py",
+      "sha256": "899cd4b54147420b9fc3f63b7616cc12167cb254789a26557b7a93f764685708"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/contracts/test_results_and_copy.py",
+      "sha256": "f5a84c7b0568c49508c9b7e79971b8f795283a1f92b4b5e61020e780f0e67f4e"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/contracts/test_result_provenance.py",
+      "sha256": "8ebef97cc56654f407b83e1dbd174a8522a5b9b4e5afde4872fa075d84f5dc91"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/contracts/test_typed_wire.py",
+      "sha256": "fc73bd8c04eee92883ef82e671f9384917bca4950565877f141dcf8f84c7309c"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/prices/test_pricing.py",
+      "sha256": "ee0d5a6c45654e01daebd705193f7a7037944d6bdb9608a16c115c54e92747cb"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/providers/conftest.py",
+      "sha256": "17c1360137a7e43558b3f786905a7841c9ddde6068502d4e39080f9cd03c451e"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/providers/test_controller.py",
+      "sha256": "79f535ce2a27e4cf9d9b808cac4a8ff4f63e0682a079870907269b232ab2fdce"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/providers/test_foundation_cases.py",
+      "sha256": "80b6a44b1267cc91b35692b5ccc73e5eb7563be8796e2c44617ef921e168c198"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/providers/test_images.py",
+      "sha256": "42acd0039bc7948ca9bd3e06ddf118c3121e989d5fd3bc8443352a11f6b76211"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/providers/test_payloads.py",
+      "sha256": "8f46cfd55272eb694bbe62838578fdf9e77af6afbe83f45f52913ffee7bfe077"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/providers/test_provider_privacy.py",
+      "sha256": "70cc142783a3e683aab7b2c96be58336c77d8bd4af4daacbea8433f98de7da33"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/provider_payloads/foundation-cases.v1.json",
+      "sha256": "516b49c863b27130b9a18ee3e058e5738d3c4286d6c4753abb74a03ad05fbf42"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/contracts/consumers/s3/owner/tests/provider_payloads/README.md",
+      "sha256": "e90582e778189592456155d6c3a8951a7b31e2f525039a0a1e3d35be5c13700f"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/screen/test_s3_native.py",
+      "sha256": "0a58bb81448cf017bf791a3d59262bce0b14545c9bb8466c1d9c0df76e0f9ac7"
+    },
+    {
+      "path": "conformance/vendor/s6-native/adapted/tests/screen/test_screen.py",
+      "sha256": "3fe3bf73470e97de08d1612e5c4fb3b51fb819f25cb34caa88c6a0a806eb4d01"
+    }
+  ],
+  "canonical_S3_classes": "Existing content_strategy.shared.callledger/providers; thirteen sibling files exact source-byte match, no forwarder or duplicated runtime class.",
+  "archive": "Previous six S6 files retained under conformance/vendor/s6/original-runtime/screen; previous source-map bytes preserved separately.",
+  "scope": "Mock/strict replay only; synthetic origin remains mock. No live/SDK/capture quality/calibration/cache/currentness-write or app acceptance."
+}

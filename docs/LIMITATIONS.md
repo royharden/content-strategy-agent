@@ -29,8 +29,9 @@ an hour. Fixed-UTC calendar overflow is an explicit error. Input normalization, 
 minimum samples and clock configuration are described in [input-contract.md](input-contract.md).
 
 Supplied labels are untrusted source data. There is no calibrated model tagging or measured
-prompt-screen quality here. Actual S6 rules have synthetic contract controls; typed screening
-integration remains pending. Diagnostics for individual posts are insufficient-data records.
+prompt-screen quality here. Actual S6 rules and native zero-dispatch typed adapters have
+synthetic contract controls; full application workflow integration remains pending.
+Diagnostics for individual posts are insufficient-data records.
 Focused synthetic hand-computed tests establish these domain behaviors only; they do not
 establish real-world recommendation quality, independent app acceptance or live provider
 readiness.

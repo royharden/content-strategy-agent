@@ -518,49 +518,55 @@
       "owner": "S6",
       "commit": "419eaf97f605637a9aece2f43c25b04ccb3dabdf",
       "source_path": "src/issue_triage/shared/screen/__init__.py",
-      "target": "src/content_strategy/shared/screen/__init__.py",
+      "target": "conformance/vendor/s6/original-runtime/screen/__init__.py",
       "git_blob": "0b1c299659558c561bba53118a64031020aae62e",
-      "sha256": "847da0a534d478e8be45e2de1eef47613bc3f1058ed85e6b5c5f9e99b222e42b"
+      "sha256": "847da0a534d478e8be45e2de1eef47613bc3f1058ed85e6b5c5f9e99b222e42b",
+      "previous_runtime_target": "src/content_strategy/shared/screen/__init__.py"
     },
     {
       "owner": "S6",
       "commit": "419eaf97f605637a9aece2f43c25b04ccb3dabdf",
       "source_path": "src/issue_triage/shared/screen/models.py",
-      "target": "src/content_strategy/shared/screen/models.py",
+      "target": "conformance/vendor/s6/original-runtime/screen/models.py",
       "git_blob": "891d6491df803b945aecd30cfe887d546ee5306c",
-      "sha256": "1d33ba786df2cdbd81bd944ad69c11108d220fa268eca4960b4c51dcf1bab252"
+      "sha256": "1d33ba786df2cdbd81bd944ad69c11108d220fa268eca4960b4c51dcf1bab252",
+      "previous_runtime_target": "src/content_strategy/shared/screen/models.py"
     },
     {
       "owner": "S6",
       "commit": "419eaf97f605637a9aece2f43c25b04ccb3dabdf",
       "source_path": "src/issue_triage/shared/screen/prepare.py",
-      "target": "src/content_strategy/shared/screen/prepare.py",
+      "target": "conformance/vendor/s6/original-runtime/screen/prepare.py",
       "git_blob": "0c09c41c7a235926054a953ab3062ccbf8c71b66",
-      "sha256": "955e21a840cf00e56b7d431e3d0cf5aa2a5cd66de3e61433a054f31249bdb9dc"
+      "sha256": "955e21a840cf00e56b7d431e3d0cf5aa2a5cd66de3e61433a054f31249bdb9dc",
+      "previous_runtime_target": "src/content_strategy/shared/screen/prepare.py"
     },
     {
       "owner": "S6",
       "commit": "419eaf97f605637a9aece2f43c25b04ccb3dabdf",
       "source_path": "src/issue_triage/shared/screen/questions.py",
-      "target": "src/content_strategy/shared/screen/questions.py",
+      "target": "conformance/vendor/s6/original-runtime/screen/questions.py",
       "git_blob": "6259493d681c5fdfd916f7b244b2d284318c6dad",
-      "sha256": "663ad1437f6abc709caa5b0115051f6eee41debfd41a74e213895651fd47aec8"
+      "sha256": "663ad1437f6abc709caa5b0115051f6eee41debfd41a74e213895651fd47aec8",
+      "previous_runtime_target": "src/content_strategy/shared/screen/questions.py"
     },
     {
       "owner": "S6",
       "commit": "419eaf97f605637a9aece2f43c25b04ccb3dabdf",
       "source_path": "src/issue_triage/shared/screen/rules.py",
-      "target": "src/content_strategy/shared/screen/rules.py",
+      "target": "conformance/vendor/s6/original-runtime/screen/rules.py",
       "git_blob": "e8b158e66dbb4d1cc128a82e0dcf61b44f8747dd",
-      "sha256": "c0b8920063f0eb3157d44cc76995a459e40267c78d9a5feab3c706ae85357a9b"
+      "sha256": "c0b8920063f0eb3157d44cc76995a459e40267c78d9a5feab3c706ae85357a9b",
+      "previous_runtime_target": "src/content_strategy/shared/screen/rules.py"
     },
     {
       "owner": "S6",
       "commit": "419eaf97f605637a9aece2f43c25b04ccb3dabdf",
       "source_path": "src/issue_triage/shared/screen/typed.py",
-      "target": "src/content_strategy/shared/screen/typed.py",
+      "target": "conformance/vendor/s6/original-runtime/screen/typed.py",
       "git_blob": "45b83cf81f563f8963f4a3319b8fc0cbe6752d1e",
-      "sha256": "54022116c9c8bdade586f60cca058f90709a43e24fddef109bbcea2bac7d92bc"
+      "sha256": "54022116c9c8bdade586f60cca058f90709a43e24fddef109bbcea2bac7d92bc",
+      "previous_runtime_target": "src/content_strategy/shared/screen/typed.py"
     },
     {
       "owner": "S6",
@@ -893,5 +899,6 @@
       "original_sha256": "3c2ba42b14a8909135a8a9bd5f0079a7fb50294c9b2fdf7176c55f1b709eee47"
     }
   ],
-  "scope": "Offline owner components. No paid/live/model quality or finished-app acceptance."
+  "scope": "Original S3 and archived S6 rules publication; current S6 native successor mapped separately.",
+  "successor_manifest": "conformance/vendor/s6-native/manifest.json"
 }

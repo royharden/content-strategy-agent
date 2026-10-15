@@ -9,9 +9,14 @@ Harden, preserved in `conformance/vendor/s3/upstream/LICENSE` and
 | Component | Source repository | Exact commit | Local package |
 | --- | --- | --- | --- |
 | S3 ledger and offline provider | llm-router-eval | c7a03a8a5aa91a3881782621d8a5f09c6b82520d | content_strategy.shared.callledger and providers |
-| S6 screen | github-issue-triage | 419eaf97f605637a9aece2f43c25b04ccb3dabdf | content_strategy.shared.screen |
+| S6 native offline screen | github-issue-triage | 8f8bb88ffc4148611dd6180b6f01d264c367cce3 | content_strategy.shared.screen |
 
-S3's fourteen-file closure and S6's six-file closure are copied together. Granted contracts,
+S3's fourteen-file closure and S6's seven-file successor closure retain their exact bytes.
+The earlier six-file S6 version is archived separately. The
+[successor map](../conformance/vendor/s6-native/manifest.json) pins all published originals,
+current runtime mappings and relocated test assets. Thirteen S3 sibling files match the
+existing canonical copies exactly; the same model classes serve the screen and gateway.
+Granted contracts,
 schemas, synthetic fixtures, tests and three S3 supplemental utilities/assets are retained
 under `conformance/vendor/<component>/upstream`. The separate `adapted` directories change
 test imports and file locations to exercise this repository. Original tests are preserved;
@@ -30,7 +35,11 @@ and `run`. S3 rechecks after lookup atomically. The gateway creates no allocatio
 capture, transport or fallback. A synthetic fixture hit remains mock. A strict replay miss
 may carry the backend origin `replay`, with no usable output or source observation.
 
-Typed screening integration is pending a published preparation/execution API that permits
-exact request evidence before admission. The retained S6 version explicitly holds captured
-typed requests as unavailable. Live SDK access, calibrated thresholds, real token/billing
-proof, deployment and finished-app acceptance are unestablished.
+The native app screen prepares one original wrapper/request before external caller evidence
+registration and admission. Its execution forwards the same caller objects to S6 and S3,
+validates source/model/policy/generation and holds on a miss, mutation or completed allocation.
+It creates no funding, evidence, nonce reconstruction or durable cache. The caller must check
+current source atomically before persistent writes. Full application workflow integration,
+live SDK access, calibrated thresholds, real token/billing proof, deployment and finished-app
+acceptance are unestablished. The archived legacy captured-request seam remains unavailable
+without the explicit native binding.
