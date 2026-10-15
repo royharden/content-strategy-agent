@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "basis": "Exact published committed Git bytes; adapted tests/scripts separate, no production edits",
+  "basis": "Historical exact source closures; prior S3 ledger retained in historical-runtime. Active ledger successor is bound separately by s3-purpose/manifest.json.",
   "sources": [
     {
       "owner": "S3",
@@ -30,7 +30,7 @@
       "owner": "S3",
       "commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
       "source_path": "src/llm_router_eval/shared/callledger/ledger.py",
-      "target": "src/content_strategy/shared/callledger/ledger.py",
+      "target": "conformance/vendor/s3-purpose/historical-runtime/callledger/ledger.py",
       "git_blob": "595fc556e62adef5bef529b632445a152e718fbc",
       "sha256": "207ccd4effe633f44863080957bafa4ca80752397e7aca4eafd541ff50eb2a1d"
     },

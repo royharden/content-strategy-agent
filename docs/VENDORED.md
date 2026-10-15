@@ -8,10 +8,16 @@ Harden, preserved in `conformance/vendor/s3/upstream/LICENSE` and
 
 | Component | Source repository | Exact commit | Local package |
 | --- | --- | --- | --- |
-| S3 ledger and offline provider | llm-router-eval | c7a03a8a5aa91a3881782621d8a5f09c6b82520d | content_strategy.shared.callledger and providers |
+| S3 ledger and offline provider | llm-router-eval | 2671816d4f4fc46b9a650fc4c05ae4389dada326 | content_strategy.shared.callledger and providers |
 | S6 native offline screen | github-issue-triage | 8f8bb88ffc4148611dd6180b6f01d264c367cce3 | content_strategy.shared.screen |
 
 S3's fourteen-file closure and S6's seven-file successor closure retain their exact bytes.
+The S3 offline-purpose successor changes only `ledger.py`; its thirteen sibling
+files remain byte-identical to c7a03a8. The new source map and original/adapted purpose
+controls are in `conformance/vendor/s3-purpose/`. The previous ledger and source map
+remain historical artifacts there. The successor checks each declared child purpose
+while allowing it to differ from the root operation purpose. It adds no generation
+repair registration or live transport API.
 The earlier six-file S6 version is archived separately. The
 [successor map](../conformance/vendor/s6-native/manifest.json) pins all published originals,
 current runtime mappings and relocated test assets. Thirteen S3 sibling files match the

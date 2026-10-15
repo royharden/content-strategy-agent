@@ -1,0 +1,38 @@
+[
+  {
+    "original": "conformance/vendor/s3-purpose/upstream/tests/callledger/conftest.py",
+    "adapted": "conformance/vendor/s3-purpose/adapted/tests/callledger/conftest.py",
+    "original_sha256": "28e43e5bf02fee49f0f6b33b17f80ba21d0223c6cd16de03bcb5ee2c3e605c1e",
+    "adapted_sha256": "248d168871c403520067cfb7373ef578ed666466c3a7e4cd3adfa2741a09b35b",
+    "diff": "conformance/vendor/s3-purpose/diffs/tests_callledger_conftest.py",
+    "diff_sha256": "ca55db9325e8f18c4ceaabef95f69fc76868ee536b00df1d14f72cd9ec14e9f2",
+    "change": "namespace only; no testassertion/source/behavior change"
+  },
+  {
+    "original": "conformance/vendor/s3-purpose/upstream/tests/callledger/test_child_purpose_reuse.py",
+    "adapted": "conformance/vendor/s3-purpose/adapted/tests/callledger/test_child_purpose_reuse.py",
+    "original_sha256": "3b791b254c6b0cde835c1c1ae0fe6c983ba6e70911bb5a974ec5d2715b4593ba",
+    "adapted_sha256": "123993df7c58e4e0b8d9b577c2aa44eccd6e09562b3da70d18a01a6c1c14c8f3",
+    "diff": "conformance/vendor/s3-purpose/diffs/tests_callledger_test_child_purpose_reuse.py",
+    "diff_sha256": "b7234c60dfc82c5e8ea8afb6f6cc00c071315a4fe778ee5c94835a0349f9e080",
+    "change": "namespace only; no testassertion/source/behavior change"
+  },
+  {
+    "original": "conformance/vendor/s3-purpose/upstream/tests/providers/conftest.py",
+    "adapted": "conformance/vendor/s3-purpose/adapted/tests/providers/conftest.py",
+    "original_sha256": "b9dd0c50f8c8d07a4fc5c4e8e3c7b6740ef6ea405bf53dcee31ddbff26f64125",
+    "adapted_sha256": "17c1360137a7e43558b3f786905a7841c9ddde6068502d4e39080f9cd03c451e",
+    "diff": "conformance/vendor/s3-purpose/diffs/tests_providers_conftest.py",
+    "diff_sha256": "c89c629804243c30dc7e8caf5bb7dd6361a5688c0e509cf47abe27e801f9bd53",
+    "change": "namespace only; no testassertion/source/behavior change"
+  },
+  {
+    "original": "conformance/vendor/s3-purpose/upstream/tests/providers/test_child_purpose_controller.py",
+    "adapted": "conformance/vendor/s3-purpose/adapted/tests/providers/test_child_purpose_controller.py",
+    "original_sha256": "5fab62021f0d4cea121994c39b5f9fd3930fc3f17594d49f16205c3987e8fcad",
+    "adapted_sha256": "d70ed89759bf04379fdd2cd226cb37e835080c028fe625023d84948f797e49ab",
+    "diff": "conformance/vendor/s3-purpose/diffs/tests_providers_test_child_purpose_controller.py",
+    "diff_sha256": "5a608443b8737460c71e78b27191c1fe09452f33735ee44c4526e72046ebf737",
+    "change": "namespace only; no testassertion/source/behavior change"
+  }
+]

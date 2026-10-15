@@ -6,3 +6,4 @@
 # Preserve exact independently authored DEV source bytes and seals.
 fixtures/dev/author-001/** -text
 gold/dev/author-001/** -text
+conformance/vendor/s3-purpose/historical-manifest.json -text
