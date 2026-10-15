@@ -44,6 +44,14 @@ screened draft → exact draft approval → audited Markdown/CSV download. The r
 module has detached corpus/queue consumer tests and actual local transaction/crash/CAS controls.
 Those tests do not establish real downstream application integration or finished-app acceptance.
 
+`content_strategy.api.LocalReviewService` now connects retained source selection to the actual
+SQLite approval/export store. A host must supply the database, namespace, actor, authorization
+and assessment callbacks. Importing a CSV retains history; activating a snapshot is explicit.
+Decisions bind exact immutable item versions and event sequences. Downloads replay authorized
+historical receipts. `api.security.SessionGuard` supplies pure loopback Host/Origin/cookie/CSRF
+checks. No HTTP factory, listener or default passing assessment is provided by these components;
+HTTP integration and browser acceptance remain pending dependency setup and resource allocation.
+
 Metric-only planning requests contain a bounded, declared stratified selection of metric rows,
 never raw post rows/text. A screen hold or unavailable required judge stops subsequent model
 stages. One content repair is bounded; fewer than five survivors is explicit underfill. Supplied

@@ -32,3 +32,9 @@ Inspection prompt: inspect the local components and explicit gaps, verify locked
 commands, and show the unfinished static page honestly. Keep Python approval/storage authority
 on the server. Do not create a cloud database, deploy functions, add secrets or publish from
 this handoff; provisioning and hosting require their own concrete authorization/readiness.
+
+The local review service joins retained metric snapshots to the actual SQLite approval/export
+store with required host callbacks and explicit activation/version/sequence checks. Pure
+loopback session checks are available. Neither component starts a listener or supplies a
+passing model assessment. Framework integration and browser acceptance remain pending;
+keep these host-controlled authority boundaries when adapting the interface.

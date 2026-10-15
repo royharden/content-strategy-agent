@@ -35,3 +35,8 @@ Diagnostics for individual posts are insufficient-data records.
 Focused synthetic hand-computed tests establish these domain behaviors only; they do not
 establish real-world recommendation quality, independent app acceptance or live provider
 readiness.
+
+The local review service uses host-injected authorization and assessment callbacks. It has no
+default approving reviewer, authenticated HTTP session, or implicit active-source pointer.
+Pure session-header tests establish component behavior only. HTTP framework, browser journey,
+resource lifecycle and independent security acceptance remain pending.
