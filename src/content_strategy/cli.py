@@ -1,4 +1,4 @@
-"""Explicit local analysis commands; no provider, activation or approval effects."""
+"""Local analysis and explicit authored-mock terminal review commands."""
 
 import argparse
 import json
@@ -7,9 +7,6 @@ from dataclasses import asdict
 from pathlib import Path
 
 from . import __version__
-from .ingest import MAX_BYTES, IngestError, ingest_csv
-from .metrics import AnalysisConfig
-from .storage import SourceStore, StorageError
 
 
 def _summary(retained):
@@ -42,6 +39,22 @@ def main(argv: list[str] | None = None) -> int:
         else:
             command.add_argument("--dataset-id", required=True)
             command.add_argument("--snapshot-id", required=True)
+    for name in ("review", "receipt"):
+        command = commands.add_parser(name)
+        command.add_argument("--database", required=True, type=Path)
+        command.add_argument("--call-database", required=True, type=Path)
+        command.add_argument("--namespace", required=True)
+        command.add_argument("--output-dir", required=True, type=Path)
+        if name == "review":
+            command.add_argument("--file", required=True, type=Path)
+            command.add_argument("--brief", default="Explore practical lessons from these metrics.")
+            command.add_argument(
+                "--clock", choices=("posted-local", "fixed-utc"), default="posted-local"
+            )
+        else:
+            command.add_argument("--dataset-id", required=True)
+            command.add_argument("--snapshot-id", required=True)
+            command.add_argument("--key", required=True)
     arguments = parser.parse_args(argv)
     if arguments.status_json:
         if arguments.command:
@@ -51,7 +64,10 @@ def main(argv: list[str] | None = None) -> int:
                 {
                     "stage": "local-components",
                     "version": __version__,
-                    "implemented_workflows": ["local_csv_analysis"],
+                    "implemented_workflows": [
+                        "local_csv_analysis",
+                        "authored_mock_terminal_review",
+                    ],
                     "implemented_components": [
                         "grounded_structural_models",
                         "canonical_identity",
@@ -68,9 +84,11 @@ def main(argv: list[str] | None = None) -> int:
                     ],
                     "schema_validation_is_authorization": False,
                     "provider_calls": False,
-                    "approval_export_available": False,
+                    "approval_export_available": True,
+                    "execution_origin": "authored_synthetic_mock",
+                    "quality_measurement": False,
                     "local_module_approval_export": True,
-                    "x_drafts_supported": False,
+                    "x_drafts_supported": True,
                 },
                 sort_keys=True,
             )
@@ -79,7 +97,17 @@ def main(argv: list[str] | None = None) -> int:
     if not arguments.command:
         parser.print_help()
         return 0
+    # Status, version, help and invalid commands need no Pydantic/runtime imports.
+    from .ingest import MAX_BYTES, IngestError, ingest_csv
+    from .metrics import AnalysisConfig
+    from .storage import SourceStore, StorageError
+
     try:
+        if arguments.command in {"review", "receipt"}:
+            from .review_cli import receipt_command, review_command
+
+            operation = review_command if arguments.command == "review" else receipt_command
+            return operation(arguments)
         if arguments.command == "import-csv":
             with arguments.file.open("rb") as stream:
                 payload = stream.read(MAX_BYTES + 1)

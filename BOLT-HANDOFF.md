@@ -1,14 +1,15 @@
 # Bolt handoff — local backend, frontend scaffold
 
-Development is paused. The stack is Python 3.12, Pydantic/FastAPI and local SQLite,
+The stack is Python 3.12, Pydantic/FastAPI and local SQLite,
 with Node 24, React, TypeScript and Vite scaffolding. Both lockfiles are committed.
 Browser output is `dist/`; a complete browser workflow is outstanding.
 
 The host API supports retained metrics, actual shared screening/accounting in authored mock
 mode, checked review, separate recommendation/draft approvals, revision invalidation and audited
 Markdown/CSV receipts across restart. Live model calls and quality remain unvalidated. The HTTP
-factory is written, but its application routes have not run. A separate constant-route ASGI
-check does not establish application HTTP acceptance.
+factory's actual normal/refusal routes have direct socket-free ASGI coverage. The terminal
+`review` command provides explicit separate decisions and approved-only local downloads;
+`receipt` recovers committed bytes after restart. Real HTTP/browser acceptance remains pending.
 
 SQLite migrations and append-only review/source/proof storage are real local code. The call
 ledger uses a separate database. There is no provisioned cloud database, authentication
@@ -21,7 +22,8 @@ model access. Public hosting and multi-user authentication are outstanding decis
 
 Setup/build entry points are `uv sync --locked`, `npm ci`, `npm run typecheck` and
 `npm run build`. These describe source tooling rather than completed frontend acceptance.
-React type dependency setup is unfinished. Local serving needs an explicit loopback origin
+React type dependency setup is unfinished; the cached first archive's integrity/inventory/full
+MIT notice is verified, with the remaining archives unacquired. Local serving needs an explicit loopback origin
 and a registered listening resource. No server launcher or listener is currently provided.
 
 Preserve server-controlled actor/namespace/policy and assessment boundaries. Browser bodies
@@ -32,6 +34,11 @@ Inspection prompt: inspect the components and scaffold, preserve the documented 
 boundary, and show unfinished browser behavior honestly. Any backend port must preserve input,
 grounding, approval, receipt and target conformance. Provisioning, hosting, provider access and
 publication require separate readiness and authorization.
+
+Database target for this edition: local SQLite only; no cloud database is required for the
+terminal workflow. No remote migrations, functions, buckets or provider secrets are needed
+for authored mock execution. Approval revocation appends invalidation events through the
+existing migration edition; it never rewrites historical receipt bytes.
 
 See [development status](DEVELOPMENT-STATUS.md), [limitations](docs/LIMITATIONS.md) and
 [third-party provenance](THIRD_PARTY.md).

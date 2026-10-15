@@ -1,8 +1,8 @@
 # Current implementation limitations
 
-Development is paused. The local Python host API has a complete authored mock review journey;
-the CLI exposes analysis commands and the browser is a static scaffold. The HTTP factory
-exists but its owned routes have not run. Real server, browser, security and independent
+The local Python host API and interactive terminal expose an authored mock review journey;
+the browser is a static scaffold. Direct socket-free ASGI checks exercise owned HTTP routes.
+Real server, browser, security and independent
 finished-application acceptance remain outstanding.
 
 All current generation, screening and semantic model answers are authored synthetic data.
@@ -32,6 +32,8 @@ certification or paid long-form support. LinkedIn uses the application's conserv
 3,000 UTF-16-unit bound. Neither target has a publishing integration.
 
 Local approval, revision, two-format export and restart behavior have development regression
-coverage. The normal/refusal exercises are synthetic component and host-API checks. A runnable
-interactive launcher and independent application acceptance remain required. See
+coverage, including explicit revocation and dependent invalidation. Historical receipts remain
+downloadable after revocation; they are records of already approved exports, not current approval.
+The normal/refusal exercises are synthetic terminal, component and direct-ASGI checks.
+Independent application acceptance remains required. See
 [current status](../DEVELOPMENT-STATUS.md) and [input contract](input-contract.md).

@@ -20,6 +20,12 @@
   exact upstream fixtures and patch context without rewriting them.
 - Archive entry counts can include directories. Track total entries, regular files and exact
   unpacked file bytes separately, alongside integrity and path safety.
+- Approval revocation needs its own authorized, sequence-checked operation. Rejection of an
+  unapproved draft is a different transition; revocation must also invalidate dependent approval.
+- Validate malformed uploads before opening a store. Transaction rollback alone can still leave
+  an empty database and migration side effects.
+- Keep CLI status/version/help imports light; they should not initialize the runtime just to
+  report metadata. Test the actual detached entrypoint as well as in-process command handlers.
 - Windows asyncio startup may construct a TCP socketpair even for an in-memory client.
   A direct socket-free ASGI check has limited scope; real HTTP/browser checks remain necessary.
 - Preserve timed-out/incomplete records. Serial test groups must retain the same distinct-case

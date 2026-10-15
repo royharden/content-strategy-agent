@@ -512,6 +512,37 @@ class AuditStore:
                 )
             return self._append("reject", content, actor_label=actor_label)
 
+    def revoke(self, item_id: str, revision: int, *, actor_label: str, expected_sequence: int):
+        """Withdraw current approval and dependent approvals; keep historical receipts."""
+        with self._transaction():
+            self._cas(expected_sequence)
+            content = self._load(item_id, revision)
+            self._latest(content)
+            self._current_context(content.item.snapshot_id)
+            self._permission(actor_label, "revoke", content)
+            if self._state(content)[0] not in {"approved", "exported"}:
+                raise GateError("approval_required")
+            self._append("invalidate", content, actor_label=actor_label, reason="approval_revoked")
+            if content.item.kind == "recommendation":
+                for child_id, child_revision in self.connection.execute(
+                    "SELECT item_id,MAX(revision) FROM grounded_versions WHERE namespace=? "
+                    "GROUP BY item_id",
+                    (self.namespace,),
+                ).fetchall():
+                    child = self._load(child_id, child_revision)
+                    if (
+                        child.item.parent_id == item_id
+                        and child.item.parent_revision == revision
+                        and self._state(child)[0] in {"approved", "exported"}
+                    ):
+                        self._append(
+                            "invalidate",
+                            child,
+                            actor_label=actor_label,
+                            reason="parent_approval_revoked",
+                        )
+            return self.sequence
+
     def _stored_bundle(self, row, request):
         request_hash = identity_hash(request.model_dump(mode="python"))
         if row[0] != request_hash:

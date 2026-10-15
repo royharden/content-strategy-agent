@@ -261,6 +261,15 @@ def create_app(host: PlanningHost, guard: SessionGuard, *, assets: Path | None =
         )
         return {"state": state, "sequence": review.require_context(value.selection)}
 
+    @app.post("/api/revoke")
+    async def revoke(request: Request):
+        value = await _input(request, VersionInput)
+        return {
+            "sequence": review.revoke(
+                value.selection, value.version, expected_sequence=value.expected_sequence
+            )
+        }
+
     @app.post("/api/draft")
     async def draft(request: Request):
         value = await _input(request, DraftInput)

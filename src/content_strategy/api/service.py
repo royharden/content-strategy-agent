@@ -7,6 +7,7 @@ from typing import Annotated
 
 from pydantic import Field, TypeAdapter
 
+from ..ingest import ingest_csv
 from ..metrics import AnalysisConfig
 from ..metrics.grounding import MetricsResolver
 from ..shared.grounded.audit import AuditStore, Bundle, ExportRequest, GateError
@@ -62,6 +63,7 @@ class LocalReviewService:
         tag_provenance: tuple[TagProvenance, ...] | None = None,
     ) -> Retained:
         self._allow("import_csv")
+        ingest_csv(payload)  # Invalid CSV must not create/bootstrap a database.
         with SourceStore(self.database, namespace=self.namespace) as sources:
             return sources.import_csv(payload, config=config, tag_provenance=tag_provenance)
 
@@ -179,6 +181,16 @@ class LocalReviewService:
                 content.item.item_id,
                 content.item.revision,
                 approve=approve,
+                actor_label=self.actor_label,
+                expected_sequence=expected_sequence,
+            )
+
+    def revoke(self, selection: Selection, version: ItemVersion, *, expected_sequence: int) -> int:
+        content = self.read(selection, version)
+        with self._audit(selection) as store:
+            return store.revoke(
+                content.item.item_id,
+                content.item.revision,
                 actor_label=self.actor_label,
                 expected_sequence=expected_sequence,
             )

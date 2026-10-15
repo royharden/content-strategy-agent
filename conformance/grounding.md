@@ -83,3 +83,11 @@ cannot approve or export. The service checks sequence/context again before discl
 An authorized historical `read_content` remains a trusted storage operation and must not
 be exposed as an unscreened browser-body route. Original DTO schemas and migration bytes
 remain unchanged by these additive APIs.
+
+`revoke(id, revision, actor_label=..., expected_sequence=...)` requires current context,
+the latest exact version, the `revoke` host permission and an approved/exported state.
+One transaction appends `invalidate` with reason `approval_revoked` and invalidates current
+approved/exported drafts bound to that recommendation revision. New exports then refuse;
+reauthorization requires fresh explicit decisions. Existing committed receipts remain
+authorized historical downloads. Rejection remains a separate draft-state decision.
+Revocation adds no migration or structural DTO change.

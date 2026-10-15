@@ -37,11 +37,16 @@ class PackageScaffoldTests(unittest.TestCase):
             status = json.loads(result.stdout)
             self.assertEqual(status["stage"], "local-components")
             self.assertFalse(status["schema_validation_is_authorization"])
-            self.assertEqual(status["implemented_workflows"], ["local_csv_analysis"])
+            self.assertEqual(
+                status["implemented_workflows"],
+                ["local_csv_analysis", "authored_mock_terminal_review"],
+            )
             self.assertFalse(status["provider_calls"])
-            self.assertFalse(status["approval_export_available"])
+            self.assertTrue(status["approval_export_available"])
             self.assertTrue(status["local_module_approval_export"])
-            self.assertFalse(status["x_drafts_supported"])
+            self.assertTrue(status["x_drafts_supported"])
+            self.assertFalse(status["quality_measurement"])
+            self.assertEqual(status["execution_origin"], "authored_synthetic_mock")
             self.assertEqual(list(cwd.iterdir()), [])
 
     def test_detached_package_import_has_no_workspace_or_test_dependency(self) -> None:
@@ -52,7 +57,8 @@ class PackageScaffoldTests(unittest.TestCase):
             result = self.invoke(source, cwd, "--status-json")
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertEqual(
-                json.loads(result.stdout)["implemented_workflows"], ["local_csv_analysis"]
+                json.loads(result.stdout)["implemented_workflows"],
+                ["local_csv_analysis", "authored_mock_terminal_review"],
             )
 
     def test_unimplemented_workflow_is_rejected_instead_of_faked(self) -> None:
