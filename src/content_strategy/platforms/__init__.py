@@ -1,4 +1,4 @@
-"""Supported target checks. X remains unavailable until its verified parser is installed."""
+"""Verified X v3 weighted checks and conservative LinkedIn UTF-16 checks."""
 
 from dataclasses import dataclass
 
@@ -13,7 +13,19 @@ class TargetCheck:
 
 def check_target(scope: str, text: str) -> TargetCheck:
     if scope == "x":
-        return TargetCheck(False, False, None, "verified_x_parser_unavailable")
+        from ..vendor.twitter_text import parse_tweet
+
+        try:
+            text.encode("utf-8")
+        except UnicodeEncodeError:
+            return TargetCheck(True, False, None, "invalid_unicode")
+        result = parse_tweet(text)
+        return TargetCheck(
+            True,
+            result.valid,
+            result.weightedLength,
+            None if result.valid else "x_v3_invalid_or_weighted_limit",
+        )
     if scope != "linkedin":
         return TargetCheck(False, False, None, "unsupported_platform")
     try:

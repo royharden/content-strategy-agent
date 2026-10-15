@@ -1,0 +1,32 @@
+--- twitter_text/__init__.py
++++ src/content_strategy/vendor/twitter_text/__init__.py
+@@ -1,6 +1,6 @@
+-from twitter_text.parse_tweet import parse_tweet, ParsedResult
+-from twitter_text.extract_urls import extract_urls, extract_urls_with_indices
+-from twitter_text.extract_emojis import extract_emojis_with_indices
++from .parse_tweet import parse_tweet, ParsedResult
++from .extract_urls import extract_urls, extract_urls_with_indices
++from .extract_emojis import extract_emojis_with_indices
+ 
+ __all__ = [
+     'ParsedResult',
+--- twitter_text/regexp/emoji.py
++++ src/content_strategy/vendor/twitter_text/regexp/emoji.py
+@@ -2,7 +2,7 @@
+ from collections import namedtuple
+ from typing import List, Tuple
+ 
+-import pkg_resources
++from importlib.resources import files
+ 
+ Emoji = namedtuple('Emoji', ('group', 'sub_group', 'name', 'status', 'codepoint', 'emoji'))
+ 
+@@ -105,7 +105,7 @@
+     return [(l, h) for l, h in zip(lows, highs)]
+ 
+ 
+-emoji_raw = pkg_resources.resource_string(__name__, 'emoji-test.txt').decode('utf-8')
++emoji_raw = files(__package__).joinpath('emoji-test.txt').read_bytes().decode('utf-8')
+ emoji_list = parse_emoji_list(emoji_raw)
+ emoji_dict = {x.emoji: x for x in emoji_list}
+ 

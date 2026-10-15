@@ -7,3 +7,11 @@
 fixtures/dev/author-001/** -text
 gold/dev/author-001/** -text
 conformance/vendor/s3-purpose/historical-manifest.json -text
+
+src/content_strategy/vendor/twitter_text/** -text
+src/content_strategy/vendor/LICENSE.twitter-text-parser -text
+conformance/vendor/twitter-text-official/** -text
+conformance/vendor/twitter-text-parser/LICENSE -text
+src/content_strategy/vendor/twitter_text/** whitespace=-trailing-space
+conformance/vendor/twitter-text-official/** whitespace=-trailing-space
+conformance/vendor/twitter-text-parser/resource-loader.patch -text whitespace=-trailing-space

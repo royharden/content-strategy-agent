@@ -1,0 +1,282 @@
+{
+  "distribution": "twitter-text-parser",
+  "upstream_version": "3.0.0",
+  "derivative_edition": "3.0.0+stdlib.resources.1",
+  "source_wheel": "twitter_text_parser-3.0.0-py3-none-any.whl",
+  "wheel_sha256": "b36bd22e147db2234e79c73b021f10c3073e8c54f22b68c31696239b6917cdd3",
+  "license": "MIT",
+  "license_sha256": "74b539462258504bb88436b57f4c917d87885b5a0b0d914d79c27891affb2bbe",
+  "runtime_members": 38,
+  "changed_members": 2,
+  "removed_lines": 5,
+  "added_lines": 5,
+  "scope": "Three namespace import-prefix edits and two standard-library resource-loader edits only. All algorithms/configuration/emoji data unchanged.",
+  "members": [
+    {
+      "source_member": "twitter_text/__init__.py",
+      "target": "src/content_strategy/vendor/twitter_text/__init__.py",
+      "original_sha256": "4e213c068e4e43a8f09093659891bb1094689be7e06e71fb6e23ca717fe803b1",
+      "derived_sha256": "8bd6140c3be90df3c5c197ee0ff5317e2db42a13207438342d4671d8e94d4927",
+      "unchanged": false
+    },
+    {
+      "source_member": "twitter_text/config.py",
+      "target": "src/content_strategy/vendor/twitter_text/config.py",
+      "original_sha256": "d0f824ebfc41918b101749bd230eb12730c6c3d2f3f2513a381557426d328356",
+      "derived_sha256": "d0f824ebfc41918b101749bd230eb12730c6c3d2f3f2513a381557426d328356",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/extract_emojis.py",
+      "target": "src/content_strategy/vendor/twitter_text/extract_emojis.py",
+      "original_sha256": "7ca7301a0a80950fee6bdf8efb4ef5ee3a9900ee36f077af22c23792ed36d847",
+      "derived_sha256": "7ca7301a0a80950fee6bdf8efb4ef5ee3a9900ee36f077af22c23792ed36d847",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/extract_urls.py",
+      "target": "src/content_strategy/vendor/twitter_text/extract_urls.py",
+      "original_sha256": "cc23745062788b6a523afbe1837a6461445b7dfd025223a55b6698a3896e0397",
+      "derived_sha256": "cc23745062788b6a523afbe1837a6461445b7dfd025223a55b6698a3896e0397",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/get_character_weight.py",
+      "target": "src/content_strategy/vendor/twitter_text/get_character_weight.py",
+      "original_sha256": "0670cf3c32577677a53e1297b040be5dfefe3937a761acb09a3c272341864807",
+      "derived_sha256": "0670cf3c32577677a53e1297b040be5dfefe3937a761acb09a3c272341864807",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/has_invalid_characters.py",
+      "target": "src/content_strategy/vendor/twitter_text/has_invalid_characters.py",
+      "original_sha256": "d7aaf15bd39ad048301f7bbec471c4c1294d58510a01caf34bbe7788f9b948d0",
+      "derived_sha256": "d7aaf15bd39ad048301f7bbec471c4c1294d58510a01caf34bbe7788f9b948d0",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/parse_tweet.py",
+      "target": "src/content_strategy/vendor/twitter_text/parse_tweet.py",
+      "original_sha256": "40dbd372d257157c3fe952a9b5124104d681ca98d0c98edb2dde50f188b4f42f",
+      "derived_sha256": "40dbd372d257157c3fe952a9b5124104d681ca98d0c98edb2dde50f188b4f42f",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regex_supplant.py",
+      "target": "src/content_strategy/vendor/twitter_text/regex_supplant.py",
+      "original_sha256": "636e0ddc845333b00abd2901743456b748015313d945b535042291880f7c03b6",
+      "derived_sha256": "636e0ddc845333b00abd2901743456b748015313d945b535042291880f7c03b6",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/__init__.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/__init__.py",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "derived_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/cyrillic_letters_and_marks.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/cyrillic_letters_and_marks.py",
+      "original_sha256": "14eb03ac2723266aae10f0a35815695c829ede47cc9eb5870051c537d3a8e696",
+      "derived_sha256": "14eb03ac2723266aae10f0a35815695c829ede47cc9eb5870051c537d3a8e696",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/directional_markers_group.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/directional_markers_group.py",
+      "original_sha256": "f1890012c52573dfffe4ada91215ffa22cbd3d8aeb6d544cef6c4309d8b9e7c3",
+      "derived_sha256": "f1890012c52573dfffe4ada91215ffa22cbd3d8aeb6d544cef6c4309d8b9e7c3",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/emoji-test.txt",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/emoji-test.txt",
+      "original_sha256": "93b5476b4d3b5381a57336c138bcabb1a53a4288d604249535b0a694a0030db7",
+      "derived_sha256": "93b5476b4d3b5381a57336c138bcabb1a53a4288d604249535b0a694a0030db7",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/emoji.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/emoji.py",
+      "original_sha256": "33fcb3e929dc532f00980c67498f774825eb647b785f4f0d14e15f67c97ab60f",
+      "derived_sha256": "4806d1c6813e015ada18b519178a318a265d53c294c42858c5f91f6c6401cb75",
+      "unchanged": false
+    },
+    {
+      "source_member": "twitter_text/regexp/extract_url.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/extract_url.py",
+      "original_sha256": "e3dff688ea2c371ad8f88e797290f92132b9d7eb9b7d8f17c47e9a528b68a279",
+      "derived_sha256": "e3dff688ea2c371ad8f88e797290f92132b9d7eb9b7d8f17c47e9a528b68a279",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/invalid_chars.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/invalid_chars.py",
+      "original_sha256": "611852bc1006e5e8031d46784c0ff35bf4c5f568c78906696230da41cd1a3eb7",
+      "derived_sha256": "611852bc1006e5e8031d46784c0ff35bf4c5f568c78906696230da41cd1a3eb7",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/invalid_chars_group.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/invalid_chars_group.py",
+      "original_sha256": "9b31c164532f0d0a2c1584d384711aa15fd4b3a96ba3e382474159b2889f2dd1",
+      "derived_sha256": "9b31c164532f0d0a2c1584d384711aa15fd4b3a96ba3e382474159b2889f2dd1",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/invalid_domain_chars.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/invalid_domain_chars.py",
+      "original_sha256": "05fe0802981a9bda2ff7815ebdd5f535f54141abc189b6dd7cb8b4dddb45d51b",
+      "derived_sha256": "05fe0802981a9bda2ff7815ebdd5f535f54141abc189b6dd7cb8b4dddb45d51b",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/invalid_url_without_protocol_preceding_chars.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/invalid_url_without_protocol_preceding_chars.py",
+      "original_sha256": "c4a6683af8a84b2bdc4cc47fb4301a9b16b32669cad5162db84a52ce82153d9b",
+      "derived_sha256": "c4a6683af8a84b2bdc4cc47fb4301a9b16b32669cad5162db84a52ce82153d9b",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/latin_accent_chars.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/latin_accent_chars.py",
+      "original_sha256": "fce252d324766a71120e874e5c97d6ba721e2f331bbb7a3002cf203b0f669c76",
+      "derived_sha256": "fce252d324766a71120e874e5c97d6ba721e2f331bbb7a3002cf203b0f669c76",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/punct.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/punct.py",
+      "original_sha256": "8006f7f10def8c09c4bc0808775b0dbefa6e320841cf1914dbece8ca255e3aa3",
+      "derived_sha256": "8006f7f10def8c09c4bc0808775b0dbefa6e320841cf1914dbece8ca255e3aa3",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/spaces_group.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/spaces_group.py",
+      "original_sha256": "384e97b3ca26c89cf325e2bc4a928a5cf27bdebfed4a8ba89864d1c20bc62509",
+      "derived_sha256": "384e97b3ca26c89cf325e2bc4a928a5cf27bdebfed4a8ba89864d1c20bc62509",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_ascii_domain.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_ascii_domain.py",
+      "original_sha256": "d912d774f280f6b9c0cbdcec4c87e68451f0b8a0cf30b18220ae51f7122bbe37",
+      "derived_sha256": "d912d774f280f6b9c0cbdcec4c87e68451f0b8a0cf30b18220ae51f7122bbe37",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_cctld.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_cctld.py",
+      "original_sha256": "960c2436f811e4db708f3bc8d5a176db917fd6321ac4f4807d08e8051295249f",
+      "derived_sha256": "960c2436f811e4db708f3bc8d5a176db917fd6321ac4f4807d08e8051295249f",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_domain.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_domain.py",
+      "original_sha256": "bb3f86889bbf6f2fddac1019700a32a5d37be78b11299636bd6cf09c96ec4924",
+      "derived_sha256": "bb3f86889bbf6f2fddac1019700a32a5d37be78b11299636bd6cf09c96ec4924",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_domain_chars.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_domain_chars.py",
+      "original_sha256": "809162619a33b4499068d4501f3e3bc0276a4e75e0e97a3bf58d90384f58d01e",
+      "derived_sha256": "809162619a33b4499068d4501f3e3bc0276a4e75e0e97a3bf58d90384f58d01e",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_domain_name.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_domain_name.py",
+      "original_sha256": "18baffeb8fb4fa5fbfc2da6db07fe42d5ae8fb3618b09d5bd080aa62b4b23954",
+      "derived_sha256": "18baffeb8fb4fa5fbfc2da6db07fe42d5ae8fb3618b09d5bd080aa62b4b23954",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_general_url_path_chars.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_general_url_path_chars.py",
+      "original_sha256": "65f02c9c3c0cfc2481b61c65d16b3983f09fa98b07b58f47c479ce029d44d932",
+      "derived_sha256": "65f02c9c3c0cfc2481b61c65d16b3983f09fa98b07b58f47c479ce029d44d932",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_gtld.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_gtld.py",
+      "original_sha256": "019183494b30c017528b9cbb958a4d96bfce5a43359ba4f0e423732572158b93",
+      "derived_sha256": "019183494b30c017528b9cbb958a4d96bfce5a43359ba4f0e423732572158b93",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_port_number.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_port_number.py",
+      "original_sha256": "01261fca5d8e65a5559983300dc0263fb20bf7e1327467cb040950bf05d9d3be",
+      "derived_sha256": "01261fca5d8e65a5559983300dc0263fb20bf7e1327467cb040950bf05d9d3be",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_punycode.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_punycode.py",
+      "original_sha256": "ae3e010f0db0aba9909d23fe1a958d2346d613f6d2ecf899a094f294393afdb9",
+      "derived_sha256": "ae3e010f0db0aba9909d23fe1a958d2346d613f6d2ecf899a094f294393afdb9",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_subdomain.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_subdomain.py",
+      "original_sha256": "b454332d879f2a6bbcdb2f81149d014cf035ffed41b19011f276bd321e98380e",
+      "derived_sha256": "b454332d879f2a6bbcdb2f81149d014cf035ffed41b19011f276bd321e98380e",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_tco_url.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_tco_url.py",
+      "original_sha256": "91355206e40c5c13f0ba7b1837d07108460007234b3c4ea9bbaa207c71ef27b9",
+      "derived_sha256": "91355206e40c5c13f0ba7b1837d07108460007234b3c4ea9bbaa207c71ef27b9",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_url_balanced_parens.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_url_balanced_parens.py",
+      "original_sha256": "4187b055db5fb52693c33f75c565be11f059223db6afec2da863d72f40571493",
+      "derived_sha256": "4187b055db5fb52693c33f75c565be11f059223db6afec2da863d72f40571493",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_url_path.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_url_path.py",
+      "original_sha256": "e75816911f2d9ebff826ee25cba766c05505df3e76215daf73e93942bdf7a49e",
+      "derived_sha256": "e75816911f2d9ebff826ee25cba766c05505df3e76215daf73e93942bdf7a49e",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_url_path_ending_chars.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_url_path_ending_chars.py",
+      "original_sha256": "ecc833e708d0031581fe36cf5800d4b30269420fff0398b808e7108ca6fb5a89",
+      "derived_sha256": "ecc833e708d0031581fe36cf5800d4b30269420fff0398b808e7108ca6fb5a89",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_url_preceding_chars.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_url_preceding_chars.py",
+      "original_sha256": "98206773ba0664f3a04068490a5f7a5c8835ce4d3771e07f5111b6878be09052",
+      "derived_sha256": "98206773ba0664f3a04068490a5f7a5c8835ce4d3771e07f5111b6878be09052",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_url_query_chars.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_url_query_chars.py",
+      "original_sha256": "7ed475e7c0cf7b387aab82167b0cb011193e36ad033d81d85d0bbe3b85088077",
+      "derived_sha256": "7ed475e7c0cf7b387aab82167b0cb011193e36ad033d81d85d0bbe3b85088077",
+      "unchanged": true
+    },
+    {
+      "source_member": "twitter_text/regexp/valid_url_query_ending_chars.py",
+      "target": "src/content_strategy/vendor/twitter_text/regexp/valid_url_query_ending_chars.py",
+      "original_sha256": "e16953a73bf56cdc5634fc07d4efd3a842a52cad99d6ead3dc9cdcd450f108c9",
+      "derived_sha256": "e16953a73bf56cdc5634fc07d4efd3a842a52cad99d6ead3dc9cdcd450f108c9",
+      "unchanged": true
+    }
+  ]
+}

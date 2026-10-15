@@ -106,7 +106,7 @@ def test_positive_draft_inherits_and_can_enter_actual_second_approval_export(con
     assert bundle.markdown and bundle.csv and len(bundle.receipt.approval_event_ids) == 2
 
 
-def test_unverified_x_target_refuses_before_ports(context):
+def test_verified_x_target_uses_actual_parent_and_weighted_limit(context):
     h, store, _, authority = context
     candidate = h.candidate(scope="x")
     parent = seal_content(
@@ -120,17 +120,21 @@ def test_unverified_x_target_refuses_before_ports(context):
     )
     store.save(parent, actor_label="user", expected_revision=0, expected_sequence=store.sequence)
     store.decide("recx", 1, approve=True, actor_label="user", expected_sequence=store.sequence)
-    with pytest.raises(PortRefusal, match="target_capability_unavailable"):
-        draft(
-            h.port,
-            parent,
-            h.snapshot,
-            "Brief",
-            authority=authority,
-            actor_label="user",
-            bindings=h.bindings(),
-        )
-    assert not h.generate_calls
+    h.batches = [
+        (h.candidate(scope="x", text="a" * 281 + " {{cite:er.x.topic.untagged}}"),),
+        (h.candidate("A short reflection", scope="x"),),
+    ]
+    result = draft(
+        h.port,
+        parent,
+        h.snapshot,
+        "Brief",
+        authority=authority,
+        actor_label="user",
+        bindings=h.bindings(),
+    )
+    assert result.accepted and len(h.generate_calls) == 2
+    assert result.dropped[0].codes == ("x_v3_invalid_or_weighted_limit",)
 
 
 def test_boolean_approval_flag_is_not_a_parent_authority(context):

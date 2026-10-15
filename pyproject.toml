@@ -23,6 +23,7 @@ pythonpath = ["src"]
 addopts = "--strict-config --strict-markers"
 
 [tool.ruff]
+extend-exclude = ["src/content_strategy/vendor/twitter_text"]
 target-version = "py312"
 line-length = 100
 
