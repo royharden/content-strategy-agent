@@ -2,3 +2,7 @@
 *.png binary
 *.jpg binary
 *.woff2 binary
+
+# Preserve exact independently authored DEV source bytes and seals.
+fixtures/dev/author-001/** -text
+gold/dev/author-001/** -text

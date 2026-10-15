@@ -1,0 +1,49 @@
+{
+  "edition": "s9-dev-source-copy.v1",
+  "author_actual_session": "01a13d12-3695-7e71-bd5c-66373e62d323",
+  "source_seal_sha256": "650921b3ce51a0a494985caae668b82098df7df44c6f4d2f7d0cf11739d79013",
+  "protocol_addendum_sha256": "eb57e8399cecb4539b9c60ac9feaee415a4a5c9052050cd3103c6d8c7d234adc",
+  "files": [
+    {
+      "source_name": "posts.csv",
+      "target": "fixtures/dev/author-001/posts.csv",
+      "sha256": "9d7aa55c834d677da3141e28f8c2bd9d10da25bca1f89cd2b55e93a485bdb875",
+      "bytes": 120412,
+      "CRLF_count": 241,
+      "origin": "agent_provisional; original synthetic independent source-only author; no human Gold or product execution"
+    },
+    {
+      "source_name": "method-inputs.jsonl",
+      "target": "fixtures/dev/author-001/method-inputs.jsonl",
+      "sha256": "2024eebbb03f520fc6fe28ce07a2039b1fdbe5316508ce38f4ff26b066e5598c",
+      "bytes": 1614267,
+      "CRLF_count": 0,
+      "origin": "agent_provisional; original synthetic independent source-only author; no human Gold or product execution"
+    },
+    {
+      "source_name": "gold-inputs.jsonl",
+      "target": "gold/dev/author-001/gold-inputs.jsonl",
+      "sha256": "df01597046b84e2580e5480a83a19067c6c03f265b861601c79da11e186dfc59",
+      "bytes": 2752060,
+      "CRLF_count": 0,
+      "origin": "agent_provisional; original synthetic independent source-only author; no human Gold or product execution"
+    },
+    {
+      "source_name": "case-index.jsonl",
+      "target": "gold/dev/author-001/case-index.jsonl",
+      "sha256": "b7c5a0ebca19c0ecb87159b79133e1dd17280d0824876aeb601c6bf5d1cbd0bc",
+      "bytes": 60777,
+      "CRLF_count": 0,
+      "origin": "agent_provisional; original synthetic independent source-only author; no human Gold or product execution"
+    },
+    {
+      "source_name": "SPLIT-MANIFEST.json",
+      "target": "gold/dev/author-001/SPLIT-MANIFEST.json",
+      "sha256": "036a10779268bfc09c573bf08ac721f280a9999321019c9f4defeadd5890d6bb",
+      "bytes": 3536,
+      "CRLF_count": 0,
+      "origin": "agent_provisional; original synthetic independent source-only author; no human Gold or product execution"
+    }
+  ],
+  "scope": "DEV source-only original bytes; method input excludes scorer Gold. No heldout source copied, no corpus/method/model execution, no tuning, no quality or final acceptance."
+}
