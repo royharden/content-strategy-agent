@@ -14,8 +14,10 @@
     "original_sha256": "c6127c483acb8c6fc25887bd677243b5297e275941f4fed461d659b6bfad0d18",
     "adapted_sha256": "6b9bdac53815c32f111103cbec2eccc37038eb9f0574b23db22592b65eac21c7",
     "diff": "conformance/vendor/s2/diffs/test_corpus.py.diff",
-    "diff_sha256": "01e79fa20179f5c4a4842bc77a8b0bd26dd923c7afc4e33892365138e102f280",
-    "reason": "namespace/actual consumer root and nested temporary moved-root mapping only; no testbody/assertion/deselection change"
+    "diff_sha256": "483d5d5fda41aa5ded857ab0e5753526b191da3ee9a72faece9ff01ffaee1a80",
+    "reason": "namespace/actual consumer root and nested temporary moved-root mapping only; no testbody/assertion/deselection change",
+    "outer_original_diff_sha256": "01e79fa20179f5c4a4842bc77a8b0bd26dd923c7afc4e33892365138e102f280",
+    "diff_byte_view": "Portable LF diff; outer original CRLF receipt preserved separately"
   },
   {
     "original": "conformance/vendor/s2/upstream/tests/evalkit/test_evalkit_detached.py",
@@ -23,8 +25,10 @@
     "original_sha256": "9ce522799442e9acdc1a17b946ce4601205094df146725d27e20ea1eae23bcf1",
     "adapted_sha256": "96dda49f9f90a5d0a92bf2199899e033b1f5c819d2870da17128339ef21b7c8f",
     "diff": "conformance/vendor/s2/diffs/test_evalkit_detached.py.diff",
-    "diff_sha256": "256c0204cd5ce95d0615cc6efb4b2f422678b7fc2ab36511731730c3aa939372",
-    "reason": "namespace/actual consumer root and nested temporary moved-root mapping only; no testbody/assertion/deselection change"
+    "diff_sha256": "ebb33944e2fd86aca9e1cc185f21b1296a3e42cdae3da002b7c2adf051290473",
+    "reason": "namespace/actual consumer root and nested temporary moved-root mapping only; no testbody/assertion/deselection change",
+    "outer_original_diff_sha256": "256c0204cd5ce95d0615cc6efb4b2f422678b7fc2ab36511731730c3aa939372",
+    "diff_byte_view": "Portable LF diff; outer original CRLF receipt preserved separately"
   },
   {
     "original": "conformance/vendor/s2/upstream/tests/evalkit/test_evalkit_moved_suite.py",
@@ -32,8 +36,10 @@
     "original_sha256": "1ea3f864073ed745001fe00c9996f50d0f2eaaa665d1a5bdb92f6a4a6b84f2ea",
     "adapted_sha256": "3322f2b1de5a2bf54c44071f6e4518cb6c56ae0a07dd7d628e45130793ab2c06",
     "diff": "conformance/vendor/s2/diffs/test_evalkit_moved_suite.py.diff",
-    "diff_sha256": "5ba82e903cdc79d19913e7457a1f7b5816f1a59ccf6b279c4c64b4678dd68dc2",
-    "reason": "namespace/actual consumer root and nested temporary moved-root mapping only; no testbody/assertion/deselection change"
+    "diff_sha256": "8c4ff32c474775529b07afed42fa847cfc7022f488f4c242617ee2dbfd33ae92",
+    "reason": "namespace/actual consumer root and nested temporary moved-root mapping only; no testbody/assertion/deselection change",
+    "outer_original_diff_sha256": "5ba82e903cdc79d19913e7457a1f7b5816f1a59ccf6b279c4c64b4678dd68dc2",
+    "diff_byte_view": "Portable LF diff; outer original CRLF receipt preserved separately"
   },
   {
     "original": "conformance/vendor/s2/upstream/tests/evalkit/test_heldout.py",
@@ -41,8 +47,10 @@
     "original_sha256": "e80a02fc8e1ff5e81b007de3d87534eb36b0001dadf2251a3de0a246360e0528",
     "adapted_sha256": "d16e9446e288b5c4efa7e150102f9122f7f6021d440bc97a985365f3a5b50c65",
     "diff": "conformance/vendor/s2/diffs/test_heldout.py.diff",
-    "diff_sha256": "9d5096fca54b24e9de9d150197d24dfc99cf59b6bd86c0c159c9d4326863c8ea",
-    "reason": "namespace/actual consumer root and nested temporary moved-root mapping only; no testbody/assertion/deselection change"
+    "diff_sha256": "955ad4827cf88b6e7240c5adab80a9a345d9a0b7b5aec510c8348c6d0a85fb38",
+    "reason": "namespace/actual consumer root and nested temporary moved-root mapping only; no testbody/assertion/deselection change",
+    "outer_original_diff_sha256": "9d5096fca54b24e9de9d150197d24dfc99cf59b6bd86c0c159c9d4326863c8ea",
+    "diff_byte_view": "Portable LF diff; outer original CRLF receipt preserved separately"
   },
   {
     "original": "conformance/vendor/s2/upstream/tests/evalkit/test_reporting.py",
@@ -50,8 +58,10 @@
     "original_sha256": "a5b0a537c7b0593fa7bab210d8e9e79c9aba6d462dfb3895f211d30293aa44b9",
     "adapted_sha256": "31a26ffac2f90057107543a1b0d512ef99d55a763fa25d7b1161fe32ca1da467",
     "diff": "conformance/vendor/s2/diffs/test_reporting.py.diff",
-    "diff_sha256": "55afc066c117b3f76828da1882f7fce20ad4f6346b67a28dd2eb245b34bd001e",
-    "reason": "namespace/actual consumer root and nested temporary moved-root mapping only; no testbody/assertion/deselection change"
+    "diff_sha256": "5f60409b72da56057702ed3d9f46d8828c075d1e1e7b121c832e666faf650a8a",
+    "reason": "namespace/actual consumer root and nested temporary moved-root mapping only; no testbody/assertion/deselection change",
+    "outer_original_diff_sha256": "55afc066c117b3f76828da1882f7fce20ad4f6346b67a28dd2eb245b34bd001e",
+    "diff_byte_view": "Portable LF diff; outer original CRLF receipt preserved separately"
   },
   {
     "original": "conformance/vendor/s2/upstream/tests/evalkit/test_resampling.py",
@@ -59,8 +69,10 @@
     "original_sha256": "64739c9b0b274542717a19285dd27968442d782979f138345c4e113861d54cef",
     "adapted_sha256": "50c7ebb95db0e6a813206bb311c185d04cfefbc5ace642fd6ab4151f085014fd",
     "diff": "conformance/vendor/s2/diffs/test_resampling.py.diff",
-    "diff_sha256": "b138c538a2f87772f6320697ba54a2badf06384293d6c604f0baefcf5e73224e",
-    "reason": "namespace/actual consumer root and nested temporary moved-root mapping only; no testbody/assertion/deselection change"
+    "diff_sha256": "54b108354a23947bb6f252e6be3ae6b234a4cf8913db2c93f4ed8f3d05808808",
+    "reason": "namespace/actual consumer root and nested temporary moved-root mapping only; no testbody/assertion/deselection change",
+    "outer_original_diff_sha256": "b138c538a2f87772f6320697ba54a2badf06384293d6c604f0baefcf5e73224e",
+    "diff_byte_view": "Portable LF diff; outer original CRLF receipt preserved separately"
   },
   {
     "original": "conformance/vendor/s2/upstream/tests/evalkit/test_runner.py",
@@ -68,8 +80,10 @@
     "original_sha256": "365b553de35064978cb488049627cd09cf9de2b4c3adc59502c97244e8877a03",
     "adapted_sha256": "a6ab7cc3fe99b9886bca2bba658895c8943421c1c7e6aee5febcc156f7ff4f0b",
     "diff": "conformance/vendor/s2/diffs/test_runner.py.diff",
-    "diff_sha256": "c35ddb8925952abe3ae1d5da8bcad5ca73ad620af5f14be217e2410732c2bd26",
-    "reason": "namespace/actual consumer root and nested temporary moved-root mapping only; no testbody/assertion/deselection change"
+    "diff_sha256": "dde6b2a8ca068f1637411c45276045761eb6974e1a74cbfc22e88c7e937095a2",
+    "reason": "namespace/actual consumer root and nested temporary moved-root mapping only; no testbody/assertion/deselection change",
+    "outer_original_diff_sha256": "c35ddb8925952abe3ae1d5da8bcad5ca73ad620af5f14be217e2410732c2bd26",
+    "diff_byte_view": "Portable LF diff; outer original CRLF receipt preserved separately"
   },
   {
     "original": "conformance/vendor/s2/upstream/tests/evalkit/test_statistics.py",
@@ -77,7 +91,9 @@
     "original_sha256": "c786947db47453f532a63894679d7b57886e4a2a5bdd3db6e03e582ae343ab65",
     "adapted_sha256": "8f5f3bf4518c3c96798a2e3190559830ba28be86c92265447cfed6811dccb5b6",
     "diff": "conformance/vendor/s2/diffs/test_statistics.py.diff",
-    "diff_sha256": "ef54a000c6be2e20a6e67ce6b27e27bc4acc4c53f0dd48f05af56c2217c5a920",
-    "reason": "namespace/actual consumer root and nested temporary moved-root mapping only; no testbody/assertion/deselection change"
+    "diff_sha256": "3a5265d942798667b0716d2715a6eb0840da067359a62c99c91efb8665d0c919",
+    "reason": "namespace/actual consumer root and nested temporary moved-root mapping only; no testbody/assertion/deselection change",
+    "outer_original_diff_sha256": "ef54a000c6be2e20a6e67ce6b27e27bc4acc4c53f0dd48f05af56c2217c5a920",
+    "diff_byte_view": "Portable LF diff; outer original CRLF receipt preserved separately"
   }
 ]
