@@ -1,1 +1,1 @@
-"""Independently owned reusable modules; foreign implementations are not vendored."""
+"""Portable shared modules; no imports from the application package."""

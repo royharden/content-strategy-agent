@@ -88,7 +88,8 @@ class Harness:
                     SimpleNamespace(
                         purpose="s9." + stage,
                         source_generation=generation or self.snapshot.snapshot_id,
-                        policy_sha256=self.policy.digest,
+                        policy_sha256=self.policy.screen_policy_sha256,
+                        consumer_context_sha256=self.policy.digest,
                     ),
                     SimpleNamespace(max_attempts_total=2, max_content_repairs=0),
                     allocation,

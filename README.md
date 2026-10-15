@@ -11,7 +11,8 @@ supplied/keyword/untagged tagging and a conservative LinkedIn UTF-16 target chec
 X draft support is unavailable until its proposed parser and official conformance pass.
 
 The CLI currently exposes status/version/help. There is no complete application API/UI workflow,
-shipping mock/replay provider integration or actual S3/S6 vendoring. Test-only authored doubles
+shipping end-to-end mock/replay pipeline integration. Published S3/S6 components and app rules/
+offline-call adapters are present; see [provenance and limits](docs/VENDORED.md). Authored doubles
 are not production providers, screen implementations or measured model results. The static
 Vite page still identifies the unfinished workflow. Root status creates no runtime file.
 

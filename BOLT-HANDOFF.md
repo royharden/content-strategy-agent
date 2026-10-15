@@ -1,7 +1,8 @@
 # Bolt handoff — local components, inspection only
 
 The Python core has local ingestion/analytics, exact grounding and SQLite approval/audit/receipt
-functions. App pipeline/tagging ports are staged and require actual verified owner integrations.
+functions. App pipeline/tagging ports are staged. Published S3/S6 components, a real rules-screen
+adapter and a zero-dispatch provider gateway are present; typed workflow integration is pending.
 The root CLI reports inventory only. The Vite browser output is an unfinished static page;
 React workflow, application API/storage and browser acceptance remain pending.
 
@@ -21,7 +22,8 @@ Both lockfiles are committed. Setup/build commands: `uv sync --locked`; `uv run 
 allocated loopback `CSA_WEB_PORT`. No serving resource is created by these source files.
 
 Server-only secret names are reserved; there are no provider calls or secret values in this
-artifact. S3/S6 owner source/licence/adoption, X parser/official target checks, independent
+artifact. See [source provenance](docs/VENDORED.md). Typed S3/S6 workflow integration,
+X parser/official target checks, independent
 fixtures/evaluation, the application journey and independent finished-app review remain pending.
 
 Inspection prompt: inspect the local components and explicit gaps, verify locked build/schema

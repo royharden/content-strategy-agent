@@ -71,7 +71,8 @@ class CallBinding:
         if (
             getattr(self.context, "purpose", None) != self.purpose
             or getattr(self.context, "source_generation", None) != generation
-            or getattr(self.context, "policy_sha256", None) != policy.digest
+            or getattr(self.context, "policy_sha256", None) != policy.screen_policy_sha256
+            or getattr(self.context, "consumer_context_sha256", None) != policy.digest
         ):
             raise PortRefusal("context_mismatch")
         attempts = getattr(self.limits, "max_attempts_total", None)

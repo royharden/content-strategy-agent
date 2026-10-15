@@ -32,6 +32,19 @@ def test_positive_metric_only_payload_explicit_mock_and_original_binding_objects
     )
 
 
+@pytest.mark.parametrize("field", ["policy_sha256", "consumer_context_sha256"])
+def test_screen_policy_and_whole_workflow_have_separate_required_context_bindings(harness, field):
+    h = harness
+    bindings = h.bindings()
+    for bound in bindings._stages.values():
+        assert bound.context.policy_sha256 == h.policy.screen_policy_sha256
+        assert bound.context.consumer_context_sha256 == h.policy.digest
+    setattr(bindings._stages["screen.plan.initial"].context, field, "b" * 64)
+    with pytest.raises(PortRefusal, match="context_mismatch"):
+        h.port.plan(h.snapshot, "Brief", bindings=bindings)
+    assert not h.screen_calls and not h.generate_calls and not h.support_calls
+
+
 @pytest.mark.parametrize(
     "overrides",
     [
