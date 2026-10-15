@@ -3,10 +3,16 @@
 from dataclasses import dataclass
 
 from ..metrics.grounding import MetricsResolver
-from ..shared.grounded.identity import identity_hash
 from ..shared.grounded.models import MetricSnapshot
-from ..shared.grounded.validation import Checked, Policy, seal_content, validate
-from .assembly import plan_document, plan_repair_document, plan_support_document, select_metrics
+from ..shared.grounded.validation import Checked, Policy, validate
+from .assembly import (
+    plan_document,
+    plan_repair_document,
+    plan_support_document,
+    recommendation_content,
+    recommendation_id,
+    select_metrics,
+)
 from .ports import (
     Assembly,
     Bindings,
@@ -154,7 +160,7 @@ class Pipeline:
             pending = []
             for index, candidate in enumerate(result.candidates):
                 try:
-                    item_id = "rec-" + identity_hash(candidate.model_dump(mode="python"))[:24]
+                    item_id = recommendation_id(candidate)
                 except ValueError:
                     dropped.append(Drop("candidate." + str(index), ("invalid_candidate_encoding",)))
                     continue
@@ -167,16 +173,7 @@ class Pipeline:
                 ):
                     dropped.append(Drop(item_id, ("outside_metric_projection",)))
                     continue
-                content = seal_content(
-                    item_id=item_id,
-                    revision=1,
-                    kind="recommendation",
-                    scope=candidate.scope,
-                    snapshot_id=generation,
-                    text=candidate.text,
-                    citations=candidate.citations,
-                    editorial=candidate.editorial,
-                )
+                content = recommendation_content(candidate, generation)
                 checked = validate(content, resolver, self.grounded_policy)
                 if checked.report.failures:
                     dropped.append(Drop(item_id, tuple(f.code for f in checked.report.failures)))

@@ -3,8 +3,28 @@
 from collections import defaultdict, deque
 from dataclasses import dataclass
 
+from ..shared.grounded.identity import identity_hash
 from ..shared.grounded.models import Metric, MetricSnapshot
-from ..shared.grounded.validation import Checked
+from ..shared.grounded.validation import Checked, seal_content
+from .ports import Candidate
+
+
+def recommendation_id(candidate: Candidate) -> str:
+    return "rec-" + identity_hash(candidate.model_dump(mode="python"))[:24]
+
+
+def recommendation_content(candidate: Candidate, generation: str):
+    """One sealing rule for the pipeline and its pre-admission authored compiler."""
+    return seal_content(
+        item_id=recommendation_id(candidate),
+        revision=1,
+        kind="recommendation",
+        scope=candidate.scope,
+        snapshot_id=generation,
+        text=candidate.text,
+        citations=candidate.citations,
+        editorial=candidate.editorial,
+    )
 
 
 @dataclass(frozen=True)
