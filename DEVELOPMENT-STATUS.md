@@ -19,6 +19,11 @@ No finished-app or model-quality verdict has been made.
 - Explicit approval revocation invalidates the current item and dependent approved drafts;
   old committed receipts remain available as historical artifacts. Invalid CSV is checked
   before database creation.
+- React browser workflow, strict request client, same-origin local launcher, exact metric/status
+  table, checked recommendation/draft review, human edits, revocation, receipt recovery and
+  read-only approved artifact views are implemented. Real registered-loopback browser checks
+  cover supplied CSV through both decision stages and committed export, restart, invalid edit,
+  malformed CSV and revoked-export refusal. Decisions in these checks are scripted synthetic controls.
 - Durable exact proof bindings; missing/corrupt/stale proofs, changed source/policy,
   unauthorized actions and parent races refuse disclosure or export.
 - Standard X weighted checks enabled after their required mapped conformance profile passed.
@@ -29,27 +34,35 @@ cases, eight boundaries and one integrity control; the post-enable target/pipeli
 subset passed 1,797 cases. These scopes overlap and must not be added as independent coverage
 or interpreted as application-quality measurements.
 
+The current browser candidate's affected Python suites passed 306 cases, including the
+native terminal/restart control; the frontend configuration/request suite passed nine cases.
+Strict TypeScript, production build, targeted Python lint/format and offline lockfile
+consistency checks pass. Registered browser evidence uses explicitly synthetic inputs and
+scripted decisions; it does not establish Human or model quality. These counts overlap
+earlier development checkpoints and must not be added to them.
+
 ## Worked on and incomplete
 
 - A same-origin FastAPI factory, bounded JSON/base64 inputs, strict host-controlled fields,
   no-store/session/CSRF boundaries, checked previews and export responses are written.
   Direct socket-free ASGI controls now exercise its actual normal/refusal routes, including
   session/CSRF/Origin/Host, untrusted fields, approval/revocation and restart receipts.
-- One separate constant async ASGI handler passed a socket-free single-step diagnostic.
-  The application's own route journey has not started.
-- React/Vite/TypeScript scaffolding exists; the page still identifies an unfinished workflow.
-  React declaration dependency installation is incomplete. The retained first archive's
-  corrected entry-count, integrity, identity and MIT-notice audit passed without refetching;
-  the remaining archives are unacquired.
+- The earlier constant-handler diagnostic is superseded by the application's actual ASGI
+  route controls and registered loopback browser normal/refusal/restart journeys.
+- React/Vite/TypeScript production build and strict checks pass locally. All three type
+  archives were audited; the retained first archive was reused and the two remaining archives
+  acquired under current authority. Installed declaration files match original archive bytes;
+  full MIT notices are retained. Native automated file saving was canceled; successful browser
+  HTTP artifact delivery and exact read-only views do not establish an OS disk-save pass.
 - Generic comparison/statistics code and provisional development fixtures are present.
   No full application evaluation or calibrated comparison has run.
 
 ## Outstanding
 
-1. Complete the browser workflow around the working local terminal/host journey.
-2. Exercise real loopback/browser and security behavior with registered
-   resources.
-3. Complete frontend dependencies, UI implementation, type checks and visual verification.
+1. Resolve/independently qualify native browser file saving; preserve the canceled attempts.
+2. Obtain independent review and remaining app-wide security/native/portable checks.
+3. Complete static fixture-preview data if needed for a backend-free Bolt demonstration;
+   the current static-only setup state cannot perform review or approval.
 4. Complete metric-evidence pointer integration and application evaluation/reporting.
 5. Validate bounded real generation/tagging/judgment integrations and honest usage/cost records.
 6. Verify packaging and portability; resolve hosting/authentication before cloud provisioning.

@@ -3,6 +3,7 @@
 import base64
 import json
 import socket
+from urllib.parse import urlencode
 
 import pytest
 
@@ -29,7 +30,9 @@ class Direct:
             }
         )
 
-    def request(self, path, value=None, *, method="POST", headers=None, status=200):
+    def request(
+        self, path, value=None, *, method="POST", headers=None, status=200, query="", binary=False
+    ):
         payload = json.dumps(value).encode() if value is not None else b""
         sent, received = [], False
 
@@ -51,7 +54,7 @@ class Direct:
                 "scheme": "http",
                 "path": path,
                 "raw_path": path.encode(),
-                "query_string": b"",
+                "query_string": query.encode(),
                 "root_path": "",
                 "headers": [
                     (k.encode(), v.encode())
@@ -73,7 +76,7 @@ class Direct:
         response = {k.decode(): v.decode() for k, v in sent[0]["headers"]}
         assert response["cache-control"] == "no-store"
         assert response["x-content-type-options"] == "nosniff"
-        return json.loads(sent[1]["body"]), response
+        return (sent[1]["body"] if binary else json.loads(sent[1]["body"])), response
 
 
 @pytest.fixture
@@ -292,3 +295,59 @@ def test_revocation_cas_and_authorization_failure_leave_approval_intact(direct):
     assert review.sequence(Selection.model_validate(selection)) == sequence
     rows, _ = direct.request("/api/history", {"selection": selection})
     assert next(row["state"] for row in rows["rows"] if row["version"] == version) == "approved"
+
+
+def test_receipt_download_returns_committed_bytes_and_survives_revocation(direct):
+    selection, version, sequence = approved_draft(direct)
+    exported, _ = direct.request(
+        "/api/export",
+        {
+            "selection": selection,
+            "items": [version],
+            "expected_sequence": sequence,
+            "idempotency_key": "binary-receipt",
+        },
+    )
+    query = urlencode(
+        {
+            "dataset_id": selection["dataset_id"],
+            "snapshot_id": selection["snapshot_id"],
+            "key": "binary-receipt",
+        }
+    )
+    for format, field in (("md", "markdown_base64"), ("csv", "csv_base64")):
+        body, headers = direct.request(
+            f"/api/download/{format}", method="GET", query=query, binary=True
+        )
+        assert body == base64.b64decode(exported[field])
+        assert headers["content-disposition"] == f'attachment; filename="approved-content.{format}"'
+    history, _ = direct.request("/api/history", {"selection": selection})
+    direct.request(
+        "/api/revoke",
+        {"selection": selection, "version": version, "expected_sequence": history["sequence"]},
+    )
+    body, _ = direct.request("/api/download/md", method="GET", query=query, binary=True)
+    assert body == base64.b64decode(exported["markdown_base64"])
+    denied, _ = direct.request(
+        "/api/download/md",
+        method="GET",
+        query=query,
+        headers={"host": "127.0.0.1:29999"},
+        status=409,
+    )
+    assert denied == {"code": "session_required"}
+
+
+@pytest.mark.parametrize(
+    "query",
+    [
+        "",
+        "key=unknown",
+        "dataset_id=a&snapshot_id=b&key=c&key=d",
+        "dataset_id=a&snapshot_id=b&key=c&database=outside",
+    ],
+)
+def test_download_query_cannot_select_paths_or_ambiguous_receipts(direct, query):
+    value, _ = direct.request("/api/download/md", method="GET", query=query, status=422)
+    assert value == {"code": "invalid_request"}
+    assert not direct.host.review.database.exists()

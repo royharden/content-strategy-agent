@@ -23,7 +23,9 @@ def _summary(retained):
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Content Strategy Agent: explicit local analysis.")
+    parser = argparse.ArgumentParser(
+        description="Local CSV analysis and authored-mock content review."
+    )
     parser.add_argument("--version", action="version", version=__version__)
     parser.add_argument("--status-json", action="store_true")
     commands = parser.add_subparsers(dest="command")
@@ -55,6 +57,12 @@ def main(argv: list[str] | None = None) -> int:
             command.add_argument("--dataset-id", required=True)
             command.add_argument("--snapshot-id", required=True)
             command.add_argument("--key", required=True)
+    serve = commands.add_parser("serve", help="Serve the built local authored-mock review UI.")
+    serve.add_argument("--database", required=True, type=Path)
+    serve.add_argument("--call-database", required=True, type=Path)
+    serve.add_argument("--namespace", required=True)
+    serve.add_argument("--assets", required=True, type=Path)
+    serve.add_argument("--port", required=True, type=int)
     arguments = parser.parse_args(argv)
     if arguments.status_json:
         if arguments.command:
@@ -67,6 +75,7 @@ def main(argv: list[str] | None = None) -> int:
                     "implemented_workflows": [
                         "local_csv_analysis",
                         "authored_mock_terminal_review",
+                        "authored_mock_browser_review",
                     ],
                     "implemented_components": [
                         "grounded_structural_models",
@@ -97,12 +106,18 @@ def main(argv: list[str] | None = None) -> int:
     if not arguments.command:
         parser.print_help()
         return 0
+    if arguments.command == "serve" and not 20000 <= arguments.port <= 29999:
+        parser.error("--port must be the assigned local port in 20000–29999")
     # Status, version, help and invalid commands need no Pydantic/runtime imports.
     from .ingest import MAX_BYTES, IngestError, ingest_csv
     from .metrics import AnalysisConfig
     from .storage import SourceStore, StorageError
 
     try:
+        if arguments.command == "serve":
+            from .serve import serve_command
+
+            return serve_command(arguments)
         if arguments.command in {"review", "receipt"}:
             from .review_cli import receipt_command, review_command
 

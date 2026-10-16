@@ -26,6 +26,12 @@
   an empty database and migration side effects.
 - Keep CLI status/version/help imports light; they should not initialize the runtime just to
   report metadata. Test the actual detached entrypoint as well as in-process command handlers.
+- Scroll a browser control into view before asserting that a native automation click exercised
+  it. A tool's click success is not proof that the expected UI or server transition occurred.
+- Verify receipt transport, byte equality, artifact rendering and native file saving separately.
+  Preserve canceled download attempts instead of treating HTTP 200 as an OS disk-save pass.
+- Use actual Node executable/version output when PATH contains silent script shims. Keep npm
+  installation scripts disabled for declaration-only setup and retain portable registry pins.
 - Windows asyncio startup may construct a TCP socketpair even for an in-memory client.
   A direct socket-free ASGI check has limited scope; real HTTP/browser checks remain necessary.
 - Preserve timed-out/incomplete records. Serial test groups must retain the same distinct-case

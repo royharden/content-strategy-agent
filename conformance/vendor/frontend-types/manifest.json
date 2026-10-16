@@ -1,0 +1,192 @@
+{
+  "kind": "frontend-dependency-provenance",
+  "scope": "Pinned npm declaration dependencies; full MIT notices and installed/archive byte equality. No lifecycle scripts executed.",
+  "packages": [
+    {
+      "name": "@types/react",
+      "version": "19.3.0",
+      "license": "MIT",
+      "registry_tarball": "https://registry.npmjs.org/@types/react/-/react-19.3.0.tgz",
+      "archive_sha256": "ffa77ffdbdc82e5f67a0fd74d750990375a7dfd8685ec7f10a27c0db128f7766",
+      "integrity": "sha512-N0rFCuH9YoxG9/m61l9MfpJKfmLOVU0em7ipIz6TRgSSkvReLB9vL85GB+yr8Bs5leqpvg96JSwF4ZS1s4viQg==",
+      "license_file": "react-types.LICENSE.txt",
+      "installed_files_verified": [
+        {
+          "path": "LICENSE",
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+        },
+        {
+          "path": "README.md",
+          "sha256": "eeb7da821c1f0672a1aea1594fcec4c66222cfe25cbd14caddc266c02d1708a2"
+        },
+        {
+          "path": "canary.d.ts",
+          "sha256": "865a2612f5ec073dd48d454307ccabb04c48f8b96fda9940c5ebfe6b4b451f51"
+        },
+        {
+          "path": "compiler-runtime.d.ts",
+          "sha256": "20fa37b636fdcc1746ea0738f733d0aed17890d1cd7cb1b2f37010222c23f13e"
+        },
+        {
+          "path": "experimental.d.ts",
+          "sha256": "2e07abf27aa06353d46f4448c0bbac73431f6065eef7113128a5cd804d0c384d"
+        },
+        {
+          "path": "global.d.ts",
+          "sha256": "7e29f41b158de217f94cb9676bf9cbd0cd9b5a46e1985141ed36e075c52bf6ad"
+        },
+        {
+          "path": "index.d.ts",
+          "sha256": "045c1b395851aa71ef76393398466330fe1eeebc113c8085eefc6d84abea3a88"
+        },
+        {
+          "path": "jsx-dev-runtime.d.ts",
+          "sha256": "c30436b130b6218b7714314dc41d3f459590db4bdf099eecd51cb1bda32109a8"
+        },
+        {
+          "path": "jsx-runtime.d.ts",
+          "sha256": "b838d4c72740eb0afd284bf7575b74c624b105eff2e8c7b4aeead57e7ac320ff"
+        },
+        {
+          "path": "package.json",
+          "sha256": "505c0df4cd73d6a02c946bd9b81451584bd9c83ea72d75cff9b826efceaa19c2"
+        },
+        {
+          "path": "ts5.0/canary.d.ts",
+          "sha256": "865a2612f5ec073dd48d454307ccabb04c48f8b96fda9940c5ebfe6b4b451f51"
+        },
+        {
+          "path": "ts5.0/experimental.d.ts",
+          "sha256": "2e07abf27aa06353d46f4448c0bbac73431f6065eef7113128a5cd804d0c384d"
+        },
+        {
+          "path": "ts5.0/global.d.ts",
+          "sha256": "7e29f41b158de217f94cb9676bf9cbd0cd9b5a46e1985141ed36e075c52bf6ad"
+        },
+        {
+          "path": "ts5.0/index.d.ts",
+          "sha256": "3219302a5e14b9ff32b1f2a5ac872741df7847e66726f88f80aa3b11d77ec090"
+        },
+        {
+          "path": "ts5.0/jsx-dev-runtime.d.ts",
+          "sha256": "c30436b130b6218b7714314dc41d3f459590db4bdf099eecd51cb1bda32109a8"
+        },
+        {
+          "path": "ts5.0/jsx-runtime.d.ts",
+          "sha256": "b838d4c72740eb0afd284bf7575b74c624b105eff2e8c7b4aeead57e7ac320ff"
+        }
+      ]
+    },
+    {
+      "name": "@types/react-dom",
+      "version": "19.3.0",
+      "license": "MIT",
+      "registry_tarball": "https://registry.npmjs.org/@types/react-dom/-/react-dom-19.3.0.tgz",
+      "archive_sha256": "0782e1cd4af4a6a030843235a48e55dc690c36f9428b0b672dc53350806dcf21",
+      "integrity": "sha512-ZI7bU42mZXXKHn/qNLEw2IrbiINU7X5+vfgdixBHkCNpYWXjKgfQ/P+uyGb5CjOLB9UcnTeg3rylQtV2hym44Q==",
+      "license_file": "react-dom-types.LICENSE.txt",
+      "installed_files_verified": [
+        {
+          "path": "LICENSE",
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+        },
+        {
+          "path": "README.md",
+          "sha256": "8069f54622ef91608b7dc61db11c230c2b053c163b4c344d09b238ea43d6a080"
+        },
+        {
+          "path": "canary.d.ts",
+          "sha256": "ed91c87062f8720dfb894f41e364d0c189eb3fa40501f93cf36691e06f5d3261"
+        },
+        {
+          "path": "client.d.ts",
+          "sha256": "bc03c3c352f689e38c0ddd50c39b1e65d59273991bfc8858a9e3c0ebb79c023b"
+        },
+        {
+          "path": "experimental.d.ts",
+          "sha256": "9894dafe342b976d251aac58e616ac6df8db91fb9d98934ff9dd103e9e82578f"
+        },
+        {
+          "path": "index.d.ts",
+          "sha256": "dfb24c6874a941ebd8947c97efb27c6b40f4a48218ce7433d1d088d1245b6d58"
+        },
+        {
+          "path": "package.json",
+          "sha256": "4a2052bb362c34f1d39cfe0818b6fe01a9f988b609e8b7e4832aff7dbf2f7180"
+        },
+        {
+          "path": "server.browser.d.ts",
+          "sha256": "21f534c5aa4d3e220c80a309be8429714e7719526bf50436d76c3460fa97e451"
+        },
+        {
+          "path": "server.bun.d.ts",
+          "sha256": "6c7c9f4af3bfac29195e61e140c35f5f052010949d4e99c70d86b427a5cb8058"
+        },
+        {
+          "path": "server.d.ts",
+          "sha256": "72b0ced59987170ebaa22b5fe0fa205437809b94c6d6e9e1ffd94ca5bb9c62b2"
+        },
+        {
+          "path": "server.edge.d.ts",
+          "sha256": "21f534c5aa4d3e220c80a309be8429714e7719526bf50436d76c3460fa97e451"
+        },
+        {
+          "path": "server.node.d.ts",
+          "sha256": "6c7c9f4af3bfac29195e61e140c35f5f052010949d4e99c70d86b427a5cb8058"
+        },
+        {
+          "path": "static.browser.d.ts",
+          "sha256": "1111e8c333e446bd3bee3f02fa22e5474b55f3637e2a9bb8d2333840de859384"
+        },
+        {
+          "path": "static.d.ts",
+          "sha256": "efcce61e435bbf26e26a95115cf1313a0d236937b8be3854d7975fa9b75b12e3"
+        },
+        {
+          "path": "static.edge.d.ts",
+          "sha256": "1111e8c333e446bd3bee3f02fa22e5474b55f3637e2a9bb8d2333840de859384"
+        },
+        {
+          "path": "static.node.d.ts",
+          "sha256": "0e011176dc8e6c811e68b31037d54394bb912b3b032cd888e92a37c3c42d7cd0"
+        },
+        {
+          "path": "test-utils/index.d.ts",
+          "sha256": "3d3208d0f061e4836dd5f144425781c172987c430f7eaee483fadaa3c5780f9f"
+        }
+      ]
+    },
+    {
+      "name": "csstype",
+      "version": "3.2.3",
+      "license": "MIT",
+      "registry_tarball": "https://registry.npmjs.org/csstype/-/csstype-3.2.3.tgz",
+      "archive_sha256": "f3501f8ee1c73f7568fecb22c11231162c0467e59262461da5579519307427a3",
+      "integrity": "sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==",
+      "license_file": "csstype.LICENSE.txt",
+      "installed_files_verified": [
+        {
+          "path": "LICENSE",
+          "sha256": "11d55bd4541c75ee7879547ac49089c489163dae49551389713c3d026cab383e"
+        },
+        {
+          "path": "index.js.flow",
+          "sha256": "8d20689a1573ade72736a2516ebbe096982674e15bc04579cf4e89ed20ea8ded"
+        },
+        {
+          "path": "package.json",
+          "sha256": "c818b74a9bc1556488b7ec2a65399224738f6619228f9a6491c5c02ca91f849e"
+        },
+        {
+          "path": "README.md",
+          "sha256": "25ad18f8910493055f30a9429da429c2a92a2d503829ef850c3bf40095fb2339"
+        },
+        {
+          "path": "index.d.ts",
+          "sha256": "ac51dd7d31333793807a6abaa5ae168512b6131bd41d9c5b98477fc3b7800f9f"
+        }
+      ]
+    }
+  ],
+  "installed_files_verified": 38
+}

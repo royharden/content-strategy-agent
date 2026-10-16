@@ -1,9 +1,10 @@
 # Current implementation limitations
 
-The local Python host API and interactive terminal expose an authored mock review journey;
-the browser is a static scaffold. Direct socket-free ASGI checks exercise owned HTTP routes.
-Real server, browser, security and independent
-finished-application acceptance remain outstanding.
+The local Python host API, interactive terminal and React browser expose an authored mock review
+journey. Direct ASGI and registered-loopback browser checks exercise owned HTTP routes and UI.
+Independent finished-application acceptance remains outstanding. The browser's exact receipt
+bytes and read-only artifact views were verified; automated native file saves were canceled and
+remain unverified. A successful HTTP attachment response does not establish an OS disk-save pass.
 
 All current generation, screening and semantic model answers are authored synthetic data.
 Actual shared provider/accounting and native screening classes enforce offline request and
@@ -34,6 +35,6 @@ certification or paid long-form support. LinkedIn uses the application's conserv
 Local approval, revision, two-format export and restart behavior have development regression
 coverage, including explicit revocation and dependent invalidation. Historical receipts remain
 downloadable after revocation; they are records of already approved exports, not current approval.
-The normal/refusal exercises are synthetic terminal, component and direct-ASGI checks.
+The normal/refusal exercises use synthetic terminal, component, direct-ASGI and real browser checks.
 Independent application acceptance remains required. See
 [current status](../DEVELOPMENT-STATUS.md) and [input contract](input-contract.md).

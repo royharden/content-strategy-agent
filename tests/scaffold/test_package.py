@@ -39,7 +39,11 @@ class PackageScaffoldTests(unittest.TestCase):
             self.assertFalse(status["schema_validation_is_authorization"])
             self.assertEqual(
                 status["implemented_workflows"],
-                ["local_csv_analysis", "authored_mock_terminal_review"],
+                [
+                    "local_csv_analysis",
+                    "authored_mock_terminal_review",
+                    "authored_mock_browser_review",
+                ],
             )
             self.assertFalse(status["provider_calls"])
             self.assertTrue(status["approval_export_available"])
@@ -58,7 +62,11 @@ class PackageScaffoldTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertEqual(
                 json.loads(result.stdout)["implemented_workflows"],
-                ["local_csv_analysis", "authored_mock_terminal_review"],
+                [
+                    "local_csv_analysis",
+                    "authored_mock_terminal_review",
+                    "authored_mock_browser_review",
+                ],
             )
 
     def test_unimplemented_workflow_is_rejected_instead_of_faked(self) -> None:

@@ -326,6 +326,32 @@ def create_app(host: PlanningHost, guard: SessionGuard, *, assets: Path | None =
         value = await _input(request, ReceiptInput)
         return bundle_view(review.download_receipt(value.selection, value.idempotency_key))
 
+    @app.get("/api/download/{format}")
+    async def download(format: str, request: Request):
+        parameters = request.query_params
+        keys = {"dataset_id", "snapshot_id", "key"}
+        if (
+            format not in {"md", "csv"}
+            or set(parameters) != keys
+            or any(len(parameters.getlist(key)) != 1 for key in keys)
+        ):
+            raise ValueError("invalid_request")
+        value = ReceiptInput.model_validate(
+            {
+                "selection": {
+                    "dataset_id": parameters["dataset_id"],
+                    "snapshot_id": parameters["snapshot_id"],
+                },
+                "idempotency_key": parameters["key"],
+            }
+        )
+        bundle = review.download_receipt(value.selection, value.idempotency_key)
+        return Response(
+            bundle.markdown if format == "md" else bundle.csv,
+            media_type="text/markdown" if format == "md" else "text/csv",
+            headers={"content-disposition": f'attachment; filename="approved-content.{format}"'},
+        )
+
     if assets is not None:
         assets = Path(assets).resolve()
         if not assets.is_dir() or not (assets / "index.html").is_file():
