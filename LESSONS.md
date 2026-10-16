@@ -38,3 +38,7 @@
   denominator; partial output establishes no pass.
 - Separate source/review storage from the call ledger database. Keep runtime artifacts in
   ignored local data directories. Bolt preview does not provision Python or approval storage.
+- Generate static preview metrics through the production arithmetic and check source-byte
+  drift. Use unequal denominators and date-only rows in small public examples so arithmetic
+  and eligibility mistakes remain visible. Keep fixture display outside the API session and
+  decision/export controls; server-render checks are not browser or visual acceptance.

@@ -36,8 +36,12 @@ must use checked preview; exact human approvals precede export. Provider secrets
 the server. Browser request models accept no actor, judgment or proof fields.
 
 Inspection prompt: inspect the implemented local browser and terminal, preserve the documented local/cloud
-boundary, and show the static-host setup state honestly. Backend-free static fixture data is
-not yet supplied. Any backend port must preserve input,
+boundary, and show the static-host setup state honestly. Open `?preview=fixture` for a separate
+read-only example of six explicitly synthetic posts and production-computed metrics. It performs
+no backend request, import, approval, receipt/export or persistence operation. Arithmetic and React
+server-render checks pass; actual browser/visual acceptance is still outstanding. The public
+fixture source is `fixtures/ui/static-example.csv`; `scripts/export_static_fixture.py --check`
+detects drift in `web/static-fixture.json`. Any backend port must preserve input,
 grounding, approval, receipt and target conformance. Provisioning, hosting, provider access and
 publication require separate readiness and authorization.
 

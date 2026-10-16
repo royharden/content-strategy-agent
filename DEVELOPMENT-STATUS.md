@@ -26,6 +26,12 @@ No finished-app or model-quality verdict has been made.
   malformed CSV and revoked-export refusal. Decisions in these checks are scripted synthetic controls.
 - Durable exact proof bindings; missing/corrupt/stale proofs, changed source/policy,
   unauthorized actions and parent races refuse disclosure or export.
+- Separate read-only static fixture viewer at `?preview=fixture`, with six public synthetic
+  rows, production arithmetic/source identity and explicit small-sample/unavailable groups.
+  It offers no API connection or decision/export/persistence controls. Two focused
+  arithmetic/status-oracle tests, nine existing frontend tests, a React server-render isolation
+  check, strict types and isolated production build pass. These are author construction checks;
+  they do not establish browser or visual acceptance.
 - Standard X weighted checks enabled after their required mapped conformance profile passed.
 
 The API-host/runtime/pipeline/adapter development subset passed 159 distinct cases at the edit
@@ -61,8 +67,8 @@ earlier development checkpoints and must not be added to them.
 
 1. Resolve/independently qualify native browser file saving; preserve the canceled attempts.
 2. Obtain independent review and remaining app-wide security/native/portable checks.
-3. Complete static fixture-preview data if needed for a backend-free Bolt demonstration;
-   the current static-only setup state cannot perform review or approval.
+3. Verify the separate static fixture viewer in a qualified browser and inspect responsive
+   layout/accessibility. Static mode cannot perform review, approval or persistence.
 4. Complete metric-evidence pointer integration and application evaluation/reporting.
 5. Validate bounded real generation/tagging/judgment integrations and honest usage/cost records.
 6. Verify packaging and portability; resolve hosting/authentication before cloud provisioning.

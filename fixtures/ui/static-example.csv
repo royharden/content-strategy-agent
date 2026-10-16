@@ -1,0 +1,7 @@
+post_id,date,platform,text,impressions,likes,comments,shares,topic,format
+preview-1,2026-10-01T09:00:00-04:00,linkedin,Synthetic workshop reflection A,100,10,3,2,learning,text
+preview-2,2026-10-01T09:00:00-04:00,linkedin,Synthetic workshop reflection B,100,10,3,2,learning,text
+preview-3,2026-10-01T09:00:00-04:00,linkedin,Synthetic workshop reflection C,100,10,3,2,learning,text
+preview-4,2026-10-01T09:00:00-04:00,linkedin,Synthetic workshop reflection D,100,10,3,2,learning,text
+preview-5,2026-10-01,linkedin,Synthetic workshop reflection E,100,10,3,2,learning,text
+preview-6,2026-10-02,linkedin,Synthetic community reflection,1000,25,10,5,community,text

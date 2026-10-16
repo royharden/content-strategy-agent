@@ -6,6 +6,12 @@ Independent finished-application acceptance remains outstanding. The browser's e
 bytes and read-only artifact views were verified; automated native file saves were canceled and
 remain unverified. A successful HTTP attachment response does not establish an OS disk-save pass.
 
+The separate `?preview=fixture` page is read-only synthetic display data. Its metric projection
+comes from the production Python arithmetic, with source/snapshot identity retained. It starts
+no API session and provides no import, approval, export or persistence controls. Arithmetic,
+type/build and React server-render isolation checks pass; actual browser/visual execution of
+this fixture page remains unverified. It cannot replace the required local-service journey.
+
 All current generation, screening and semantic model answers are authored synthetic data.
 Actual shared provider/accounting and native screening classes enforce offline request and
 allocation contracts with zero outbound dispatches. These controls do not measure live model

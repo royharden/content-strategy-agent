@@ -70,8 +70,14 @@ Agents claim/check that port before starting. The launcher binds loopback only, 
 ephemeral session/CSRF boundary and prints its URL. Import a CSV or try the explicitly
 synthetic example; use the snapshot, create a demo strategy, inspect/approve a recommendation,
 draft, then inspect/approve that draft separately. Export commits both formats together.
-Edits and revocation require fresh decisions. A static-only host displays a setup state and
-cannot approve/export; it does not provision Python or SQLite.
+Edits and revocation require fresh decisions. A static-only host offers a setup state and
+an explicit `?preview=fixture` read-only example. The example shows a public six-row synthetic
+CSV's production-computed metrics, exact source/snapshot identity, small samples and unavailable
+values. It makes no API connection and provides no import, approval, export or persistence.
+It does not provision Python or SQLite. Regenerate/check its data with
+`uv run --offline --no-sync python scripts/export_static_fixture.py --check` (omit `--check`
+to regenerate after an intentional source/computation change). The example has arithmetic and
+React server-render checks; browser execution and visual acceptance remain unverified.
 
 See [development status](DEVELOPMENT-STATUS.md), [limitations](docs/LIMITATIONS.md),
 [lessons](LESSONS.md), [input contract](docs/input-contract.md),

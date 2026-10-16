@@ -1,0 +1,439 @@
+{
+  "authority": "display_only_no_approvals_receipts_or_persistence",
+  "edition": "read-only-ui-example.v1",
+  "mode": "authored_synthetic_static_fixture",
+  "platforms": [
+    {
+      "missing_time_rows": 2,
+      "platform": "linkedin",
+      "rows": 6
+    }
+  ],
+  "rows": [
+    {
+      "denominator": "1000",
+      "family": "rate",
+      "metric": {
+        "computed_by": "metrics.v1.rate",
+        "definition": "rate;dimension=topic;key=community;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "er.linkedin.topic.community",
+        "sample_size": 1,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "insufficient_data",
+        "status_reason": "minimum_eligible_n_5",
+        "unit": "ratio",
+        "value": "0.04"
+      },
+      "numerator": "40"
+    },
+    {
+      "denominator": "500",
+      "family": "rate",
+      "metric": {
+        "computed_by": "metrics.v1.rate",
+        "definition": "rate;dimension=topic;key=learning;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "er.linkedin.topic.learning",
+        "sample_size": 5,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "ok",
+        "status_reason": null,
+        "unit": "ratio",
+        "value": "0.15"
+      },
+      "numerator": "75"
+    },
+    {
+      "denominator": "1500",
+      "family": "rate",
+      "metric": {
+        "computed_by": "metrics.v1.rate",
+        "definition": "rate;dimension=format;key=text;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "er.linkedin.format.text",
+        "sample_size": 6,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "ok",
+        "status_reason": null,
+        "unit": "ratio",
+        "value": "0.07666667"
+      },
+      "numerator": "115"
+    },
+    {
+      "denominator": "1000",
+      "family": "rate",
+      "metric": {
+        "computed_by": "metrics.v1.rate",
+        "definition": "rate;dimension=weekday;key=fri;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "er.linkedin.weekday.fri",
+        "sample_size": 1,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "insufficient_data",
+        "status_reason": "minimum_eligible_n_5",
+        "unit": "ratio",
+        "value": "0.04"
+      },
+      "numerator": "40"
+    },
+    {
+      "denominator": "500",
+      "family": "rate",
+      "metric": {
+        "computed_by": "metrics.v1.rate",
+        "definition": "rate;dimension=weekday;key=thu;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "er.linkedin.weekday.thu",
+        "sample_size": 5,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "ok",
+        "status_reason": null,
+        "unit": "ratio",
+        "value": "0.15"
+      },
+      "numerator": "75"
+    },
+    {
+      "denominator": "400",
+      "family": "rate",
+      "metric": {
+        "computed_by": "metrics.v1.rate",
+        "definition": "rate;dimension=hour;key=9;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "er.linkedin.hour.9",
+        "sample_size": 4,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "insufficient_data",
+        "status_reason": "minimum_eligible_n_5",
+        "unit": "ratio",
+        "value": "0.15"
+      },
+      "numerator": "60"
+    },
+    {
+      "denominator": "0",
+      "family": "availability",
+      "metric": {
+        "computed_by": "metrics.v1.availability",
+        "definition": "availability;dimension=hour;key=missing_time;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "unavailable.linkedin.hour.missing-time",
+        "sample_size": 0,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "unavailable",
+        "status_reason": "missing_time",
+        "unit": "ratio",
+        "value": null
+      },
+      "numerator": "0"
+    },
+    {
+      "denominator": "1500",
+      "family": "rate",
+      "metric": {
+        "computed_by": "metrics.v1.rate",
+        "definition": "rate;dimension=length;key=0-139;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "er.linkedin.length.0-139",
+        "sample_size": 6,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "ok",
+        "status_reason": null,
+        "unit": "ratio",
+        "value": "0.07666667"
+      },
+      "numerator": "115"
+    },
+    {
+      "denominator": "0",
+      "family": "rate",
+      "metric": {
+        "computed_by": "metrics.v1.rate",
+        "definition": "rate;dimension=length;key=140-499;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "er.linkedin.length.140-499",
+        "sample_size": 0,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "unavailable",
+        "status_reason": "zero_eligible_impressions",
+        "unit": "ratio",
+        "value": null
+      },
+      "numerator": "0"
+    },
+    {
+      "denominator": "0",
+      "family": "rate",
+      "metric": {
+        "computed_by": "metrics.v1.rate",
+        "definition": "rate;dimension=length;key=1500+;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "er.linkedin.length.1500",
+        "sample_size": 0,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "unavailable",
+        "status_reason": "zero_eligible_impressions",
+        "unit": "ratio",
+        "value": null
+      },
+      "numerator": "0"
+    },
+    {
+      "denominator": "0",
+      "family": "rate",
+      "metric": {
+        "computed_by": "metrics.v1.rate",
+        "definition": "rate;dimension=length;key=500-1499;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "er.linkedin.length.500-1499",
+        "sample_size": 0,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "unavailable",
+        "status_reason": "zero_eligible_impressions",
+        "unit": "ratio",
+        "value": null
+      },
+      "numerator": "0"
+    },
+    {
+      "denominator": "100",
+      "family": "diagnostic",
+      "metric": {
+        "computed_by": "metrics.v1.diagnostic",
+        "definition": "diagnostic;dimension=top;key=preview-1;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "diagnostic.linkedin.top.preview-1-3e355b4ab201ef57",
+        "sample_size": 1,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "insufficient_data",
+        "status_reason": "minimum_eligible_n_5",
+        "unit": "ratio",
+        "value": "0.15"
+      },
+      "numerator": "15"
+    },
+    {
+      "denominator": "100",
+      "family": "diagnostic",
+      "metric": {
+        "computed_by": "metrics.v1.diagnostic",
+        "definition": "diagnostic;dimension=top;key=preview-2;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "diagnostic.linkedin.top.preview-2-fbaacef7235dd9ee",
+        "sample_size": 1,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "insufficient_data",
+        "status_reason": "minimum_eligible_n_5",
+        "unit": "ratio",
+        "value": "0.15"
+      },
+      "numerator": "15"
+    },
+    {
+      "denominator": "100",
+      "family": "diagnostic",
+      "metric": {
+        "computed_by": "metrics.v1.diagnostic",
+        "definition": "diagnostic;dimension=top;key=preview-3;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "diagnostic.linkedin.top.preview-3-10303eaaaf1c3a05",
+        "sample_size": 1,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "insufficient_data",
+        "status_reason": "minimum_eligible_n_5",
+        "unit": "ratio",
+        "value": "0.15"
+      },
+      "numerator": "15"
+    },
+    {
+      "denominator": "100",
+      "family": "diagnostic",
+      "metric": {
+        "computed_by": "metrics.v1.diagnostic",
+        "definition": "diagnostic;dimension=top;key=preview-4;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "diagnostic.linkedin.top.preview-4-49b470885a89e3cf",
+        "sample_size": 1,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "insufficient_data",
+        "status_reason": "minimum_eligible_n_5",
+        "unit": "ratio",
+        "value": "0.15"
+      },
+      "numerator": "15"
+    },
+    {
+      "denominator": "100",
+      "family": "diagnostic",
+      "metric": {
+        "computed_by": "metrics.v1.diagnostic",
+        "definition": "diagnostic;dimension=top;key=preview-5;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "diagnostic.linkedin.top.preview-5-9085f2d5b1fd60d8",
+        "sample_size": 1,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "insufficient_data",
+        "status_reason": "minimum_eligible_n_5",
+        "unit": "ratio",
+        "value": "0.15"
+      },
+      "numerator": "15"
+    },
+    {
+      "denominator": "1000",
+      "family": "diagnostic",
+      "metric": {
+        "computed_by": "metrics.v1.diagnostic",
+        "definition": "diagnostic;dimension=bottom;key=preview-6;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "diagnostic.linkedin.bottom.preview-6-8e8f2ad3237b807f",
+        "sample_size": 1,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "insufficient_data",
+        "status_reason": "minimum_eligible_n_5",
+        "unit": "ratio",
+        "value": "0.04"
+      },
+      "numerator": "40"
+    },
+    {
+      "denominator": "100",
+      "family": "diagnostic",
+      "metric": {
+        "computed_by": "metrics.v1.diagnostic",
+        "definition": "diagnostic;dimension=bottom;key=preview-1;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "diagnostic.linkedin.bottom.preview-1-3e355b4ab201ef57",
+        "sample_size": 1,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "insufficient_data",
+        "status_reason": "minimum_eligible_n_5",
+        "unit": "ratio",
+        "value": "0.15"
+      },
+      "numerator": "15"
+    },
+    {
+      "denominator": "100",
+      "family": "diagnostic",
+      "metric": {
+        "computed_by": "metrics.v1.diagnostic",
+        "definition": "diagnostic;dimension=bottom;key=preview-2;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "diagnostic.linkedin.bottom.preview-2-fbaacef7235dd9ee",
+        "sample_size": 1,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "insufficient_data",
+        "status_reason": "minimum_eligible_n_5",
+        "unit": "ratio",
+        "value": "0.15"
+      },
+      "numerator": "15"
+    },
+    {
+      "denominator": "100",
+      "family": "diagnostic",
+      "metric": {
+        "computed_by": "metrics.v1.diagnostic",
+        "definition": "diagnostic;dimension=bottom;key=preview-3;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "diagnostic.linkedin.bottom.preview-3-10303eaaaf1c3a05",
+        "sample_size": 1,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "insufficient_data",
+        "status_reason": "minimum_eligible_n_5",
+        "unit": "ratio",
+        "value": "0.15"
+      },
+      "numerator": "15"
+    },
+    {
+      "denominator": "100",
+      "family": "diagnostic",
+      "metric": {
+        "computed_by": "metrics.v1.diagnostic",
+        "definition": "diagnostic;dimension=bottom;key=preview-4;clock=posted-local;positive-impression distinct posts;minimum_n=5;ratio of sums",
+        "excluded_size": 0,
+        "metric_id": "diagnostic.linkedin.bottom.preview-4-49b470885a89e3cf",
+        "sample_size": 1,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "insufficient_data",
+        "status_reason": "minimum_eligible_n_5",
+        "unit": "ratio",
+        "value": "0.15"
+      },
+      "numerator": "15"
+    },
+    {
+      "denominator": "0",
+      "family": "trend",
+      "metric": {
+        "computed_by": "metrics.v1.trend",
+        "definition": "trend;dimension=window;key=recent_minus_prior_4w;clock=posted-local;positive-impression distinct posts;minimum_n=5;sample_size=min(window eligible counts)",
+        "excluded_size": 0,
+        "metric_id": "trend.linkedin.overall.4w",
+        "sample_size": 0,
+        "schema_version": 1,
+        "scope": "linkedin",
+        "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+        "status": "unavailable",
+        "status_reason": "zero_eligible_impressions",
+        "unit": "percentage_points",
+        "value": null
+      },
+      "numerator": "0"
+    }
+  ],
+  "snapshot_id": "d4a39262c9767f8995a2f8aca75d532cc7448396523663e4f68282f9260b654f",
+  "source": {
+    "dataset_fingerprint": "5d8be81898d86eeb6f5371891aaa5bda0bef70939109b51c23a33c3ded367a12",
+    "path": "fixtures/ui/static-example.csv",
+    "rows": 6,
+    "sha256": "96340adca7e49c31913400a8bb85c23794edd3a0eaca34c0c45290726a38a6d5"
+  }
+}
