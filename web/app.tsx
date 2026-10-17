@@ -27,6 +27,7 @@ function App() {
   const [receiptSelection, setReceiptSelection] = useState<Selection | null>(null);
   const [artifact, setArtifact] = useState<"md" | "csv" | null>(null);
   const [receipts, setReceipts] = useState<SavedReceipt[]>(savedReceipts);
+  const [unpersistedReceipts, setUnpersistedReceipts] = useState<SavedReceipt[]>([]);
   const [storageWarning, setStorageWarning] = useState(false);
   const [filter, setFilter] = useState("all");
   const epoch = useRef(0);
@@ -108,8 +109,9 @@ function App() {
   }
 
   function remember(selection: Selection, key: string) {
-    const remembered = rememberReceipt(selection, key, receipts);
+    const remembered = rememberReceipt(selection, key, receipts, unpersistedReceipts);
     setReceipts(remembered.receipts);
+    setUnpersistedReceipts(remembered.unpersisted);
     if (!remembered.persisted) setStorageWarning(true);
   }
 

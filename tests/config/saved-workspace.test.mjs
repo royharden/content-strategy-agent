@@ -134,10 +134,31 @@ test("failed writes preserve distinct in-memory receipt identities up to the res
   const first = rememberReceipt(selection, receipt.key, []);
   assert.equal(first.persisted, false);
   const other = { ...selection, snapshot_id: "c".repeat(64) };
-  const second = rememberReceipt(other, receipt.key, first.receipts);
+  const second = rememberReceipt(other, receipt.key, first.receipts, first.unpersisted);
   assert.equal(second.persisted, false);
   assert.deepEqual(second.receipts, [{ selection: other, key: receipt.key }, receipt]);
   const many = Array.from({ length: 30 }, (_, i) => ({ selection, key: `lookup-${i}` }));
   assert.deepEqual(rememberReceipt(selection, receipt.key, [receipt, ...many]).receipts,
     [receipt, ...many.slice(0, 19)]);
+});
+
+test("a full stored history cannot evict recent unsaved keys before storage recovers", (t) => {
+  // what_bug_this_catches: twenty old stored rows evicted the previous unsaved export on the next failed write.
+  const old = Array.from({ length: 20 }, (_, i) => ({ selection, key: `old-${i}` }));
+  const values = { [RECEIPTS]: JSON.stringify(old) };
+  storage(t, values);
+  globalThis.localStorage.setItem = () => { throw new DOMException("Full", "QuotaExceededError"); };
+  const first = rememberReceipt(selection, "new-1", old);
+  const second = rememberReceipt(selection, "new-2", first.receipts, first.unpersisted);
+  assert.equal(second.persisted, false);
+  assert.deepEqual(second.receipts, [
+    { selection, key: "new-2" }, { selection, key: "new-1" }, ...old.slice(0, 18),
+  ]);
+  assert.deepEqual(second.unpersisted, second.receipts.slice(0, 2));
+  globalThis.localStorage.setItem = (key, value) => { values[key] = value; };
+  const recovered = rememberReceipt(selection, "new-3", second.receipts, second.unpersisted);
+  assert.equal(recovered.persisted, true);
+  assert.deepEqual(recovered.unpersisted, []);
+  assert.deepEqual(savedReceipts(), recovered.receipts);
+  assert.deepEqual(recovered.receipts.slice(0, 3).map(row => row.key), ["new-3", "new-2", "new-1"]);
 });
