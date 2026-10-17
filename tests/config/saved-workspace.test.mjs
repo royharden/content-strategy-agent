@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { POINTER, RECEIPTS, saveReceipts, saveSelection, savedReceipts, savedSelection } from "../../web/saved-workspace.ts";
+import { POINTER, RECEIPTS, rememberReceipt, saveReceipts, saveSelection, savedReceipts, savedSelection } from "../../web/saved-workspace.ts";
 
 const selection = { dataset_id: "s9-dataset-" + "a".repeat(32), snapshot_id: "b".repeat(64) };
 const receipt = { selection, key: "web-synthetic-receipt" };
@@ -112,4 +112,32 @@ test("successful pointer writes remain recoverable after a new read", (t) => {
   assert.equal(saveReceipts([receipt]), true);
   assert.deepEqual(savedSelection(), selection);
   assert.deepEqual(savedReceipts(), [receipt]);
+});
+
+test("remembering a receipt merges another tab's saved pointers with this tab's memory", (t) => {
+  // what_bug_this_catches: a state-only fallback overwrote pointers saved by another tab after startup.
+  const external = { selection, key: "other-tab" };
+  const local = { selection, key: "this-tab" };
+  const values = { [RECEIPTS]: JSON.stringify([external, local]) };
+  storage(t, values);
+  globalThis.localStorage.setItem = (key, value) => { values[key] = value; };
+  const result = rememberReceipt(selection, receipt.key, [local]);
+  assert.equal(result.persisted, true);
+  assert.deepEqual(result.receipts, [receipt, external, local]);
+  assert.deepEqual(savedReceipts(), result.receipts);
+});
+
+test("failed writes preserve distinct in-memory receipt identities up to the restart cap", (t) => {
+  // what_bug_this_catches: a second export lost the first unsaved key, or collapsed another snapshot's same key.
+  storage(t, {});
+  globalThis.localStorage.setItem = () => { throw new DOMException("Full", "QuotaExceededError"); };
+  const first = rememberReceipt(selection, receipt.key, []);
+  assert.equal(first.persisted, false);
+  const other = { ...selection, snapshot_id: "c".repeat(64) };
+  const second = rememberReceipt(other, receipt.key, first.receipts);
+  assert.equal(second.persisted, false);
+  assert.deepEqual(second.receipts, [{ selection: other, key: receipt.key }, receipt]);
+  const many = Array.from({ length: 30 }, (_, i) => ({ selection, key: `lookup-${i}` }));
+  assert.deepEqual(rememberReceipt(selection, receipt.key, [receipt, ...many]).receipts,
+    [receipt, ...many.slice(0, 19)]);
 });

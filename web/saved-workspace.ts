@@ -39,6 +39,17 @@ export function saveReceipts(value: SavedReceipt[]): boolean {
   return write(RECEIPTS, value);
 }
 
+export function rememberReceipt(selected: Selection, key: string, current: SavedReceipt[]) {
+  const seen = new Set<string>();
+  const receipts = [{ selection: selected, key }, ...savedReceipts(), ...current].filter(row => {
+    const identity = JSON.stringify([row.selection.dataset_id, row.selection.snapshot_id, row.key]);
+    if (seen.has(identity)) return false;
+    seen.add(identity);
+    return true;
+  }).slice(0, 20);
+  return { receipts, persisted: saveReceipts(receipts) };
+}
+
 export function savedReceipts(): SavedReceipt[] {
   const value = read(RECEIPTS);
   if (!Array.isArray(value)) return [];

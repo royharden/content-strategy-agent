@@ -4,7 +4,7 @@ import { LocalApi, base64, receiptUrl } from "./api";
 import type { Bundle, Inventory, Item, Preview, Report, Selection, Version } from "./api";
 import "./style.css";
 import { StaticPreview } from "./static-preview";
-import { saveReceipts, saveSelection, savedReceipts, savedSelection } from "./saved-workspace";
+import { rememberReceipt, saveSelection, savedReceipts, savedSelection } from "./saved-workspace";
 import type { SavedReceipt } from "./saved-workspace";
 
 const api = new LocalApi();
@@ -108,10 +108,9 @@ function App() {
   }
 
   function remember(selection: Selection, key: string) {
-    const next = [{ selection, key }, ...receipts.filter(row => row.key !== key ||
-      row.selection.dataset_id !== selection.dataset_id || row.selection.snapshot_id !== selection.snapshot_id)].slice(0, 20);
-    setReceipts(next);
-    if (!saveReceipts(next)) setStorageWarning(true);
+    const remembered = rememberReceipt(selection, key, receipts);
+    setReceipts(remembered.receipts);
+    if (!remembered.persisted) setStorageWarning(true);
   }
 
   async function exportChosen() {
