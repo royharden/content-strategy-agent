@@ -26,6 +26,19 @@ export function savedSelection(): Selection | null {
   return selection(read(POINTER));
 }
 
+function write(key: string, value: unknown): boolean {
+  try { localStorage.setItem(key, JSON.stringify(value)); return true; }
+  catch { return false; }
+}
+
+export function saveSelection(value: Selection): boolean {
+  return write(POINTER, value);
+}
+
+export function saveReceipts(value: SavedReceipt[]): boolean {
+  return write(RECEIPTS, value);
+}
+
 export function savedReceipts(): SavedReceipt[] {
   const value = read(RECEIPTS);
   if (!Array.isArray(value)) return [];

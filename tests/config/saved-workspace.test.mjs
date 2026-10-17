@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { POINTER, RECEIPTS, savedReceipts, savedSelection } from "../../web/saved-workspace.ts";
+import { POINTER, RECEIPTS, saveReceipts, saveSelection, savedReceipts, savedSelection } from "../../web/saved-workspace.ts";
 
 const selection = { dataset_id: "s9-dataset-" + "a".repeat(32), snapshot_id: "b".repeat(64) };
 const receipt = { selection, key: "web-synthetic-receipt" };
@@ -84,4 +84,32 @@ test("denied storage access leaves empty optional pointers and performs no write
   });
   assert.deepEqual(savedReceipts(), []);
   assert.equal(savedSelection(), null);
+});
+
+test("denied or full browser storage reports unsaved pointers without throwing", (t) => {
+  // what_bug_this_catches: a storage write blocked an already retained import or prevented export dispatch.
+  storage(t, {});
+  for (const name of ["SecurityError", "QuotaExceededError"]) {
+    Object.defineProperty(globalThis, "localStorage", { configurable: true, value: {
+      setItem() { throw new DOMException("Cannot persist", name); },
+    } });
+    assert.equal(saveSelection(selection), false, name);
+    assert.equal(saveReceipts([receipt]), false, name);
+  }
+  Object.defineProperty(globalThis, "localStorage", { configurable: true,
+    get() { throw new DOMException("Storage unavailable", "SecurityError"); },
+  });
+  assert.equal(saveSelection(selection), false);
+  assert.equal(saveReceipts([receipt]), false);
+});
+
+test("successful pointer writes remain recoverable after a new read", (t) => {
+  // what_bug_this_catches: best-effort persistence must still preserve successful restart lookups.
+  const values = {};
+  storage(t, values);
+  globalThis.localStorage.setItem = (key, value) => { values[key] = value; };
+  assert.equal(saveSelection(selection), true);
+  assert.equal(saveReceipts([receipt]), true);
+  assert.deepEqual(savedSelection(), selection);
+  assert.deepEqual(savedReceipts(), [receipt]);
 });

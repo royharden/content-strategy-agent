@@ -4,7 +4,7 @@ import { LocalApi, base64, receiptUrl } from "./api";
 import type { Bundle, Inventory, Item, Preview, Report, Selection, Version } from "./api";
 import "./style.css";
 import { StaticPreview } from "./static-preview";
-import { POINTER, RECEIPTS, savedReceipts, savedSelection } from "./saved-workspace";
+import { saveReceipts, saveSelection, savedReceipts, savedSelection } from "./saved-workspace";
 import type { SavedReceipt } from "./saved-workspace";
 
 const api = new LocalApi();
@@ -27,6 +27,7 @@ function App() {
   const [receiptSelection, setReceiptSelection] = useState<Selection | null>(null);
   const [artifact, setArtifact] = useState<"md" | "csv" | null>(null);
   const [receipts, setReceipts] = useState<SavedReceipt[]>(savedReceipts);
+  const [storageWarning, setStorageWarning] = useState(false);
   const [filter, setFilter] = useState("all");
   const epoch = useRef(0);
   const operation = useRef(false);
@@ -76,7 +77,7 @@ function App() {
     const next = await api.post<Report>("report", { selection: imported.selection });
     setReport(next);
     await refresh(imported.selection);
-    localStorage.setItem(POINTER, JSON.stringify(imported.selection));
+    if (!saveSelection(imported.selection)) setStorageWarning(true);
     setNotice("CSV retained. Metrics are computed in code. Use this snapshot to begin review.");
   }
 
@@ -107,8 +108,10 @@ function App() {
   }
 
   function remember(selection: Selection, key: string) {
-    const next = [{ selection, key }, ...savedReceipts().filter(row => row.key !== key)].slice(0, 20);
-    localStorage.setItem(RECEIPTS, JSON.stringify(next)); setReceipts(next);
+    const next = [{ selection, key }, ...receipts.filter(row => row.key !== key ||
+      row.selection.dataset_id !== selection.dataset_id || row.selection.snapshot_id !== selection.snapshot_id)].slice(0, 20);
+    setReceipts(next);
+    if (!saveReceipts(next)) setStorageWarning(true);
   }
 
   async function exportChosen() {
@@ -147,7 +150,7 @@ function App() {
     </aside>
     <main id="top"><header><div><span className="eyebrow">EVIDENCE BEFORE CONTENT</span><h1>A strategy you can trace.</h1><p className="intro">Turn past posts into grounded ideas. Review the evidence, make the decisions, keep the final word.</p></div><span className="mode">Authored demo<br /><small>No live AI calls</small></span></header>
       {!connected && <section className="service-notice"><h2>Connect the local review service</h2><p>This static preview cannot approve content or export it. Start the local backend and open the URL it provides. The complete terminal workflow is also available.</p><code>python -m content_strategy serve --help</code><p><a className="subtle download-link" href="?preview=fixture">Explore a read-only example</a></p></section>}
-      <div aria-live="polite" className="messages">{error && <div role="alert" className="alert"><strong>Action blocked</strong><span>{error.replaceAll("_", " ")}</span><small>Existing approvals are never inferred from this screen. Refresh and review the current snapshot.</small></div>}{notice && <p className="notice">{notice}</p>}{busy && <p className="working" role="status">Checking the current evidence and revision…</p>}</div>
+      <div aria-live="polite" className="messages">{error && <div role="alert" className="alert"><strong>Action blocked</strong><span>{error.replaceAll("_", " ")}</span><small>Existing approvals are never inferred from this screen. Refresh and review the current snapshot.</small></div>}{notice && <p className="notice">{notice}</p>}{storageWarning && <p className="notice">Recovery pointers could not be saved in this browser. Keep this tab open and copy receipt lookup keys before closing.</p>}{busy && <p className="working" role="status">Checking the current evidence and revision…</p>}</div>
       <section id="source"><div className="section-title"><div><span className="eyebrow">01 / THE SOURCE</span><h2>Start with what happened.</h2></div><span className="muted">CSV · up to 5,000 posts</span></div>
         <div className="import-panel"><div><h3>Past posts, clear evidence.</h3><p>Import a CSV with dates, platforms and engagement counts. Topic and format labels are optional.</p><details><summary>CSV columns</summary><code>post_id, date, platform, text, impressions, likes, comments, shares, topic, format</code></details></div><div className="import-actions"><input ref={file} type="file" accept=".csv,text/csv" aria-label="Import CSV" disabled={busy || !connected} onChange={event => { const upload = event.target.files?.[0]; if (upload) void action(async () => importBytes(new Uint8Array(await upload.arrayBuffer()))); event.target.value = ""; }} /><button className="primary" disabled={busy || !connected} onClick={() => file.current?.click()}>Import CSV <span aria-hidden="true">↑</span></button><button className="text-button" disabled={busy || !connected} onClick={() => void action(async () => importBytes(await api.example()))}>Try synthetic example</button></div></div>
         {report && <><div className="summary"><div><strong>{report.platforms.reduce((sum, platform) => sum + platform.rows, 0)}</strong><span>posts retained</span></div><div><strong>{report.rows.filter(row => row.metric.status === "ok").length}</strong><span>citable metrics</span></div><div><strong>{report.rows.filter(row => row.metric.status !== "ok").length}</strong><span>unavailable or small sample</span></div><button className={active ? "subtle" : "primary"} disabled={busy || active} onClick={() => void action(async () => { const result = await api.post<{ sequence: number }>("activate", { selection: report.selection, expected_sequence: inventory.sequence }); setInventory(current => ({ ...current, sequence: result.sequence })); setActive(true); setPreview(null); setNotice("Snapshot active. Changed evidence or policy invalidates prior approvals."); })}>{active ? "Snapshot active" : "Use this snapshot"}</button></div>
