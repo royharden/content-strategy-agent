@@ -23,3 +23,11 @@ coverage/
 .thinking/
 .chatexports/
 .creds/
+
+# Local secrets and generated archives
+ArchiveManager-creds.txt
+*.pem
+*.key
+*.p12
+*.pfx
+*.zip
